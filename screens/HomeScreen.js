@@ -1,29 +1,61 @@
-import { Pressable, StyleSheet, Text, View } from "react-native";
-import React from "react";
+import {
+  Pressable,
+  SafeAreaView,
+  StyleSheet,
+  Text,
+  View,
+  ScrollView,
+} from "react-native";
+import React, { useContext, useState, useEffect } from "react";
 import { auth } from "../firebaseConfig";
-import { signOut } from "firebase/auth";
 import { useNavigation } from "@react-navigation/native";
+import { CurrentUserContext } from "../contexts/userContext";
+import { getAllCatalogues } from "../src/getAllCatalogues";
 
 const HomeScreen = () => {
   const navigation = useNavigation();
+  const [currentCatalogues, setCurrentCatalogues] = useState([]);
+  const { currentUid } = useContext(CurrentUserContext);
 
-  const handleSignOut = () => {
-    signOut(auth)
-      .then(() => {
-        navigation.navigate("Login");
-      })
-      .catch((error) => {
-        alert(error.message);
+  useEffect(() => {
+    getAllCatalogues(currentUid).then((res) => {
+      let catalogues = [];
+      res.forEach((doc) => {
+        catalogues.push(doc.id);
+        console.log(doc.id, "<<<here");
       });
+      setCurrentCatalogues(catalogues);
+    });
+  }, []);
+
+  const handleAddCatalogue = () => {
+    navigation.navigate("NewCatalogueScreen");
   };
 
   return (
-    <View style={styles.container}>
-      <Text>Email: {auth.currentUser?.email}</Text>
-      <Pressable onPress={handleSignOut} style={styles.button}>
-        <Text style={styles.buttonText}>Sign out</Text>
-      </Pressable>
-    </View>
+    <SafeAreaView style={styles.container}>
+      <View style={styles.container}>
+        <ScrollView
+          style={styles.scrollView}
+          contentContainerStyle={{ alignItems: "center" }}
+        >
+          {currentCatalogues.map((catalogue, index) => (
+            <Pressable
+              style={[styles.button, styles.buttonOutline]}
+              catalogue={catalogue}
+              key={index}
+            >
+              <Text style={styles.buttonCatalogueText}>{catalogue}</Text>
+            </Pressable>
+          ))}
+        </ScrollView>
+      </View>
+      <View style={styles.bottomContainer}>
+        <Pressable onPress={handleAddCatalogue} style={styles.button}>
+          <Text style={styles.buttonText}>Add a new catalogue</Text>
+        </Pressable>
+      </View>
+    </SafeAreaView>
   );
 };
 
@@ -34,10 +66,11 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
+    width: "100%",
   },
   button: {
     backgroundColor: "#42273B",
-    width: "30%",
+    width: "90%",
     paddingHorizontal: 15,
     paddingVertical: 15,
     borderRadius: 10,
@@ -50,9 +83,20 @@ const styles = StyleSheet.create({
     borderColor: "#42273B",
     borderWidth: 2,
   },
+  buttonCatalogueText: {
+    color: "#42273B",
+    fontWeight: "700",
+    fontSize: 16,
+  },
   buttonText: {
     color: "white",
     fontWeight: "700",
     fontSize: 16,
+  },
+  scrollView: {
+    width: "95%",
+  },
+  bottomContainer: {
+    marginBottom: 5,
   },
 });
