@@ -9,6 +9,8 @@ import SignUpScreen from "./screens/SignUpScreen";
 import UserProfilePage from "./screens/UserProfilePage";
 import { CurrentUserContext } from "./contexts/userContext";
 import NewCatalogueScreen from "./screens/NewCatalogueScreen";
+import SingleCatalogueScreen from "./screens/SingleCatalogueScreen";
+import SingleBookScreen from "./screens/SingleBookScreen";
 
 const Stack = createNativeStackNavigator();
 
@@ -30,11 +32,16 @@ export default function App() {
             component={SignUpScreen}
           />
           <Stack.Screen name="HomeScreen" component={HomeScreen} />
+          <Stack.Screen name="UserProfilePage" component={UserProfilePage} />
           <Stack.Screen
             name="NewCatalogueScreen"
             component={NewCatalogueScreen}
           />
-          <Stack.Screen name="UserProfilePage" component={UserProfilePage} />
+          <Stack.Screen
+            name="SingleCatalogueScreen"
+            component={SingleCatalogueScreen}
+          />
+          <Stack.Screen name="SingleBookScreen" component={SingleBookScreen} />
         </Stack.Navigator>
       </NavigationContainer>
     </CurrentUserContext.Provider>

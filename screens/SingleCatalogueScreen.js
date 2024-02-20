@@ -1,75 +1,79 @@
 import {
-  Pressable,
-  SafeAreaView,
   StyleSheet,
   Text,
   View,
   ScrollView,
+  SafeAreaView,
+  Pressable,
 } from "react-native";
-import React, { useContext, useState, useEffect, useRef } from "react";
-import { auth } from "../firebaseConfig";
-import { useNavigation } from "@react-navigation/native";
+import React, { useEffect, useState, useContext } from "react";
 import { CurrentUserContext } from "../contexts/userContext";
-import { getAllCatalogues } from "../src/getAllCatalogues";
-import { TextInput } from "react-native-web";
+import { useNavigation, useNavigationParam } from "@react-navigation/native";
+import { getAllBooks } from "../src/getAllBooks";
 
-const HomeScreen = () => {
+const SingleCatalogueScreen = ({ route }) => {
   const navigation = useNavigation();
-  const [currentCatalogues, setCurrentCatalogues] = useState([]);
+  const { catalogue_id } = route.params;
+  const [currentBooks, setCurrentBooks] = useState([]);
   const { currentUid } = useContext(CurrentUserContext);
+  //   const catalogue = useNavigationParam("catalogue_id");
 
   useEffect(() => {
-    getAllCatalogues(currentUid).then((res) => {
-      console.log(res, "here in Home Screen");
-      let catalogues = [];
+    console.log(catalogue_id);
+    getAllBooks(currentUid, catalogue_id).then((res) => {
+      console.log(res, "here in Single Screen");
+      let books = [];
       res.forEach((doc) => {
-        catalogues.push(doc.id);
-        console.log(doc.id, "<<<here");
+        books.push(doc.id);
       });
-      setCurrentCatalogues(catalogues);
+      setCurrentBooks(books);
     });
   }, []);
 
-  const handleAddCatalogue = () => {
-    navigation.navigate("NewCatalogueScreen");
+  const handleBookClick = (book) => {
+    navigation.navigate("SingleBookScreen", { isbn: book });
+    console.log(book);
   };
 
-  const handleCatalogueClick = (catalogue) => {
-    navigation.navigate("SingleCatalogueScreen", { catalogue_id: catalogue });
-    console.log(catalogue);
-  };
+  const handleScanBook = () => {};
+
+  const handleSearchBook = () => {};
 
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.container}>
+        {/* <Text>{JSON.stringify(catalogue_id)}</Text> */}
         <ScrollView
           style={styles.scrollView}
           contentContainerStyle={{ alignItems: "center" }}
         >
-          {currentCatalogues.map((catalogue, index) => (
+          {currentBooks.map((book, index) => (
             <Pressable
               style={[styles.button, styles.buttonOutline]}
-              // catalogue={catalogue}
+              // book={book}
               key={index}
               onPress={() => {
-                handleCatalogueClick(catalogue);
+                handleBookClick(book);
               }}
             >
-              <Text style={styles.buttonCatalogueText}>{catalogue}</Text>
+              <Text style={styles.buttonCatalogueText}>Here is: {book}</Text>
             </Pressable>
           ))}
         </ScrollView>
       </View>
       <View style={styles.bottomContainer}>
-        <Pressable onPress={handleAddCatalogue} style={styles.button}>
-          <Text style={styles.buttonText}>Add a new catalogue</Text>
+        <Pressable onPress={handleScanBook} style={styles.button}>
+          <Text style={styles.buttonText}>Scan a book</Text>
+        </Pressable>
+        <Pressable onPress={handleSearchBook} style={styles.button}>
+          <Text style={styles.buttonText}>Search and add a book manually</Text>
         </Pressable>
       </View>
     </SafeAreaView>
   );
 };
 
-export default HomeScreen;
+export default SingleCatalogueScreen;
 
 const styles = StyleSheet.create({
   container: {
