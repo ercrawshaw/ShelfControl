@@ -1,12 +1,13 @@
-const validatePassword = () => {
+const validatePasswordFunc = (password, confirmPassword) => {
   let isValid = true;
   if (password !== "" && confirmPassword !== "") {
     if (password !== confirmPassword) {
+      alert("password does not match");
       isValid = false;
-      setError("Passwords does not match");
+      // setError("Passwords does not match");
     }
   }
   return isValid;
 };
 
-export { validatePassword };
+export { validatePasswordFunc };
