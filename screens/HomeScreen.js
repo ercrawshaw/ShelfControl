@@ -23,6 +23,7 @@ const HomeScreen = () => {
       let catalogues = [];
       res.forEach((doc) => {
         catalogues.push(doc.id);
+        // console.log(doc.data());
       });
       setCurrentCatalogues(catalogues);
     });

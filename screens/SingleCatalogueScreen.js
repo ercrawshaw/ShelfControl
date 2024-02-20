@@ -10,6 +10,7 @@ import React, { useEffect, useState, useContext } from "react";
 import { CurrentUserContext } from "../contexts/userContext";
 import { useNavigation, useNavigationParam } from "@react-navigation/native";
 import { getAllBooks } from "../src/getAllBooks";
+import { addScannedBook } from "../src/addScannedBook";
 
 const SingleCatalogueScreen = ({ route }) => {
   const navigation = useNavigation();
@@ -17,6 +18,7 @@ const SingleCatalogueScreen = ({ route }) => {
   const [currentBooks, setCurrentBooks] = useState([]);
   const { currentUid } = useContext(CurrentUserContext);
   //   const catalogue = useNavigationParam("catalogue_id");
+  const isbn = "9781398518209";
 
   useEffect(() => {
     getAllBooks(currentUid, catalogue_id).then((res) => {
@@ -32,11 +34,18 @@ const SingleCatalogueScreen = ({ route }) => {
     navigation.navigate("SingleBookScreen", { isbn: book });
   };
 
-  const handleScanBook = () => {};
-
-  const handleSearchBook = () => {
-    navigation.navigate("ManualSearch");
+  const handleAddBook = () => {
+    //connects here with Arran's AddNewBookScreen
+    // navigation.navigate("AddNewBookScreen");
   };
+
+  //this should be moved to Arran's NewBookScreen
+  //isbn MUST be a string, will throw an indexOf error otherwise
+  const handleScannedBook = () => {
+    addScannedBook(currentUid, catalogue_id, isbn);
+  };
+
+  const handleManualBook = () => {};
 
   return (
     <SafeAreaView style={styles.container}>
@@ -61,11 +70,11 @@ const SingleCatalogueScreen = ({ route }) => {
         </ScrollView>
       </View>
       <View style={styles.bottomContainer}>
-        <Pressable onPress={handleScanBook} style={styles.button}>
-          <Text style={styles.buttonText}>Scan a book</Text>
+        <Pressable onPress={handleScannedBook} style={styles.button}>
+          <Text style={styles.buttonText}>Add a book using ISBN</Text>
         </Pressable>
-        <Pressable onPress={handleSearchBook} style={styles.button}>
-          <Text style={styles.buttonText}>Search and add a book manually</Text>
+        <Pressable onPress={handleManualBook} style={styles.button}>
+          <Text style={styles.buttonText}>Add a book using form</Text>
         </Pressable>
       </View>
     </SafeAreaView>
