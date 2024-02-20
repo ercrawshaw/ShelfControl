@@ -16,7 +16,7 @@ import updateUser from "../src/updateUser";
 import deleteSingleUser from "../src/deleteUser";
 import { getStorage, ref, uploadBytes } from "firebase/storage";
 import { useNavigation } from "@react-navigation/native";
-import { getAuth } from "firebase/auth";
+import { getAuth, signOut } from "firebase/auth";
 
 const UserProfilePage = () => {
   const { currentUid, setCurrentUid } = useContext(CurrentUserContext);
@@ -53,6 +53,16 @@ const UserProfilePage = () => {
   const handleEditSubmission = () => {
     editable ? isEditable(false) : isEditable(true);
     updateUser(currentUid, user).then(() => {});
+  };
+
+  const handleSignOut = () => {
+    signOut(auth)
+      .then(() => {
+        navigation.navigate("Login");
+      })
+      .catch((error) => {
+        alert(error.message);
+      });
   };
 
   const handleDelete = () => {
@@ -140,6 +150,15 @@ const UserProfilePage = () => {
             </Pressable>
           )}
         </View>
+        <View>
+          <Pressable
+            onPress={handleSignOut}
+            style={[styles.button, styles.buttonOutline]}
+          >
+            <Text style={styles.buttonOutlineText}>Sign out</Text>
+          </Pressable>
+        </View>
+
         <View>
           <Pressable
             style={[styles.button, styles.buttonOutline]}
