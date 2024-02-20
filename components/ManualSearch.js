@@ -206,7 +206,7 @@ export default function ManualSearch() {
 
       <Text style={styles.bookFormText} >{infoNeeded}</Text>
       <Button 
-      title="Check Book Details"
+      title="Check Book Details!"
       onPress={handleManualBookAdd}
        />
     </View>
