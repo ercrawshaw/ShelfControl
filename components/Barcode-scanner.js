@@ -24,11 +24,13 @@ export default  BarcodeScanner=()=>{
 
 const scannerSwitch=()=>{
  setScanned(false)
+ setBookData(null)
 }
 const saveScan = ()=>{
   if(bookData !==null){
     bookList.push(bookData)
     setScanned(false)
+    setBookData(null)
   }
   else{
     console.warn("error with saved scan, check bookData value")
@@ -41,6 +43,7 @@ return (
       <Text>{bookData?bookData[0].volumeInfo.authors[0]:null}</Text>
       <Text>{bookData?bookData[0].volumeInfo.title:null}</Text>
       {!scanned?
+      <View>
       <CameraView 
         barCodeScannerSettings={{
             barCodeTypes: ["ean13"]
@@ -53,7 +56,11 @@ return (
           <TouchableOpacity>
             <Text style={styles.crosshair}>[     ]</Text>
           </TouchableOpacity>
-      </CameraView>:<View>
+      </CameraView>
+      <Button title='Go Back' onPress={()=>{navigation.goBack()}}/>
+      </View>
+      :
+      <View>
         <Button title='Scan again?' onPress={scannerSwitch}/>
         <Button title='Scan another book?' onPress={saveScan}/>
         <Button title='Return to Catalogue' onPress={()=>{navigation.goBack()}}/>

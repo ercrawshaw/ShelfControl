@@ -7,8 +7,9 @@ import LoginScreen from "./screens/LoginScreen";
 import HomeScreen from "./screens/HomeScreen";
 import SignUpScreen from "./screens/SignUpScreen";
 import UserProfilePage from "./screens/UserProfilePage";
+import AddNewBookScreen from "./screens/AddNewBookScreen";
+import BarcodeScanner from "./components/Barcode-scanner";
 import { CurrentUserContext } from "./contexts/userContext";
-
 const Stack = createNativeStackNavigator();
 
 export default function App() {
@@ -30,6 +31,8 @@ export default function App() {
           />
           <Stack.Screen name="HomeScreen" component={HomeScreen} />
           <Stack.Screen name="UserProfilePage" component={UserProfilePage} />
+          <Stack.Screen name="AddNewBookScreen" component={AddNewBookScreen}/>
+          <Stack.Screen name="Scanner" component={BarcodeScanner} />
         </Stack.Navigator>
       </NavigationContainer>
     </CurrentUserContext.Provider>

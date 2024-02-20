@@ -1,15 +1,43 @@
-import {  StyleSheet, Text, View,Button } from "react-native";
-import React from "react";
+import {  StyleSheet, Text, View,Button, TextInput } from "react-native";
+import React, { useState } from "react";
 import { useNavigation } from "@react-navigation/native";
-const navigation = useNavigation()
 
 
 
 export default function addNewBookScreen(){
+  const navigation = useNavigation()
+    const [manIsbn, setManIsbn] = useState(null)
+    const [manBookData,setManBookData]=useState(null)
+    useEffect(()=>{
+      if(manIsbn.length===13){
+      fetchBook(manIsbn).then(({items})=>{
+        if(items.length===0)setManBookData(null)
+        setManBookData(items)
+      }).catch((err)=>{
+        console.log(err)
+      })}
+    },[manIsbn])
     return(
         <View style={styles.container}>
+            <Text title="Enter ISBN if known"/>
+            {!manBookData?<TextInput 
+            inputMode="numeric"
+            maxLength={13}
+            value={manIsbn}
+            onChangeText={text => setManIsbn(text)}
+            />
+            :
+            <View>
+              <Text>{manBookData[0].id}</Text>
+              <Text>{manBookData[0].volumeInfo.title}</Text>
+              <Text>{manBookData[0].volumeInfo.title}</Text>
+              <View>
+                <Button title="Submit?"/> {/*build post function*/}
+                <Button title="Go Back" onPress={()=>{navigation.goback()}}/>
+              </View>
+            </View>}
             <Button title="Scan a book barcode" onPress={()=>{navigation.navigate('Scanner')}}/>
-            <Button title="Manually add a book"/>
+            <Button title="Manually add a book"/> {/*consult Elle on her branch*/}
         </View>
     )
 }
