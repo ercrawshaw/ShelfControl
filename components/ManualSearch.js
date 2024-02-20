@@ -11,7 +11,7 @@ import { Button, Card, TextInput, Text } from 'react-native-paper';
 
 
 
-export default function App() {
+export default function ManualSearch() {
   const [isLoading, setIsLoading] = useState(false);
   const [bookTitle, setBookTitle] = useState('');
   const [books, setBooks] = useState([]);
