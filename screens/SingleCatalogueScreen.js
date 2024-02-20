@@ -19,9 +19,7 @@ const SingleCatalogueScreen = ({ route }) => {
   //   const catalogue = useNavigationParam("catalogue_id");
 
   useEffect(() => {
-    console.log(catalogue_id);
     getAllBooks(currentUid, catalogue_id).then((res) => {
-      console.log(res, "here in Single Screen");
       let books = [];
       res.forEach((doc) => {
         books.push(doc.id);
@@ -32,12 +30,13 @@ const SingleCatalogueScreen = ({ route }) => {
 
   const handleBookClick = (book) => {
     navigation.navigate("SingleBookScreen", { isbn: book });
-    console.log(book);
   };
 
   const handleScanBook = () => {};
 
-  const handleSearchBook = () => {};
+  const handleSearchBook = () => {
+    navigation.navigate("ManualSearch");
+  };
 
   return (
     <SafeAreaView style={styles.container}>

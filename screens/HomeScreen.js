@@ -20,11 +20,9 @@ const HomeScreen = () => {
 
   useEffect(() => {
     getAllCatalogues(currentUid).then((res) => {
-      console.log(res, "here in Home Screen");
       let catalogues = [];
       res.forEach((doc) => {
         catalogues.push(doc.id);
-        console.log(doc.id, "<<<here");
       });
       setCurrentCatalogues(catalogues);
     });
@@ -36,7 +34,6 @@ const HomeScreen = () => {
 
   const handleCatalogueClick = (catalogue) => {
     navigation.navigate("SingleCatalogueScreen", { catalogue_id: catalogue });
-    console.log(catalogue);
   };
 
   return (
