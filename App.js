@@ -10,6 +10,7 @@ import UserProfilePage from "./screens/UserProfilePage";
 import AddNewBookScreen from "./screens/AddNewBookScreen";
 import BarcodeScanner from "./components/Barcode-scanner";
 import { CurrentUserContext } from "./contexts/userContext";
+import { CurrentCatalogueContext } from "./contexts/catalogueContext";
 import NewCatalogueScreen from "./screens/NewCatalogueScreen";
 import SingleCatalogueScreen from "./screens/SingleCatalogueScreen";
 import SingleBookScreen from "./screens/SingleBookScreen";
@@ -19,38 +20,42 @@ const Stack = createNativeStackNavigator();
 
 export default function App() {
   const [currentUid, setCurrentUid] = useState("");
+  const [currentCatalogue, setCurrentCatalogue] = useState("");
 
   return (
     <CurrentUserContext.Provider value={{ currentUid, setCurrentUid }}>
-      <NavigationContainer>
-        <Stack.Navigator initialRouteName="Login">
-          <Stack.Screen
-            options={{ headerShown: false }}
-            name="Login"
-            component={LoginScreen}
-          />
-          <Stack.Screen
-            options={{ headerShown: false }}
-            name="SignUpScreen"
-            component={SignUpScreen}
-          />
-          <Stack.Screen name="HomeScreen" component={HomeScreen} />
-          <Stack.Screen name="UserProfilePage" component={UserProfilePage} />
+      <CurrentCatalogueContext.Provider
+        value={{ currentCatalogue, setCurrentCatalogue }}
+      >
+        <NavigationContainer>
+          <Stack.Navigator initialRouteName="Login">
+            <Stack.Screen
+              options={{ headerShown: false }}
+              name="Login"
+              component={LoginScreen}
+            />
+            <Stack.Screen
+              options={{ headerShown: false }}
+              name="SignUpScreen"
+              component={SignUpScreen}
+            />
+            <Stack.Screen name="HomeScreen" component={HomeScreen} />
+            <Stack.Screen name="UserProfilePage" component={UserProfilePage} />
 
-          <Stack.Screen
-            name="NewCatalogueScreen"
-            component={NewCatalogueScreen}
-          />
-          <Stack.Screen
-            name="SingleCatalogueScreen"
-            component={SingleCatalogueScreen}
-          />
-          <Stack.Screen name="Scanner" component={BarcodeScanner} />
-          <Stack.Screen name="AddNewBook" component={AddNewBookScreen} />
-          <Stack.Screen name="SingleBookScreen" component={SingleBookScreen} />
-          <Stack.Screen name="ManualSearch" component={ManualSearch} />
-        </Stack.Navigator>
-      </NavigationContainer>
+            <Stack.Screen
+              name="NewCatalogueScreen"
+              component={NewCatalogueScreen}
+            />
+            <Stack.Screen
+              name="SingleCatalogueScreen"
+              component={SingleCatalogueScreen}
+            />
+            <Stack.Screen name="Scanner" component={BarcodeScanner} />
+            <Stack.Screen name="AddNewBook" component={AddNewBookScreen} />
+            <Stack.Screen name="ManualSearch" component={ManualSearch} />
+          </Stack.Navigator>
+        </NavigationContainer>
+      </CurrentCatalogueContext.Provider>
     </CurrentUserContext.Provider>
   );
 }

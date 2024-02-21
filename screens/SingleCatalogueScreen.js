@@ -10,14 +10,16 @@ import React, { useEffect, useState, useContext } from "react";
 import { CurrentUserContext } from "../contexts/userContext";
 import { useNavigation, useNavigationParam } from "@react-navigation/native";
 import { getAllBooks } from "../src/getAllBooks";
-import { addScannedBook } from "../src/addScannedBook";
-import { addManualBook } from "../src/addManualBook";
+import { CurrentCatalogueContext } from "../contexts/catalogueContext";
 
 const SingleCatalogueScreen = ({ route }) => {
   const navigation = useNavigation();
   const { catalogue_id } = route.params;
   const [currentBooks, setCurrentBooks] = useState([]);
   const { currentUid } = useContext(CurrentUserContext);
+  const { currentCatalogue, setCurrentCatalogue } = useContext(
+    CurrentCatalogueContext
+  );
   //   const catalogue = useNavigationParam("catalogue_id");
   const isbn = "9781398518209";
   const bookInfo = {
@@ -47,18 +49,19 @@ const SingleCatalogueScreen = ({ route }) => {
 
   const handleAddBook = () => {
     //connects here with Arran's AddNewBookScreen
+    setCurrentCatalogue(catalogue_id);
     navigation.navigate("AddNewBook");
   };
 
   //this should be moved to Arran's NewBookScreen
   //isbn MUST be a string, will throw an indexOf error otherwise
-  const handleScannedBook = () => {
-    addScannedBook(currentUid, catalogue_id, isbn);
-  };
+  // const handleScannedBook = () => {
+  //   addScannedBook(currentUid, catalogue_id, isbn);
+  // };
 
-  const handleManualBook = () => {
-    addManualBook(currentUid, catalogue_id, bookInfo);
-  };
+  // const handleManualBook = () => {
+  //   addManualBook(currentUid, catalogue_id, bookInfo);
+  // };
 
   return (
     <SafeAreaView style={styles.container}>

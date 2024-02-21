@@ -1,9 +1,12 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { StyleSheet, TouchableOpacity, View, Pressable } from "react-native";
 import { CameraView, useCameraPermissions } from "expo-camera/next";
 import { fetchBook } from "./api";
 import { useNavigation } from "@react-navigation/native";
 import { Button, Card, TextInput, Text } from "react-native-paper";
+import { CurrentUserContext } from "../contexts/userContext";
+import { CurrentCatalogueContext } from "../contexts/catalogueContext";
+import addBook from "../src/addBook";
 
 const BarcodeScanner = () => {
   const navigation = useNavigation();
@@ -12,6 +15,10 @@ const BarcodeScanner = () => {
   const [scanned, setScanned] = useState(false);
   const [bookData, setBookData] = useState(null);
   const bookList = [];
+  const { currentUid } = useContext(CurrentUserContext);
+  const { currentCatalogue, setCurrentCatalogue } = useContext(
+    CurrentCatalogueContext
+  );
 
   useEffect(() => {
     if (isbn) {
@@ -39,6 +46,37 @@ const BarcodeScanner = () => {
       console.warn("error with saved scan, check bookData value");
     }
   };
+
+  const handleScanAnotherBook = () => {
+    console.log(bookData[0]);
+    const bookInfo = {
+      author: bookData[0].volumeInfo.authors,
+      title: bookData[0].volumeInfo.title,
+      publication_date: bookData[0].volumeInfo.publishedDate,
+      isbn: bookData[0].volumeInfo.industryIdentifiers[0].identifier,
+    };
+    addBook(currentUid, currentCatalogue, bookInfo);
+    setScanned(false);
+    setBookData(null);
+    setIsbn(null);
+  };
+
+  const handleReturnToCatalogue = () => {
+    const bookInfo = {
+      author: bookData[0].volumeInfo.authors,
+      title: bookData[0].volumeInfo.title,
+      publication_date: bookData[0].volumeInfo.publishedDate,
+      isbn: bookData[0].volumeInfo.industryIdentifiers[0].identifier,
+    };
+    addBook(currentUid, currentCatalogue, bookInfo);
+    setScanned(false);
+    setBookData(null);
+    setIsbn(null);
+    navigation.navigate("SingleCatalogueScreen", {
+      catalogue_id: currentCatalogue,
+    });
+  };
+
   return (
     <View style={styles.container}>
       {bookData ? (
@@ -86,17 +124,23 @@ const BarcodeScanner = () => {
       ) : (
         <View style={styles.buttonContainer}>
           <Pressable style={styles.button} onPress={scannerSwitch}>
-            <Text style={styles.buttonText}>Scan again?</Text>
+            <Text style={styles.buttonText}>Scan again?/Cancel scan</Text>
           </Pressable>
-          <Pressable style={styles.button} onPress={saveScan}>
+          {/* <Pressable style={styles.button} onPress={saveScan}>
             <Text style={styles.buttonText}>Scan another book?</Text>
+          </Pressable> */}
+          <Pressable style={styles.button} onPress={handleScanAnotherBook}>
+            <Text style={styles.buttonText}>Scan another book</Text>
           </Pressable>
-          <Pressable
+          {/* <Pressable
             style={styles.button}
             onPress={() => {
               navigation.goBack();
             }}
           >
+            <Text style={styles.buttonText}>Return to Catalogue</Text>
+          </Pressable> */}
+          <Pressable style={styles.button} onPress={handleReturnToCatalogue}>
             <Text style={styles.buttonText}>Return to Catalogue</Text>
           </Pressable>
         </View>

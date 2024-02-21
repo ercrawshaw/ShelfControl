@@ -46,7 +46,7 @@ export default function AddNewBookScreen() {
             <Button
               title="Go Back"
               onPress={() => {
-                navigation.goback();
+                navigation.goBack();
               }}
             />
           </View>
@@ -61,8 +61,13 @@ export default function AddNewBookScreen() {
         >
           <Text style={styles.buttonText}>Scan a book barcode</Text>
         </Pressable>
-        {/*consult Elle on her branch*/}
-        <Pressable style={styles.button}>
+
+        <Pressable
+          style={styles.button}
+          onPress={() => {
+            navigation.navigate("ManualSearch");
+          }}
+        >
           <Text style={styles.buttonText}>Manually add a book</Text>
         </Pressable>
       </View>
