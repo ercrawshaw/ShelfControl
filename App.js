@@ -10,6 +10,12 @@ import UserProfilePage from "./screens/UserProfilePage";
 import AddNewBookScreen from "./screens/AddNewBookScreen";
 import BarcodeScanner from "./components/Barcode-scanner";
 import { CurrentUserContext } from "./contexts/userContext";
+import NewCatalogueScreen from "./screens/NewCatalogueScreen";
+import SingleCatalogueScreen from "./screens/SingleCatalogueScreen";
+import SingleBookScreen from "./screens/SingleBookScreen";
+import ManualSearch from "./components/ManualSearch";
+
+
 const Stack = createNativeStackNavigator();
 
 export default function App() {
@@ -31,8 +37,17 @@ export default function App() {
           />
           <Stack.Screen name="HomeScreen" component={HomeScreen} />
           <Stack.Screen name="UserProfilePage" component={UserProfilePage} />
-          <Stack.Screen name="AddNewBookScreen" component={AddNewBookScreen}/>
-          <Stack.Screen name="Scanner" component={BarcodeScanner} />
+
+          <Stack.Screen
+            name="NewCatalogueScreen"
+            component={NewCatalogueScreen}
+          />
+          <Stack.Screen
+            name="SingleCatalogueScreen"
+            component={SingleCatalogueScreen}
+          />
+          <Stack.Screen name="SingleBookScreen" component={SingleBookScreen} />
+          <Stack.Screen name="ManualSearch" component={ManualSearch} />
         </Stack.Navigator>
       </NavigationContainer>
     </CurrentUserContext.Provider>
