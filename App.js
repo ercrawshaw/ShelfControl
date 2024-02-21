@@ -7,11 +7,14 @@ import LoginScreen from "./screens/LoginScreen";
 import HomeScreen from "./screens/HomeScreen";
 import SignUpScreen from "./screens/SignUpScreen";
 import UserProfilePage from "./screens/UserProfilePage";
+import AddNewBookScreen from "./screens/AddNewBookScreen";
+import BarcodeScanner from "./components/Barcode-scanner";
 import { CurrentUserContext } from "./contexts/userContext";
 import NewCatalogueScreen from "./screens/NewCatalogueScreen";
 import SingleCatalogueScreen from "./screens/SingleCatalogueScreen";
 import SingleBookScreen from "./screens/SingleBookScreen";
 import ManualSearch from "./components/ManualSearch";
+
 
 const Stack = createNativeStackNavigator();
 
@@ -34,6 +37,7 @@ export default function App() {
           />
           <Stack.Screen name="HomeScreen" component={HomeScreen} />
           <Stack.Screen name="UserProfilePage" component={UserProfilePage} />
+
           <Stack.Screen
             name="NewCatalogueScreen"
             component={NewCatalogueScreen}
