@@ -21,29 +21,23 @@ const SingleCatalogueScreen = ({ route }) => {
     CurrentCatalogueContext
   );
   //   const catalogue = useNavigationParam("catalogue_id");
-  const isbn = "9781398518209";
-  const bookInfo = {
-    author: "JRR Tolkien",
-    title: "The two towers",
-    publication_date: "12/03/2023",
-  };
 
   useEffect(() => {
-    getAllBooks(currentUid, catalogue_id);
-    //.then((res) => {
-    console.log("Success");
-    // let books = [];
-    // res.forEach((doc) => {
-    //   books.push(doc.id);
-    // });
-    // setCurrentBooks(books);
-    //});
-  }, []);
+    getAllBooks(currentUid, catalogue_id).then((res) => {
+      let books = [];
+      res.forEach((doc) => {
+        books.push(doc);
+      });
+      console.log(books);
+      setCurrentBooks(books);
+    });
+  }, [catalogue_id]);
 
   const handleBookClick = (book) => {
     navigation.navigate("SingleBookScreen", {
       catalogue_id: catalogue_id,
-      isbn: book,
+      book_data: book.data(),
+      book_id: book.id,
     });
   };
 
@@ -80,7 +74,12 @@ const SingleCatalogueScreen = ({ route }) => {
                 handleBookClick(book);
               }}
             >
-              <Text style={styles.buttonCatalogueText}>Here is: {book}</Text>
+              <Text style={styles.buttonCatalogueText}>
+                {book.data().title}
+              </Text>
+              <Text style={styles.buttonCatalogueText}>
+                {book.data().author}
+              </Text>
             </Pressable>
           ))}
         </ScrollView>

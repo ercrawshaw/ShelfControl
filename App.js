@@ -50,6 +50,10 @@ export default function App() {
               name="SingleCatalogueScreen"
               component={SingleCatalogueScreen}
             />
+            <Stack.Screen
+              name="SingleBookScreen"
+              component={SingleBookScreen}
+            />
             <Stack.Screen name="Scanner" component={BarcodeScanner} />
             <Stack.Screen name="AddNewBook" component={AddNewBookScreen} />
             <Stack.Screen name="ManualSearch" component={ManualSearch} />
