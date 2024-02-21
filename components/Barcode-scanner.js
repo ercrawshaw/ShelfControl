@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useContext } from "react";
 import { StyleSheet, TouchableOpacity, View, Pressable } from "react-native";
 import { CameraView, useCameraPermissions } from "expo-camera/next";
+import {Camera} from 'expo-camera';
 import { fetchBook } from "./api";
 import { useNavigation } from "@react-navigation/native";
 import { Button, Card, TextInput, Text } from "react-native-paper";
@@ -10,7 +11,7 @@ import addBook from "../src/addBook";
 
 const BarcodeScanner = () => {
   const navigation = useNavigation();
-  const [permission, requestPermission] = useCameraPermissions();
+  const [permission, requestPermission] = useState(false);
   const [isbn, setIsbn] = useState(null);
   const [scanned, setScanned] = useState(false);
   const [bookData, setBookData] = useState(null);
@@ -19,6 +20,13 @@ const BarcodeScanner = () => {
   const { currentCatalogue, setCurrentCatalogue } = useContext(
     CurrentCatalogueContext
   );
+  
+  useEffect(()=>{
+  (async()=>{
+    const cameraStatus = await Camera.requestCameraPermissionsAsync()
+    requestPermission(cameraStatus.granted)
+  })()
+},[])
 
   useEffect(() => {
     if (isbn) {
@@ -37,6 +45,7 @@ const BarcodeScanner = () => {
     setScanned(false);
     setBookData(null);
   };
+  
   const saveScan = () => {
     if (bookData !== null) {
       bookList.push(bookData);
@@ -77,7 +86,8 @@ const BarcodeScanner = () => {
     });
   };
 
-  return (
+if(permission){  
+return (  
     <View style={styles.container}>
       {bookData ? (
         <Card style={styles.bookcard}>
@@ -147,7 +157,13 @@ const BarcodeScanner = () => {
       )}
     </View>
   );
-};
+  }
+  else{
+    return(
+      <Text>App does not have permission to access camer, please reload app and grant permissions</Text>
+    )
+  }
+}
 
 export default BarcodeScanner;
 
