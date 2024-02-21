@@ -47,7 +47,7 @@ const SingleCatalogueScreen = ({ route }) => {
 
   const handleAddBook = () => {
     //connects here with Arran's AddNewBookScreen
-    // navigation.navigate("AddNewBookScreen");
+    navigation.navigate("AddNewBook");
   };
 
   //this should be moved to Arran's NewBookScreen
@@ -83,12 +83,15 @@ const SingleCatalogueScreen = ({ route }) => {
         </ScrollView>
       </View>
       <View style={styles.bottomContainer}>
-        <Pressable onPress={handleScannedBook} style={styles.button}>
+        <Pressable onPress={handleAddBook} style={styles.button}>
+          <Text style={styles.buttonText}>Add a book</Text>
+        </Pressable>
+        {/* <Pressable onPress={handleScannedBook} style={styles.button}>
           <Text style={styles.buttonText}>Add a book using ISBN</Text>
         </Pressable>
         <Pressable onPress={handleManualBook} style={styles.button}>
           <Text style={styles.buttonText}>Add a book using form</Text>
-        </Pressable>
+        </Pressable> */}
       </View>
     </SafeAreaView>
   );
