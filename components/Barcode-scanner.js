@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
-import { StyleSheet, Button, Text, TouchableOpacity, View } from "react-native";
+import { StyleSheet, TouchableOpacity, View, Pressable } from "react-native";
 import { CameraView, useCameraPermissions } from "expo-camera/next";
 import { fetchBook } from "./api";
 import { useNavigation } from "@react-navigation/native";
+import { Button, Card, TextInput, Text } from "react-native-paper";
 
 const BarcodeScanner = () => {
   const navigation = useNavigation();
@@ -40,10 +41,23 @@ const BarcodeScanner = () => {
   };
   return (
     <View style={styles.container}>
-      <Text>ISBN: {isbn}</Text>
-      <Text>{bookData ? bookData[0].id : "No book detected"}</Text>
-      <Text>{bookData ? bookData[0].volumeInfo.authors[0] : null}</Text>
-      <Text>{bookData ? bookData[0].volumeInfo.title : null}</Text>
+      {bookData ? (
+        <Card style={styles.bookcard}>
+          <Card.Content>
+            <Text style={styles.bookcardText}>ISBN: {isbn}</Text>
+            <Text style={styles.bookcardText}>Book id: {bookData[0].id} </Text>
+            <Text style={styles.bookcardText}>
+              Author: {bookData[0].volumeInfo.authors[0]}
+            </Text>
+            <Text style={styles.bookcardText}>
+              Title: {bookData[0].volumeInfo.title}
+            </Text>
+          </Card.Content>
+        </Card>
+      ) : (
+        <Text>No book detected</Text>
+      )}
+
       {!scanned ? (
         <View>
           <CameraView
@@ -60,23 +74,31 @@ const BarcodeScanner = () => {
               <Text style={styles.crosshair}>[ ]</Text>
             </TouchableOpacity>
           </CameraView>
-          <Button
-            title="Go Back"
+          <Pressable
+            style={styles.button}
             onPress={() => {
               navigation.goBack();
             }}
-          />
+          >
+            <Text style={styles.buttonText}>Go Back</Text>
+          </Pressable>
         </View>
       ) : (
-        <View>
-          <Button title="Scan again?" onPress={scannerSwitch} />
-          <Button title="Scan another book?" onPress={saveScan} />
-          <Button
-            title="Return to Catalogue"
+        <View style={styles.buttonContainer}>
+          <Pressable style={styles.button} onPress={scannerSwitch}>
+            <Text style={styles.buttonText}>Scan again?</Text>
+          </Pressable>
+          <Pressable style={styles.button} onPress={saveScan}>
+            <Text style={styles.buttonText}>Scan another book?</Text>
+          </Pressable>
+          <Pressable
+            style={styles.button}
             onPress={() => {
               navigation.goBack();
             }}
-          />
+          >
+            <Text style={styles.buttonText}>Return to Catalogue</Text>
+          </Pressable>
         </View>
       )}
     </View>
@@ -84,10 +106,13 @@ const BarcodeScanner = () => {
 };
 
 export default BarcodeScanner;
+
 const styles = StyleSheet.create({
   container: {
+    flex: 1,
     alignItems: "center",
     justifyContent: "center",
+    gap: 10,
   },
   camera: {
     height: "auto",
@@ -97,5 +122,55 @@ const styles = StyleSheet.create({
     color: "white",
     textAlign: "center",
     fontSize: 110,
+  },
+  inputContainer: {
+    width: "80%",
+  },
+  input: {
+    backgroundColor: "white",
+    paddingHorizontal: 15,
+    paddingVertical: 10,
+    borderRadius: 10,
+    marginTop: 5,
+  },
+  buttonContainer: {
+    width: "80%",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  button: {
+    backgroundColor: "#42273B",
+    width: "100%",
+    paddingHorizontal: 15,
+    paddingVertical: 15,
+    borderRadius: 10,
+    alignItems: "center",
+    marginBottom: 15,
+  },
+  buttonOutline: {
+    backgroundColor: "white",
+    marginTop: 5,
+    borderColor: "#42273B",
+    borderWidth: 2,
+  },
+  buttonText: {
+    color: "white",
+    fontWeight: "700",
+    fontSize: 16,
+  },
+  buttonOutlineText: {
+    color: "#42273B",
+    fontWeight: "700",
+    fontSize: 16,
+  },
+  bookcard: {
+    margin: 10,
+    marginBottom: 50,
+    width: "80%",
+  },
+  bookcardText: {
+    color: "#42273B",
+    fontWeight: "700",
+    fontSize: 16,
   },
 });
