@@ -59,7 +59,7 @@ const LoginScreen = () => {
         const user = userCredentials.user;
         const uid = userCredentials.user.uid;
         setCurrentUid(userCredentials.user.uid);
-        navigation.navigate("UserProfilePage");
+        navigation.navigate("HomeScreen");
       })
       .catch((error) => alert(error.message));
   };

@@ -1,4 +1,4 @@
-import { doc, setDoc } from "firebase/firestore";
+import { doc, setDoc, Timestamp } from "firebase/firestore";
 import { db } from "../firebaseConfig";
 
 export const addUser = (uid, username, firstname, lastname) => {
@@ -7,5 +7,6 @@ export const addUser = (uid, username, firstname, lastname) => {
     firstname: firstname,
     lastname: lastname,
     avatar_img: "",
+    created: Timestamp.now(),
   }).catch((error) => alert(error));
 };
