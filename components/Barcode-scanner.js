@@ -13,7 +13,7 @@ export default  BarcodeScanner=({route})=>{
     const [isbn, setIsbn]=useState(null)
     const [scanned , setScanned]=useState(false)
     const [bookData , setBookData]= useState(null)
-    const [capturedImage, setCapturedImage]=useState(null)
+    const [capturedImage, setCapturedImage]=useState(null) //saved from the cache as a state variable you can use to push to database
     const bookList=[]
 
  
