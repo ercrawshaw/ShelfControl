@@ -13,13 +13,14 @@ import { getAllBooks } from "../src/getAllBooks";
 import { getSingleBook } from "../src/getSingleBook";
 
 const SingleBookScreen = ({ route }) => {
-  const { isbn } = route.params;
+  const { catalogue_id, isbn } = route.params;
   const [currentBook, setCurrentBook] = useState([]);
   const { currentUid } = useContext(CurrentUserContext);
 
   useEffect(() => {
-    getSingleBook(isbn);
-  });
+    getSingleBook(catalogue_id, isbn);
+  }, [isbn]);
+
   return (
     <View>
       <Text>SingleBookScreen</Text>

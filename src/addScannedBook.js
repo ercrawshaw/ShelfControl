@@ -11,7 +11,7 @@ export const addScannedBook = (uid, catalogueName, isbn) => {
     "scannedBooks",
     isbn
   );
-  // it doesn't wok with addDoc - returns uneven segment error message
+  // it doesn't work with addDoc - returns uneven segment error message
   //using Date here rather than Timestamp as TS is interpreted as string
   //and can't be used to do the sortby
 

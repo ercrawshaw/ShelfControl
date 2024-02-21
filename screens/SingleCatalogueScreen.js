@@ -11,6 +11,7 @@ import { CurrentUserContext } from "../contexts/userContext";
 import { useNavigation, useNavigationParam } from "@react-navigation/native";
 import { getAllBooks } from "../src/getAllBooks";
 import { addScannedBook } from "../src/addScannedBook";
+import { addManualBook } from "../src/addManualBook";
 
 const SingleCatalogueScreen = ({ route }) => {
   const navigation = useNavigation();
@@ -19,19 +20,29 @@ const SingleCatalogueScreen = ({ route }) => {
   const { currentUid } = useContext(CurrentUserContext);
   //   const catalogue = useNavigationParam("catalogue_id");
   const isbn = "9781398518209";
+  const bookInfo = {
+    author: "JRR Tolkien",
+    title: "The two towers",
+    publication_date: "12/03/2023",
+  };
 
   useEffect(() => {
-    getAllBooks(currentUid, catalogue_id).then((res) => {
-      let books = [];
-      res.forEach((doc) => {
-        books.push(doc.id);
-      });
-      setCurrentBooks(books);
-    });
+    getAllBooks(currentUid, catalogue_id);
+    //.then((res) => {
+    console.log("Success");
+    // let books = [];
+    // res.forEach((doc) => {
+    //   books.push(doc.id);
+    // });
+    // setCurrentBooks(books);
+    //});
   }, []);
 
   const handleBookClick = (book) => {
-    navigation.navigate("SingleBookScreen", { isbn: book });
+    navigation.navigate("SingleBookScreen", {
+      catalogue_id: catalogue_id,
+      isbn: book,
+    });
   };
 
   const handleAddBook = () => {
@@ -45,7 +56,9 @@ const SingleCatalogueScreen = ({ route }) => {
     addScannedBook(currentUid, catalogue_id, isbn);
   };
 
-  const handleManualBook = () => {};
+  const handleManualBook = () => {
+    addManualBook(currentUid, catalogue_id, bookInfo);
+  };
 
   return (
     <SafeAreaView style={styles.container}>
