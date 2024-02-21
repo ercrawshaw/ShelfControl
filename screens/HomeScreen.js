@@ -30,6 +30,8 @@ const HomeScreen = () => {
     });
   }, []);
 
+  console.log(auth.currentUser.providerData);
+
   const handleAddCatalogue = () => {
     navigation.navigate("NewCatalogueScreen");
   };

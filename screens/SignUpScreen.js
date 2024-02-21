@@ -15,11 +15,20 @@ import {
   validatePassword,
   sendEmailVerification,
 } from "firebase/auth";
-import { collection, doc, setDoc } from "firebase/firestore";
+import {
+  collection,
+  doc,
+  getDocs,
+  onSnapshot,
+  query,
+  setDoc,
+  where,
+} from "firebase/firestore";
 import { useNavigation } from "@react-navigation/native";
 import { addUser } from "../src/addUsers";
 import { CurrentUserContext } from "../contexts/userContext";
 import { validatePasswordFunc } from "../utils/validatePassword";
+import { usernameExistsCheckFunc } from "../utils/usernameExistsCheck";
 
 const SignUpScreen = () => {
   const [firstname, setFirstName] = useState("");
@@ -33,13 +42,19 @@ const SignUpScreen = () => {
   const { currentUid, setCurrentUid } = useContext(CurrentUserContext);
   const navigation = useNavigation();
 
+  console.log(usernameExistsCheckFunc(username));
+
   const handleSignUp = () => {
     //can add a validate password here - user need to enter password twice
     //can add email and username check - don't already exist
-    if (validatePasswordFunc(password, confirmPassword)) {
+    if (
+      usernameExistsCheckFunc(username) &&
+      validatePasswordFunc(password, confirmPassword)
+    ) {
       createUserWithEmailAndPassword(auth, email, password)
         .then((userCredentials) => {
           const user = userCredentials.user;
+
           console.log("Signed in with:", user.email);
           setCurrentUid(userCredentials.user.uid);
           addUser(userCredentials.user.uid, username, firstname, lastname);
