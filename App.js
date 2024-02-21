@@ -15,7 +15,6 @@ import SingleCatalogueScreen from "./screens/SingleCatalogueScreen";
 import SingleBookScreen from "./screens/SingleBookScreen";
 import ManualSearch from "./components/ManualSearch";
 
-
 const Stack = createNativeStackNavigator();
 
 export default function App() {
@@ -46,6 +45,8 @@ export default function App() {
             name="SingleCatalogueScreen"
             component={SingleCatalogueScreen}
           />
+          <Stack.Screen name="Scanner" component={BarcodeScanner} />
+          <Stack.Screen name="AddNewBook" component={AddNewBookScreen} />
           <Stack.Screen name="SingleBookScreen" component={SingleBookScreen} />
           <Stack.Screen name="ManualSearch" component={ManualSearch} />
         </Stack.Navigator>
