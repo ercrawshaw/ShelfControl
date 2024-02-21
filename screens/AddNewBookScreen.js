@@ -4,7 +4,7 @@ import { useNavigation } from "@react-navigation/native";
 
 
 
-export default function addNewBookScreen(){
+export default function AddNewBookScreen(){
   const navigation = useNavigation()
     const [manIsbn, setManIsbn] = useState(null)
     const [manBookData,setManBookData]=useState(null)

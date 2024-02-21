@@ -18,7 +18,7 @@ export default function App() {
   return (
     <CurrentUserContext.Provider value={{ currentUid, setCurrentUid }}>
       <NavigationContainer>
-        <Stack.Navigator initialRouteName="Login">
+        <Stack.Navigator initialRouteName="Scanner">
           <Stack.Screen
             options={{ headerShown: false }}
             name="Login"
