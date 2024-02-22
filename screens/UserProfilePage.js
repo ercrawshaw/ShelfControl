@@ -16,7 +16,8 @@ import updateUser from "../src/updateUser";
 import deleteSingleUser from "../src/deleteUser";
 import { getStorage, ref, uploadBytes } from "firebase/storage";
 import { useNavigation } from "@react-navigation/native";
-import { getAuth, signOut } from "firebase/auth";
+import { getAuth, signOut, onAuthStateChanged } from "firebase/auth";
+import { auth } from "../firebaseConfig";
 
 const UserProfilePage = () => {
   const { currentUid, setCurrentUid } = useContext(CurrentUserContext);
@@ -26,6 +27,7 @@ const UserProfilePage = () => {
   const loggedInUser = getAuth().currentUser;
   const filename = "";
   const [image, setImage] = useState(null);
+  const [userAuth, setUserAuth] = useState(null);
 
   const profilePicRef = ref(
     getStorage(),
@@ -41,6 +43,24 @@ const UserProfilePage = () => {
       getUser(currentUid, setUser);
     }, [currentUid])
   );
+
+  // To have the track of the users and to see if their email has been verified
+  useEffect(() => {
+    onAuthStateChanged(auth, (userCred) => {
+      if (userCred) {
+        console.log(userCred.email, "user is logged in");
+        console.log(
+          userCred.email,
+          userCred.emailVerified,
+          "Has email been confirmed"
+        );
+        const { email, emailVerified } = userCred;
+        setUserAuth({ email, emailVerified });
+      } else {
+        console.log(userAuth.email, "user is logged out");
+      }
+    });
+  }, []);
 
   const handlePicPick = () => {
     // uploadBytes(profilePicRef, file);
@@ -92,8 +112,7 @@ const UserProfilePage = () => {
 
           <Pressable
             style={[styles.button, styles.buttonOutline]}
-            onPress={handlePicPick}
-          >
+            onPress={handlePicPick}>
             <Text style={styles.buttonOutlineText}>Pick a profile pic</Text>
           </Pressable>
 
@@ -125,27 +144,33 @@ const UserProfilePage = () => {
             placeholder="Email"
             style={styles.profileText}
             editable={editable}
-            value={user.email}
+            value={userAuth?.email}
             onChangeText={(text) =>
               setUser((currentUser) => {
                 return { ...currentUser, email: text };
               })
             }
           />
+          {userAuth && (
+            <Text
+              style={[styles.profileText, { backgroundColor: "aquamarine" }]}>
+              {userAuth?.emailVerified
+                ? "Email is verified"
+                : "Email is not verified"}
+            </Text>
+          )}
         </View>
         <View style={styles.buttonContainer}>
           {editable ? (
             <Pressable
               style={[styles.button, styles.buttonOutline]}
-              onPress={handleEditSubmission}
-            >
+              onPress={handleEditSubmission}>
               <Text style={styles.buttonOutlineText}>Done!</Text>
             </Pressable>
           ) : (
             <Pressable
               style={[styles.button, styles.buttonOutline]}
-              onPress={handleEditClick}
-            >
+              onPress={handleEditClick}>
               <Text style={styles.buttonOutlineText}>Edit profile</Text>
             </Pressable>
           )}
@@ -153,8 +178,7 @@ const UserProfilePage = () => {
         <View>
           <Pressable
             onPress={handleSignOut}
-            style={[styles.button, styles.buttonOutline]}
-          >
+            style={[styles.button, styles.buttonOutline]}>
             <Text style={styles.buttonOutlineText}>Sign out</Text>
           </Pressable>
         </View>
@@ -162,8 +186,7 @@ const UserProfilePage = () => {
         <View>
           <Pressable
             style={[styles.button, styles.buttonOutline]}
-            onPress={handleDelete}
-          >
+            onPress={handleDelete}>
             <Text style={styles.buttonOutlineText}>Delete profile</Text>
           </Pressable>
         </View>

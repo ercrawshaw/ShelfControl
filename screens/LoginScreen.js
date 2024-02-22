@@ -5,6 +5,7 @@ import {
   View,
   TextInput,
   Pressable,
+  Touchable,
 } from "react-native";
 import React, { useEffect, useState, useContext } from "react";
 
@@ -13,6 +14,7 @@ import {
   onAuthStateChanged,
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
+  sendPasswordResetEmail,
 } from "firebase/auth";
 import { collection, doc, setDoc } from "firebase/firestore";
 import { useNavigation } from "@react-navigation/native";
@@ -64,6 +66,21 @@ const LoginScreen = () => {
       .catch((error) => alert(error.message));
   };
 
+  const handleForgotPassword = () => {
+    sendPasswordResetEmail(auth, email)
+      .then(() => {
+        alert("password reset email sent, please check your email");
+      })
+      .catch((error) => {
+        alert(
+          "please insert your email and click again on Forgot password button"
+        );
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        // ..
+      });
+  };
+
   return (
     <KeyboardAvoidingView style={styles.container} behavior="padding">
       <View style={styles.inputContainer}>
@@ -95,9 +112,14 @@ const LoginScreen = () => {
         </Pressable> */}
         <Pressable
           onPress={handleSignUpClick}
-          style={[styles.button, styles.buttonOutline]}
-        >
+          style={[styles.button, styles.buttonOutline]}>
           <Text style={styles.buttonOutlineText}>Sign up</Text>
+        </Pressable>
+
+        <Pressable
+          onPress={handleForgotPassword}
+          style={[styles.input, { backgroundColor: "red" }]}>
+          <Text style={styles.buttonText}>Forgot Your Password</Text>
         </Pressable>
       </View>
     </KeyboardAvoidingView>
