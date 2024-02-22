@@ -28,7 +28,7 @@ const SingleCatalogueScreen = ({ route }) => {
       res.forEach((doc) => {
         books.push(doc);
       });
-      console.log(books);
+      //console.log(books);
       setCurrentBooks(books);
     });
   }, [catalogue_id]);
