@@ -8,7 +8,7 @@ import {
 } from "react-native";
 import React, { useState, useEffect } from "react";
 import { useNavigation } from "@react-navigation/native";
-import NavigationBar from "../components/navbar"
+import NavigationBar from "../components/Navbar"
 
 export default function AddNewBookScreen(){
   const navigation = useNavigation()
@@ -38,7 +38,7 @@ export default function AddNewBookScreen(){
       ) : (
         <View>
           <Text>{manBookData[0].id}</Text>
-          <Text>{manBookData[0].volumeInfo.title}</Text>
+          <Text>{manBookData[0].volumeInfo.authors}</Text>
           <Text>{manBookData[0].volumeInfo.title}</Text>
           <View>
             <Button title="Submit?" /> {/*build post function*/}
