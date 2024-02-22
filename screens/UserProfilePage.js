@@ -49,11 +49,11 @@ const UserProfilePage = () => {
     onAuthStateChanged(auth, (userCred) => {
       if (userCred) {
         console.log(userCred.email, "user is logged in");
-        console.log(
-          userCred.email,
-          userCred.emailVerified,
-          "Has email been confirmed"
-        );
+        // console.log(
+        //   userCred.email,
+        //   userCred.emailVerified,
+        //   "Has email been confirmed"
+        // );
         const { email, emailVerified } = userCred;
         setUserAuth({ email, emailVerified });
       } else {

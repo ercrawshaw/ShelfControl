@@ -39,8 +39,15 @@ const HomeScreen = () => {
     navigation.navigate("SingleCatalogueScreen", { catalogue_id: catalogue });
   };
 
+  const handleProfilePageClick = (catalogue) => {
+    navigation.navigate("UserProfilePage");
+  };
+  
   return (
     <SafeAreaView style={styles.container}>
+      <Pressable onPress={handleProfilePageClick} style={styles.button}>
+          <Text style={styles.buttonText}>Profile Page</Text>
+        </Pressable>
       <View style={styles.container}>
         <ScrollView
           style={styles.scrollView}
