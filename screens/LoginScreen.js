@@ -61,7 +61,11 @@ const LoginScreen = () => {
         const user = userCredentials.user;
         const uid = userCredentials.user.uid;
         setCurrentUid(userCredentials.user.uid);
-        navigation.navigate("HomeScreen");
+        if (auth.currentUser.emailVerified) {
+          navigation.navigate("HomeScreen");
+        } else {
+          alert("Please verify your email to access the application");
+        }
       })
       .catch((error) => alert(error.message));
   };
