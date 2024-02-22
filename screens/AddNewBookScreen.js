@@ -8,25 +8,28 @@ import {
 } from "react-native";
 import React, { useState, useEffect } from "react";
 import { useNavigation } from "@react-navigation/native";
-import NavigationBar from "../components/Navbar"
+import NavigationBar from "../components/Navbar";
 
-export default function AddNewBookScreen(){
-  const navigation = useNavigation()
-    const [manIsbn, setManIsbn] = useState(null)
-    const [manBookData,setManBookData]=useState(null)
-    useEffect(()=>{
-      if(manIsbn.length===13){
-      fetchBook(manIsbn).then(({items})=>{
-        if(items.length===0)setManBookData(null)
-        setManBookData(items)
-      }).catch((err)=>{
-        console.log(err)
-      })}
-    },[manIsbn])
+export default function AddNewBookScreen() {
+  const navigation = useNavigation();
+  const [manIsbn, setManIsbn] = useState(null);
+  const [manBookData, setManBookData] = useState(null);
+  useEffect(() => {
+    if (manIsbn && manIsbn.length === 13) {
+      fetchBook(manIsbn)
+        .then(({ items }) => {
+          if (items.length === 0) setManBookData(null);
+          setManBookData(items);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+  }, [manIsbn]);
 
   return (
     <View style={styles.container}>
-      <NavigationBar/>
+      <NavigationBar />
       <Text title="Enter ISBN if known" />
       {!manBookData ? (
         <TextInput
@@ -119,5 +122,5 @@ const styles = StyleSheet.create({
     color: "#42273B",
     fontWeight: "700",
     fontSize: 16,
-  }
-})
+  },
+});
