@@ -1,10 +1,15 @@
-import { doc, addDoc, setDoc, collection } from "firebase/firestore";
+import { doc, addDoc, setDoc, collection, Timestamp } from "firebase/firestore";
 import { db } from "../firebaseConfig";
 
-const addCatalogue = (uid, catalogueName) => {
+export const addCatalogue = (uid, catalogueName) => {
   const docRef = doc(db, "users", uid, "catalogues", catalogueName);
   // it doesn't wok with addDoc - returns uneven segment error message
-  return setDoc(docRef, { status: "private" }).catch((error) => alert(error));
-};
+  //using Date here rather than Timestamp as TS is interpreted as string
+  //and can't be used to do the sortby
 
-export default addCatalogue;
+  return setDoc(docRef, {
+    status: "private",
+    // created: Timestamp.now(),
+    created: Date.now(),
+  }).catch((error) => alert(error));
+};

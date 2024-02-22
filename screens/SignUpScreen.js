@@ -62,6 +62,7 @@ const SignUpScreen = () => {
   const handleSignUp = () => {
     //can add a validate password here - user need to enter password twice
     //can add email and username check - don't already exist
+
     //Check for the Name TextInput
     if (!firstname.trim()) {
       alert("Please Enter Name");

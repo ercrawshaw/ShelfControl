@@ -23,8 +23,8 @@ const NewCatalogueScreen = () => {
   };
 
   return (
-    <KeyboardAvoidingView>
-      <View style={styles.container}>
+    <KeyboardAvoidingView style={styles.container}>
+      <View style={styles.profileContainer}>
         <TextInput
           placeholder="Catalogue Name"
           style={styles.profileText}

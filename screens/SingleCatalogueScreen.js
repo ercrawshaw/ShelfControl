@@ -10,44 +10,93 @@ import React, { useEffect, useState, useContext } from "react";
 import { CurrentUserContext } from "../contexts/userContext";
 import { useNavigation, useNavigationParam } from "@react-navigation/native";
 import { getAllBooks } from "../src/getAllBooks";
+import { CurrentCatalogueContext } from "../contexts/catalogueContext";
+import SearchBarComponent from "../components/SearchBar";
 
 const SingleCatalogueScreen = ({ route }) => {
   const navigation = useNavigation();
   const { catalogue_id } = route.params;
   const [currentBooks, setCurrentBooks] = useState([]);
   const { currentUid } = useContext(CurrentUserContext);
+  const { currentCatalogue, setCurrentCatalogue } = useContext(
+    CurrentCatalogueContext
+  );
+  const [searchQuery, setSearchQuery] = useState('');
+  const [foundBooks, setFoundBooks] = useState([]);
+  const [mapArr, setMapArr] = useState([])
   //   const catalogue = useNavigationParam("catalogue_id");
 
   useEffect(() => {
-    console.log(catalogue_id);
     getAllBooks(currentUid, catalogue_id).then((res) => {
-      console.log(res, "here in Single Screen");
       let books = [];
       res.forEach((doc) => {
-        books.push(doc.id);
+        books.push(doc);
       });
+      //console.log(books);
+      setMapArr(books);
       setCurrentBooks(books);
     });
-  }, []);
+  }, [catalogue_id]);
 
   const handleBookClick = (book) => {
-    navigation.navigate("SingleBookScreen", { isbn: book });
-    console.log(book);
+    navigation.navigate("SingleBookScreen", {
+      catalogue_id: catalogue_id,
+      book_data: book.data(),
+      book_id: book.id,
+    });
   };
 
-  const handleScanBook = () => {};
 
-  const handleSearchBook = () => {};
+  useEffect(() => {
+    if (foundBooks.length !== 0) {
+      console.log("hello");
+      setMapArr(foundBooks)
+      //setMapArr(currentBooks)
+    }
+  }, [foundBooks]);
+
+  
+
+  const handleAddBook = () => {
+    //connects here with Arran's AddNewBookScreen
+    setCurrentCatalogue(catalogue_id);
+    navigation.navigate("AddNewBook");
+  };
+
+  //this should be moved to Arran's NewBookScreen
+  //isbn MUST be a string, will throw an indexOf error otherwise
+  // const handleScannedBook = () => {
+  //   addScannedBook(currentUid, catalogue_id, isbn);
+  // };
+
+  // const handleManualBook = () => {
+  //   addManualBook(currentUid, catalogue_id, bookInfo);
+  // };
 
   return (
+    
     <SafeAreaView style={styles.container}>
+      <View>
+        <SearchBarComponent 
+        currentBooks={currentBooks}
+        setMapArr={setMapArr} 
+        mapArr={mapArr} 
+        searchQuery={searchQuery} 
+        setSearchQuery={setSearchQuery}
+        foundBooks={foundBooks}
+        setFoundBooks={setFoundBooks}
+        />
+      </View>
       <View style={styles.container}>
+          
+        
         {/* <Text>{JSON.stringify(catalogue_id)}</Text> */}
         <ScrollView
           style={styles.scrollView}
           contentContainerStyle={{ alignItems: "center" }}
         >
-          {currentBooks.map((book, index) => (
+          
+          {mapArr.map((book, index) => (
             <Pressable
               style={[styles.button, styles.buttonOutline]}
               // book={book}
@@ -56,18 +105,26 @@ const SingleCatalogueScreen = ({ route }) => {
                 handleBookClick(book);
               }}
             >
-              <Text style={styles.buttonCatalogueText}>Here is: {book}</Text>
+              <Text style={styles.buttonCatalogueText}>
+                {book.data().title}
+              </Text>
+              <Text style={styles.buttonCatalogueText}>
+                {book.data().author}
+              </Text>
             </Pressable>
           ))}
         </ScrollView>
       </View>
       <View style={styles.bottomContainer}>
-        <Pressable onPress={handleScanBook} style={styles.button}>
-          <Text style={styles.buttonText}>Scan a book</Text>
+        <Pressable onPress={handleAddBook} style={styles.button}>
+          <Text style={styles.buttonText}>Add a book</Text>
         </Pressable>
-        <Pressable onPress={handleSearchBook} style={styles.button}>
-          <Text style={styles.buttonText}>Search and add a book manually</Text>
+        {/* <Pressable onPress={handleScannedBook} style={styles.button}>
+          <Text style={styles.buttonText}>Add a book using ISBN</Text>
         </Pressable>
+        <Pressable onPress={handleManualBook} style={styles.button}>
+          <Text style={styles.buttonText}>Add a book using form</Text>
+        </Pressable> */}
       </View>
     </SafeAreaView>
   );
@@ -77,10 +134,10 @@ export default SingleCatalogueScreen;
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    width: "100%",
+    // flex: 1,
+    // justifyContent: "center",
+    // alignItems: "center",
+    // width: "100%",
   },
   button: {
     backgroundColor: "#42273B",
