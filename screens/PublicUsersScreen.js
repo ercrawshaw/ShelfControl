@@ -1,7 +1,13 @@
 import { StyleSheet, Text, View } from "react-native";
-import React from "react";
+import React, { useEffect } from "react";
+import { getAllPublicUsers } from "../src/getAllUsers";
 
 const PublicUsersScreen = () => {
+  useEffect(() => {
+    getAllPublicUsers().then((res) => {
+      console.log(res);
+    });
+  }, []);
   return (
     <View>
       <Text>PublicUsersScreen</Text>
