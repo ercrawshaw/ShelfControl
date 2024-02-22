@@ -57,7 +57,7 @@ const BarcodeScanner = () => {
   };
 
   const handleScanAnotherBook = () => {
-    console.log(bookData[0]);
+    //console.log(bookData[0]);
     const bookInfo = {
       author: bookData[0].volumeInfo.authors,
       title: bookData[0].volumeInfo.title,

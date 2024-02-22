@@ -105,7 +105,7 @@ const ManualSearch = () => {
     });
   }
 
-  console.log(selectedBook);
+  //console.log(selectedBook);
   function handleSubmitSearchedBook(book) {
     const bookInfo = {
       author: book.volumeInfo.authors,
