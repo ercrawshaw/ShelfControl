@@ -24,7 +24,7 @@ export default function App() {
   return (
     <CurrentUserContext.Provider value={{ currentUid, setCurrentUid }}>
       <NavigationContainer>
-        <Stack.Navigator initialRouteName="AddNewBookScreen">
+        <Stack.Navigator initialRouteName="Login">
           <Stack.Screen
             options={{ headerShown: false }}
             name="Login"
