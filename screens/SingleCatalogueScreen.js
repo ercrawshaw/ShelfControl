@@ -21,9 +21,9 @@ const SingleCatalogueScreen = ({ route }) => {
   const { currentCatalogue, setCurrentCatalogue } = useContext(
     CurrentCatalogueContext
   );
-  const [searchQuery, setSearchQuery] = useState('');
+  const [searchQuery, setSearchQuery] = useState("");
   const [foundBooks, setFoundBooks] = useState([]);
-  const [mapArr, setMapArr] = useState([])
+  const [mapArr, setMapArr] = useState([]);
   //   const catalogue = useNavigationParam("catalogue_id");
 
   useEffect(() => {
@@ -46,16 +46,13 @@ const SingleCatalogueScreen = ({ route }) => {
     });
   };
 
-
   useEffect(() => {
     if (foundBooks.length !== 0) {
       console.log("hello");
-      setMapArr(foundBooks)
+      setMapArr(foundBooks);
       //setMapArr(currentBooks)
     }
   }, [foundBooks]);
-
-  
 
   const handleAddBook = () => {
     //connects here with Arran's AddNewBookScreen
@@ -74,28 +71,24 @@ const SingleCatalogueScreen = ({ route }) => {
   // };
 
   return (
-    
     <SafeAreaView style={styles.container}>
       <View>
-        <SearchBarComponent 
-        currentBooks={currentBooks}
-        setMapArr={setMapArr} 
-        mapArr={mapArr} 
-        searchQuery={searchQuery} 
-        setSearchQuery={setSearchQuery}
-        foundBooks={foundBooks}
-        setFoundBooks={setFoundBooks}
+        <SearchBarComponent
+          currentBooks={currentBooks}
+          setMapArr={setMapArr}
+          mapArr={mapArr}
+          searchQuery={searchQuery}
+          setSearchQuery={setSearchQuery}
+          foundBooks={foundBooks}
+          setFoundBooks={setFoundBooks}
         />
       </View>
       <View style={styles.container}>
-          
-        
         {/* <Text>{JSON.stringify(catalogue_id)}</Text> */}
         <ScrollView
           style={styles.scrollView}
           contentContainerStyle={{ alignItems: "center" }}
         >
-          
           {mapArr.map((book, index) => (
             <Pressable
               style={[styles.button, styles.buttonOutline]}
