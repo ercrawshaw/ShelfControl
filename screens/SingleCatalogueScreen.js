@@ -11,6 +11,7 @@ import { CurrentUserContext } from "../contexts/userContext";
 import { useNavigation, useNavigationParam } from "@react-navigation/native";
 import { getAllBooks } from "../src/getAllBooks";
 import { CurrentCatalogueContext } from "../contexts/catalogueContext";
+import SearchBarComponent from "../components/SearchBar";
 
 const SingleCatalogueScreen = ({ route }) => {
   const navigation = useNavigation();
@@ -20,6 +21,9 @@ const SingleCatalogueScreen = ({ route }) => {
   const { currentCatalogue, setCurrentCatalogue } = useContext(
     CurrentCatalogueContext
   );
+  const [searchQuery, setSearchQuery] = useState('');
+  const [foundBooks, setFoundBooks] = useState([]);
+  const [mapArr, setMapArr] = useState([])
   //   const catalogue = useNavigationParam("catalogue_id");
 
   useEffect(() => {
@@ -29,6 +33,7 @@ const SingleCatalogueScreen = ({ route }) => {
         books.push(doc);
       });
       //console.log(books);
+      setMapArr(books);
       setCurrentBooks(books);
     });
   }, [catalogue_id]);
@@ -40,6 +45,17 @@ const SingleCatalogueScreen = ({ route }) => {
       book_id: book.id,
     });
   };
+
+
+  useEffect(() => {
+    if (foundBooks.length !== 0) {
+      console.log("hello");
+      setMapArr(foundBooks)
+      //setMapArr(currentBooks)
+    }
+  }, [foundBooks]);
+
+  
 
   const handleAddBook = () => {
     //connects here with Arran's AddNewBookScreen
@@ -58,14 +74,29 @@ const SingleCatalogueScreen = ({ route }) => {
   // };
 
   return (
+    
     <SafeAreaView style={styles.container}>
+      <View>
+        <SearchBarComponent 
+        currentBooks={currentBooks}
+        setMapArr={setMapArr} 
+        mapArr={mapArr} 
+        searchQuery={searchQuery} 
+        setSearchQuery={setSearchQuery}
+        foundBooks={foundBooks}
+        setFoundBooks={setFoundBooks}
+        />
+      </View>
       <View style={styles.container}>
+          
+        
         {/* <Text>{JSON.stringify(catalogue_id)}</Text> */}
         <ScrollView
           style={styles.scrollView}
           contentContainerStyle={{ alignItems: "center" }}
         >
-          {currentBooks.map((book, index) => (
+          
+          {mapArr.map((book, index) => (
             <Pressable
               style={[styles.button, styles.buttonOutline]}
               // book={book}
@@ -103,10 +134,10 @@ export default SingleCatalogueScreen;
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    width: "100%",
+    // flex: 1,
+    // justifyContent: "center",
+    // alignItems: "center",
+    // width: "100%",
   },
   button: {
     backgroundColor: "#42273B",
