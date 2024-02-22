@@ -37,20 +37,53 @@ const SignUpScreen = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  const [errors, setErrors] = useState({});
+  const [errors, setErrors] = useState(false);
   const [isFormValid, setIsFormValid] = useState(false);
   const { currentUid, setCurrentUid } = useContext(CurrentUserContext);
   const navigation = useNavigation();
 
-  console.log(usernameExistsCheckFunc(username));
+  const usernameExistsCheckFunc = (username) => {
+    const colRef = collection(db, "users");
+    const q = query(colRef, where("username", "==", username));
+    return getDocs(q)
+    .then((snapShot) => {
+      if(!snapShot.empty) {
+        setErrors(true)
+        alert("username is already taken")
+        // return errors;
+      } else {
+        setErrors(false)
+      }
+    });
+  };
+
+
 
   const handleSignUp = () => {
     //can add a validate password here - user need to enter password twice
     //can add email and username check - don't already exist
-    if (
-      usernameExistsCheckFunc(username) &&
-      validatePasswordFunc(password, confirmPassword)
-    ) {
+    //Check for the Name TextInput
+    if (!firstname.trim()) {
+      alert("Please Enter Name");
+      return;
+    }
+    if (!lastname.trim()) {
+      alert("Please Enter Last Name");
+      return;
+    }
+    if (!username.trim()) {
+      alert("Please Enter Username");
+      return;
+    }
+
+    if (!confirmPassword.trim()) {
+      alert("Please confirm your password");
+      return;
+    }
+
+    usernameExistsCheckFunc(username);
+    console.log(errors);
+    if (validatePasswordFunc(password, confirmPassword) && !errors===true) {
       createUserWithEmailAndPassword(auth, email, password)
         .then((userCredentials) => {
           const user = userCredentials.user;

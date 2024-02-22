@@ -10,14 +10,11 @@ import { db } from "../firebaseConfig";
 const usernameExistsCheckFunc = (username) => {
   const colRef = collection(db, "users");
   const q = query(colRef, where("username", "==", username));
-  return getDocs(q).then((snapShot) => {
+  getDocs(q).then((snapShot) => {
     if (!snapShot.empty) {
-      alert("This username is already taken!");
-      return false;
-      // return doesUserExists;
-    } else {
-      return true;
-      // return doesUserExists;
+      alert("username is already taken");
+      // return false;
+      setErrors;
     }
   });
 };
