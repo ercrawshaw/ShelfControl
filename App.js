@@ -24,7 +24,7 @@ export default function App() {
   return (
     <CurrentUserContext.Provider value={{ currentUid, setCurrentUid }}>
       <NavigationContainer>
-        <Stack.Navigator initialRouteName="Scanner">
+        <Stack.Navigator initialRouteName="AddNewBookScreen">
           <Stack.Screen
             options={{ headerShown: false }}
             name="Login"
@@ -37,15 +37,8 @@ export default function App() {
           />
           <Stack.Screen name="HomeScreen" component={HomeScreen} />
           <Stack.Screen name="UserProfilePage" component={UserProfilePage} />
-
-          <Stack.Screen
-            name="NewCatalogueScreen"
-            component={NewCatalogueScreen}
-          />
-          <Stack.Screen
-            name="SingleCatalogueScreen"
-            component={SingleCatalogueScreen}
-          />
+          <Stack.Screen name="NewCatalogueScreen"component={NewCatalogueScreen} />
+          <Stack.Screen name="SingleCatalogueScreen"component={SingleCatalogueScreen} />
           <Stack.Screen name="SingleBookScreen" component={SingleBookScreen} />
           <Stack.Screen name="ManualSearch" component={ManualSearch} />
           <Stack.Screen name="AddNewBookScreen" component={AddNewBookScreen}/>

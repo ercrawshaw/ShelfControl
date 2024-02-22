@@ -1,6 +1,7 @@
 import {  StyleSheet, Text, View,Button, TextInput } from "react-native";
 import React, { useState } from "react";
 import { useNavigation } from "@react-navigation/native";
+import NavigationBar from "../components/navbar"
 
 
 
@@ -19,6 +20,7 @@ export default function AddNewBookScreen(){
     },[manIsbn])
     return(
         <View style={styles.container}>
+            <NavigationBar/>
             <Text title="Enter ISBN if known"/>
             {!manBookData?<TextInput 
             inputMode="numeric"
@@ -33,11 +35,11 @@ export default function AddNewBookScreen(){
               <Text>{manBookData[0].volumeInfo.title}</Text>
               <View>
                 <Button title="Submit?"/> {/*build post function*/}
-                <Button title="Go Back" onPress={()=>{navigation.goback()}}/>
+                <Button title="Go Back" onPress={()=>{navigation.goBack()}}/>
               </View>
             </View>}
             <Button title="Scan a book barcode" onPress={()=>{navigation.navigate('Scanner')}}/>
-            <Button title="Manually add a book"/> {/*consult Elle on her branch*/}
+            <Button title="Manually add a book" onPress={()=>{navigation.navigate('ManualSearch')}}/> 
         </View>
     )
 }

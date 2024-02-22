@@ -1,7 +1,7 @@
 import React,{ useState, useEffect } from 'react';
 import {StyleSheet, Button, View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-export default navigationBar= () =>{
+export default NavigationBar= () =>{
     const navigation = useNavigation()
     return(
         <View style={styles.navbar}>
@@ -13,7 +13,8 @@ export default navigationBar= () =>{
 }
 const styles = StyleSheet.create({
 navbar:{
-    display:'flex'
+    display:'flex',
+    flexDirection:'row'
     
 }
 })
