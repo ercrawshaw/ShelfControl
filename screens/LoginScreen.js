@@ -6,6 +6,7 @@ import {
   TextInput,
   Pressable,
   Touchable,
+  Alert,
 } from "react-native";
 import React, { useEffect, useState, useContext } from "react";
 
@@ -15,11 +16,11 @@ import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   sendPasswordResetEmail,
+  sendEmailVerification,
 } from "firebase/auth";
 import { collection, doc, setDoc } from "firebase/firestore";
 import { useNavigation } from "@react-navigation/native";
 import { CurrentUserContext } from "../contexts/userContext";
-// import { TextInput } from "react-native-web";
 
 const LoginScreen = () => {
   const [email, setEmail] = useState("");
@@ -64,10 +65,30 @@ const LoginScreen = () => {
         if (auth.currentUser.emailVerified) {
           navigation.navigate("HomeScreen");
         } else {
-          alert("Please verify your email to access the application");
+          Alert.alert(
+            "Only verified users can access the application",
+            "Please verify your email and login",
+            [
+              {
+                text: "Send verification again",
+                onPress: () => {
+                  sendEmailVerification(user).then(() => {
+                    alert(
+                      "Verification was sent to your email, please verify and login"
+                    );
+                  });
+                },
+              },
+              {
+                text: "Done",
+              },
+            ]
+          );
         }
       })
       .catch((error) => alert(error.message));
+    // setEmail("");
+    setPassword("");
   };
 
   const handleForgotPassword = () => {
@@ -87,7 +108,7 @@ const LoginScreen = () => {
 
   return (
     <KeyboardAvoidingView style={styles.container} behavior="padding">
-      <View style={styles.inputContainer}>
+      <View style={styles.inputContainer} name="form">
         <TextInput
           placeholder="Email"
           value={email}

@@ -16,7 +16,12 @@ import updateUser from "../src/updateUser";
 import deleteSingleUser from "../src/deleteUser";
 import { getStorage, ref, uploadBytes } from "firebase/storage";
 import { useNavigation } from "@react-navigation/native";
-import { getAuth, signOut, onAuthStateChanged } from "firebase/auth";
+import {
+  getAuth,
+  signOut,
+  onAuthStateChanged,
+  sendPasswordResetEmail,
+} from "firebase/auth";
 import { auth } from "../firebaseConfig";
 import { Switch } from "react-native-paper";
 import updateProfileStatus from "../src/updateProfileStatus";
@@ -88,7 +93,10 @@ const UserProfilePage = () => {
 
   const handleEditSubmission = () => {
     editable ? isEditable(false) : isEditable(true);
-    updateUser(currentUid, user).then(() => {});
+    console.log(currentUid);
+    updateUser(currentUid, user).then(() => {
+      alert("your profile has been updated");
+    });
   };
 
   const handleSignOut = () => {
@@ -104,6 +112,14 @@ const UserProfilePage = () => {
   const handleDelete = () => {
     deleteSingleUser(currentUid, user).then(() => {
       navigation.navigate("Login");
+    });
+  };
+
+  const handlePasswordChange = () => {
+    sendPasswordResetEmail(auth, user.email).then(() => {
+      alert(
+        "password reset email sent, please check your email and login with the new password"
+      );
     });
   };
 
@@ -137,7 +153,11 @@ const UserProfilePage = () => {
             <Switch value={isSwitchOn} onValueChange={onToggleSwitch} />
           </View>
           <TextInput
-            style={styles.profileText}
+            style={
+              editable
+                ? [styles.profileText, styles.editable]
+                : styles.profileText
+            }
             //style={styles.input}
             editable={editable}
             placeholder="First Name"
@@ -148,30 +168,41 @@ const UserProfilePage = () => {
               })
             }
           />
-          {/* <TextInput
-          placeholder="Last Name"
-          value={lastname}
-          onChangeText={(text) => setLastName(text)}
-          style={styles.input}
-        />
-        <TextInput
-          placeholder="Username"
-          value={username}
-          onChangeText={(text) => setUsername(text)}
-          style={styles.input}
-        />*/}
+          <TextInput
+            placeholder="Last Name"
+            editable={editable}
+            value={user.lastname}
+            onChangeText={(text) =>
+              setUser((currentUser) => {
+                return { ...currentUser, lastname: text };
+              })
+            }
+            style={
+              editable
+                ? [styles.profileText, styles.editable]
+                : styles.profileText
+            }
+          />
+          <TextInput
+            placeholder="Username"
+            value={user.username}
+            // onChangeText={(text) => setUsername(text)}
+            style={styles.profileText}
+            readOnly
+          />
           <TextInput
             placeholder="Email"
             style={styles.profileText}
             editable={editable}
-            value={userAuth?.email}
+            value={user.email}
             onChangeText={(text) =>
               setUser((currentUser) => {
                 return { ...currentUser, email: text };
               })
             }
+            readOnly
           />
-          {userAuth && (
+          {/* {userAuth && (
             <Text
               style={[styles.profileText, { backgroundColor: "aquamarine" }]}
             >
@@ -179,7 +210,7 @@ const UserProfilePage = () => {
                 ? "Email is verified"
                 : "Email is not verified"}
             </Text>
-          )}
+          )} */}
         </View>
         <View style={styles.buttonContainer}>
           {editable ? (
@@ -197,6 +228,11 @@ const UserProfilePage = () => {
               <Text style={styles.buttonOutlineText}>Edit profile</Text>
             </Pressable>
           )}
+          <Pressable
+            style={[styles.button, styles.buttonOutline]}
+            onPress={handlePasswordChange}>
+            <Text style={styles.buttonOutlineText}>Change Password</Text>
+          </Pressable>
         </View>
         <View>
           <Pressable
@@ -275,6 +311,11 @@ const styles = StyleSheet.create({
   },
   buttonOutlineText: {
     color: "#42273B",
+    fontWeight: "700",
+    fontSize: 16,
+  },
+  editable: {
+    backgroundColor: "aquamarine",
     fontWeight: "700",
     fontSize: 16,
   },
