@@ -16,6 +16,7 @@ import deleteSingleUser from "../src/deleteUser";
 import { getStorage, ref, uploadBytes } from "firebase/storage";
 import { useNavigation } from "@react-navigation/native";
 import LoadingMessage from "../components/LoadingMessage";
+import NavigationBar from "../components/Navbar";
 
 import {
   getAuth,
@@ -165,6 +166,8 @@ const UserProfilePage = () => {
   //and rendering the page
   if (user) {
     return (
+      <View>
+      <NavigationBar />
       <KeyboardAvoidingView style={styles.UPcontainer} behavior="padding">
         <View style={styles.profileContainer}>
           {/*<Image
@@ -294,6 +297,7 @@ const UserProfilePage = () => {
           </Pressable>
         </View>
       </KeyboardAvoidingView>
+      </View>
     );
   }
 };

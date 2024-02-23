@@ -7,6 +7,7 @@ import { getSingleBook } from "../src/getSingleBook";
 import { fetchBook } from "../components/api";
 import styles from '../styles/styles';
 import LoadingMessage from "../components/LoadingMessage";
+import NavigationBar from "../components/Navbar";
 import { LoadBundleTask } from 'firebase/firestore';
 
 const SingleBookScreen = ({ route }) => {
@@ -64,7 +65,8 @@ const SingleBookScreen = ({ route }) => {
     return <LoadingMessage />
   }else{
     return (
-  
+    <View>
+    <NavigationBar />
     <View style={styles.SBcontainer}>
       <ScrollView>
       <View style={styles.imageContainer}>
@@ -76,6 +78,7 @@ const SingleBookScreen = ({ route }) => {
         <Text style={styles.description}>{currentBook.description}</Text>
       </View>
       </ScrollView>
+     </View>
      </View>
   
   )
