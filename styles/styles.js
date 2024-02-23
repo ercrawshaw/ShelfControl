@@ -1,6 +1,18 @@
 import { StyleSheet } from "react-native";
 
 export default styles = StyleSheet.create({
+    pressableButton: {
+        width: 100,
+        height: 100,
+    },
+    navbar:{
+        display:'flex',
+        flexDirection:'row',
+        margin: 20, 
+        alignItems: 'center',
+        justifyContent: 'center',
+        backgroundColor: '#42273B'
+        },
     homeContainer: {
         flex: 1,
         justifyContent: "center",
@@ -208,7 +220,7 @@ export default styles = StyleSheet.create({
         alignItems: 'center',
         },
     item: {
-        width: width,
+        width: 100,
         padding: 20,
         justifyContent: 'center',
         alignItems: 'center',
@@ -227,7 +239,7 @@ export default styles = StyleSheet.create({
         fontSize: 14,
         },
     CarouselImage: {
-        width: width,
+        width: 100,
         height: 200,
         resizeMode: 'cover',
         },
