@@ -1,10 +1,6 @@
 import { StyleSheet } from "react-native";
 
 export default styles = StyleSheet.create({
-    pressableButton: {
-        width: 100,
-        height: 100,
-    },
     navbar: {
         flexDirection: 'row',
         justifyContent: 'space-around',
@@ -27,6 +23,167 @@ export default styles = StyleSheet.create({
         fontSize: 16,
         fontWeight: 'bold',
     },
+    bigButtonContainer: {
+        flexDirection: 'column',
+        justifyContent: 'flex',
+        alignItems: 'center',
+        margin: 20,
+        marginTop: '25%',
+    },
+    bigButton: {
+        margin: 10,
+        backgroundColor: '#42273B',
+        paddingVertical: 45,
+        paddingHorizontal: 25,
+        borderRadius: 30, 
+        elevation: 4, 
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.2,
+        shadowRadius: 2,
+    },
+    bigButtonText: {
+        color: '#fff',
+        fontSize: 16,
+        fontWeight: 'bold',
+        textAlign: 'center',
+    },
+    filledPressButton: {
+        justifyContent: 'center',
+        alignItems: 'center',
+        paddingVertical: 14,
+        paddingHorizontal: 24,
+        borderRadius: 20,
+        marginBottom: 10,
+        minWidth: 300,
+    },
+    filledPressButtonOutline: {
+        borderWidth: 2,
+        borderColor: '#42273B', 
+    },
+    filledPressButtonText: {
+        fontSize: 16,
+        fontWeight: 'bold',
+        color: 'black',
+    },
+    bottomButton: {
+        marginTop: '5%',
+        alignItems: 'center',
+        paddingVertical: 20,
+        paddingHorizontal: 14,
+        borderRadius: 20,
+        minWidth: 350,
+        backgroundColor: '#42273B',
+    },
+    bottomButtonOutline: {
+        borderWidth: 2,
+        borderColor: '#42273B', 
+    },
+    bottomButtonText: {
+        fontSize: 16,
+        fontWeight: 'bold',
+        color: 'white',
+    },
+    bottomContainer: {
+        marginTop: 5,
+        marginBottom: 5,
+        alignItems: 'center',
+    },
+    scrollView: {
+        marginTop: 20,
+        width: "100%",
+    },
+    loginInputContainer: {
+        marginBottom: 1,
+        marginTop: 30,
+    },
+    loginInput: {
+        borderWidth: 2,
+        borderColor: 'grey',
+        paddingVertical: 15,
+        paddingHorizontal: 120,
+        borderRadius: 10,
+        marginBottom: 10,
+        fontSize: 16,
+        color: '#333',
+    },
+    buttonContainer: {
+        width: "60%",
+        justifyContent: "center",
+        alignItems: "center",
+        margin: 5,
+    },
+    smallButtonText: {
+        color: "red",
+        fontWeight: "700",
+        fontSize: 14,
+        textAlign: 'center',
+    },
+    forgotPasswordButton: {
+        margin: 10,
+        borderColor: "red",
+        borderWidth: 1,
+        width: "90%",
+        paddingHorizontal: 15,
+        paddingVertical: 10,
+        borderRadius: 20, 
+    },
+    profileHeader: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        marginBottom: 20,
+    },
+    profileAvatar: {
+        width: 200,
+        height: 200,
+        borderRadius: 100,
+        marginRight: 10,
+        marginLeft: 5,
+    },
+    profileHeaderTextContainer: {
+        flex: 1,
+    },
+    profileUsername: {
+        fontSize: 25,
+        fontWeight: 'bold',
+        marginBottom: 7,
+    },
+    pendingText: {
+        fontSize: 14,
+    },
+    button: {
+        backgroundColor: "#42273B",
+        width: "90%",
+        paddingHorizontal: 15,
+        paddingVertical: 15,
+        borderRadius: 10,
+        alignItems: "center",
+        marginTop: 40,
+    },
+    buttonText: {
+        color: "white",
+        fontWeight: "700",
+        fontSize: 16,
+    },
+    usersProfileContainer: {
+        marginTop: 20,
+      },
+      usersInfoContainer: {
+        flexDirection: 'row',
+        alignItems: 'center',
+      },
+      userUsername: {
+        fontSize: 45,
+        fontWeight: 'bold',
+      },
+    
+      
+      
+      
+    
+
+
+
     homeContainer: {
         flex: 1,
         justifyContent: "center",
@@ -61,15 +218,7 @@ export default styles = StyleSheet.create({
         shadowRadius: 3.84,
         elevation: 5,
       },
-    button: {
-        backgroundColor: "#42273B",
-        width: "90%",
-        paddingHorizontal: 15,
-        paddingVertical: 15,
-        borderRadius: 10,
-        alignItems: "center",
-        marginTop: 40,
-    },
+    
     logButton: {
         backgroundColor: "#42273B",
         width: "100%",
@@ -98,30 +247,18 @@ export default styles = StyleSheet.create({
         fontWeight: "700",
         fontSize: 16,
     },
-    buttonText: {
-        color: "white",
-        fontWeight: "700",
-        fontSize: 16,
-    },
+    
     NCbuttonText: {
         color: "#42273B",
         fontWeight: "700",
         fontSize: 16,
       },
-    scrollView: {
-        width: "95%",
-    },
-    bottomContainer: {
-        marginBottom: 5,
-    },
+    
     UPcontainer: {
         flex: 1,
         justifyContent: "center",
         alignItems: "center",
         backgroundColor: "#42273B",
-    },
-    profileContainer: {
-        width: "80%",
     },
     profileText: {
         backgroundColor: "white",
@@ -134,13 +271,14 @@ export default styles = StyleSheet.create({
         borderWidth: 2,
         borderRadius: 5,
     },
-
-    buttonContainer: {
-        width: "60%",
-        justifyContent: "center",
-        alignItems: "center",
-        marginTop: 40,
+    profileContainer: {
+        flex: 1,
+        padding: 20,
+        backgroundColor: '#ffffff',
     },
+    
+
+    
     NCbuttonContainer: {
         width: "100%",
         justifyContent: "center",

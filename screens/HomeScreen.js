@@ -13,6 +13,9 @@ import { getAllCatalogues } from "../src/getAllCatalogues";
 import NavigationBar from "../components/Navbar";
 import { TextInput } from "react-native-web";
 import styles from "../styles/styles";
+
+
+
 const HomeScreen = () => {
   const navigation = useNavigation();
   const [currentCatalogues, setCurrentCatalogues] = useState([]);
@@ -42,34 +45,37 @@ const HomeScreen = () => {
 
   
   return (
-     <View>
-      <NavigationBar />
-      <View style={styles.container}>
+    <SafeAreaView>
 
-        <ScrollView
-          style={styles.scrollView}
-          contentContainerStyle={{ alignItems: "center" }}
-        >
-          {currentCatalogues.map((catalogue, index) => (
+      <NavigationBar />
+
+      <View>
+      <ScrollView
+        style={styles.scrollView}
+        contentContainerStyle={{ alignItems: "center" }}
+      >
+        {currentCatalogues.map((catalogue, index) => (
             <Pressable
-              style={[styles.button, styles.buttonOutline]}
+              style={[styles.filledPressButton, styles.filledPressButtonOutline]}
               // catalogue={catalogue}
               key={index}
               onPress={() => {
                 handleCatalogueClick(catalogue);
               }}
             >
-              <Text style={styles.buttonCatalogueText}>{catalogue}</Text>
+                <Text style={styles.filledPressButtonText}>{catalogue}</Text>
             </Pressable>
-          ))}
-        </ScrollView>
+          ))}   
+      </ScrollView>
       </View>
+
       <View style={styles.bottomContainer}>
-        <Pressable onPress={handleAddCatalogue} style={styles.button}>
-          <Text style={styles.buttonText}>Add a new catalogue</Text>
-        </Pressable>
+          <Pressable onPress={handleAddCatalogue} style={styles.bottomButton}>
+              <Text style={styles.bottomButtonText}>Add a New Catalogue</Text>
+          </Pressable>
       </View>
-    </View>
+
+    </SafeAreaView>
 
   );
 };

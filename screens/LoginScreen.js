@@ -22,6 +22,8 @@ import { collection, doc, setDoc } from "firebase/firestore";
 import { useNavigation } from "@react-navigation/native";
 import { CurrentUserContext } from "../contexts/userContext";
 
+
+
 const LoginScreen = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -109,19 +111,19 @@ const LoginScreen = () => {
   return (
 
     <KeyboardAvoidingView style={styles.logContainer} behavior="padding">
-      <View style={styles.inputContainer} name="form">
 
+      <View style={styles.loginInputContainer} name="form">
         <TextInput
           placeholder="Email"
           value={email}
           onChangeText={(text) => setEmail(text)}
-          style={styles.input}
+          style={styles.loginInput}
         />
         <TextInput
           placeholder="Password"
           value={password}
           onChangeText={(text) => setPassword(text)}
-          style={styles.input}
+          style={[styles.loginInput, styles.passwordInput]}
           secureTextEntry
         />
       </View>
@@ -145,8 +147,9 @@ const LoginScreen = () => {
 
         <Pressable
           onPress={handleForgotPassword}
-          style={[styles.input, { backgroundColor: "red" }]}>
-          <Text style={styles.buttonText}>Forgot Your Password</Text>
+          style={styles.forgotPasswordButton}
+        >
+          <Text style={styles.smallButtonText}>Forgot Your Password?</Text>
         </Pressable>
       </View>
     </KeyboardAvoidingView>
@@ -155,50 +158,3 @@ const LoginScreen = () => {
 
 export default LoginScreen;
 
-// const styles = StyleSheet.create({
-//   logContainer: {
-//     flex: 1,
-//     justifyContent: "center",
-//     alignItems: "center",
-//   },
-//   inputContainer: {
-//     width: "80%",
-//   },
-//   input: {
-//     backgroundColor: "white",
-//     paddingHorizontal: 15,
-//     paddingVertical: 10,
-//     borderRadius: 10,
-//     marginTop: 5,
-//   },
-//   buttonContainer: {
-//     width: "60%",
-//     justifyContent: "center",
-//     alignItems: "center",
-//     marginTop: 40,
-//   },
-//   logButton: {
-//     backgroundColor: "#42273B",
-//     width: "100%",
-//     paddingHorizontal: 15,
-//     paddingVertical: 15,
-//     borderRadius: 10,
-//     alignItems: "center",
-//   },
-//   buttonOutline: {
-//     backgroundColor: "white",
-//     marginTop: 5,
-//     borderColor: "#42273B",
-//     borderWidth: 2,
-//   },
-//   buttonText: {
-//     color: "white",
-//     fontWeight: "700",
-//     fontSize: 16,
-//   },
-//   buttonOutlineText: {
-//     color: "#42273B",
-//     fontWeight: "700",
-//     fontSize: 16,
-//   },
-// });
