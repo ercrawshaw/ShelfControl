@@ -86,9 +86,9 @@ const SingleCatalogueScreen = ({ route }) => {
   };
 
   return (
-
     <SafeAreaView style={styles.homeContainer}>
       <View>
+
         <SearchBarComponent
           currentBooks={currentBooks}
           setMapArr={setMapArr}
@@ -140,46 +140,3 @@ const SingleCatalogueScreen = ({ route }) => {
 };
 
 export default SingleCatalogueScreen;
-
-
-// const styles = StyleSheet.create({
-//   container: {
-//     flex: 1,
-//     justifyContent: "center",
-//     alignItems: "center",
-//     width: "100%",
-//   },
-//   SCbutton: {
-//     backgroundColor: "#42273B",
-//     width: "90%",
-//     paddingHorizontal: 15,
-//     paddingVertical: 15,
-//     borderRadius: 10,
-//     alignItems: "center",
-//     marginTop: 40,
-//   },
-//   buttonOutline: {
-//     backgroundColor: "white",
-//     marginTop: 5,
-//     borderColor: "#42273B",
-//     borderWidth: 2,
-//   },
-//   buttonCatalogueText: {
-//     color: "#42273B",
-//     fontWeight: "700",
-//     fontSize: 16,
-//   },
-//   buttonText: {
-//     color: "white",
-//     fontWeight: "700",
-//     fontSize: 16,
-//   },
-//   scrollView: {
-//     width: "95%",
-//   },
-//   bottomContainer: {
-//     marginBottom: 5,
-//   },
-// });
-
-
