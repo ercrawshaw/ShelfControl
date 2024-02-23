@@ -120,11 +120,14 @@ const SingleCatalogueScreen = ({ route }) => {
           ))}
         </ScrollView>
       </View>
-      <View style={styles.bottomContainer}>
+      {friendsUid?null:
+       <View style={styles.bottomContainer}>
         <Pressable onPress={handleAddBook} style={styles.button}>
           <Text style={styles.buttonText}>Add a book</Text>
         </Pressable>
-      </View>
+      </View> 
+      }
+      
     </SafeAreaView>
   );
 };
