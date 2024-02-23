@@ -93,6 +93,42 @@ export default styles = StyleSheet.create({
         marginTop: 20,
         width: "100%",
     },
+    loginInputContainer: {
+        marginBottom: 1,
+        marginTop: 30,
+    },
+    loginInput: {
+        borderWidth: 2,
+        borderColor: 'grey',
+        paddingVertical: 15,
+        paddingHorizontal: 120,
+        borderRadius: 10,
+        marginBottom: 10,
+        fontSize: 16,
+        color: '#333', // Set text color for input fields
+    },
+    buttonContainer: {
+        width: "60%",
+        justifyContent: "center",
+        alignItems: "center",
+        margin: 5,
+    },
+    smallButtonText: {
+        color: "red",
+        fontWeight: "700",
+        fontSize: 14,
+        textAlign: 'center',
+    },
+    forgotPasswordButton: {
+        margin: 10,
+        borderColor: "red",
+        borderWidth: 1,
+        width: "90%",
+        paddingHorizontal: 15,
+        paddingVertical: 10,
+        borderRadius: 20,
+        
+    },
 
 
 
@@ -199,12 +235,7 @@ export default styles = StyleSheet.create({
         borderRadius: 5,
     },
 
-    buttonContainer: {
-        width: "60%",
-        justifyContent: "center",
-        alignItems: "center",
-        marginTop: 40,
-    },
+    
     NCbuttonContainer: {
         width: "100%",
         justifyContent: "center",
