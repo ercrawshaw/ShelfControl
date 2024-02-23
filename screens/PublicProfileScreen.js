@@ -3,7 +3,11 @@ import React, { useContext, useState, useEffect } from "react";
 import addFriend from "../src/addFriend";
 import { getAllCatalogues } from "../src/getAllCatalogues";
 import { CurrentUserContext } from "../contexts/userContext";
+import { useNavigation } from "@react-navigation/native";
+
+
 const PublicProfileScreen = ({ route }) => {
+  const navigation = useNavigation();
   const { currentUid } = useContext(CurrentUserContext);
   const { user } = route.params;
   const [requested, isRequested] = useState(false);
@@ -14,6 +18,10 @@ const PublicProfileScreen = ({ route }) => {
     //creating friendship document for both user
     addFriend(uid, user.id);
     isRequested(true);
+  };
+
+  const handleCatalogueClick = (catalogue) => {
+    navigation.navigate("SingleCatalogueScreen", { catalogue_id: catalogue, friendsUid: user.id });
   };
 
   useEffect(() => {
@@ -44,10 +52,17 @@ const PublicProfileScreen = ({ route }) => {
         </Pressable>
       )}
       <ScrollView>
-        {currentCatalogues.map((catalog, i) => {
+        {currentCatalogues.map((catalogue, i) => {
           return (
             <View key={i}>
-              <Text>{catalog}</Text>
+              <Pressable
+              onPress={() => {
+                handleCatalogueClick(catalogue);
+              }}
+              >
+              <Text>{catalogue}</Text>  
+              </Pressable>
+              
             </View>
           )
         })}

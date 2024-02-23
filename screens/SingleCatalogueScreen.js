@@ -15,7 +15,7 @@ import SearchBarComponent from "../components/SearchBar";
 
 const SingleCatalogueScreen = ({ route }) => {
   const navigation = useNavigation();
-  const { catalogue_id } = route.params;
+  const { catalogue_id, friendsUid } = route.params;
   const [currentBooks, setCurrentBooks] = useState([]);
   const { currentUid } = useContext(CurrentUserContext);
   const { currentCatalogue, setCurrentCatalogue } = useContext(
@@ -27,7 +27,18 @@ const SingleCatalogueScreen = ({ route }) => {
   //   const catalogue = useNavigationParam("catalogue_id");
 
   useEffect(() => {
-    getAllBooks(currentUid, catalogue_id).then((res) => {
+    if (friendsUid) {
+      getAllBooks(friendsUid, catalogue_id).then((res) => {
+        let books = [];
+        res.forEach((doc) => {
+          books.push(doc);
+        });
+        //console.log(books);
+        setMapArr(books);
+        setCurrentBooks(books);
+      });
+    }else{
+      getAllBooks(currentUid, catalogue_id).then((res) => {
       let books = [];
       res.forEach((doc) => {
         books.push(doc);
@@ -36,14 +47,25 @@ const SingleCatalogueScreen = ({ route }) => {
       setMapArr(books);
       setCurrentBooks(books);
     });
+  }  
   }, [catalogue_id]);
 
   const handleBookClick = (book) => {
-    navigation.navigate("SingleBookScreen", {
+
+    if (friendsUid) {
+      navigation.navigate("SingleBookScreen", {
+        catalogue_id: catalogue_id,
+        book_data: book.data(),
+        book_id: book.id,
+        friendsUid: friendsUid,
+      });
+    }else{
+      navigation.navigate("SingleBookScreen", {
       catalogue_id: catalogue_id,
       book_data: book.data(),
       book_id: book.id,
     });
+    } 
   };
 
   useEffect(() => {
