@@ -48,9 +48,54 @@ export default styles = StyleSheet.create({
         fontWeight: 'bold',
         textAlign: 'center',
     },
+    filledPressButton: {
+        justifyContent: 'center',
+        alignItems: 'center',
+        paddingVertical: 14,
+        paddingHorizontal: 24,
+        borderRadius: 20,
+        marginBottom: 10,
+        minWidth: 300,
+    },
+    filledPressButtonOutline: {
+        borderWidth: 2,
+        borderColor: '#42273B', 
+    },
+    filledPressButtonText: {
+        fontSize: 16,
+        fontWeight: 'bold',
+        color: 'black',
+    },
+    bottomButton: {
+        marginTop: '5%',
+        alignItems: 'center',
+        paddingVertical: 20,
+        paddingHorizontal: 14,
+        borderRadius: 20,
+        minWidth: 350,
+        backgroundColor: '#42273B',
+    },
+    bottomButtonOutline: {
+        borderWidth: 2,
+        borderColor: '#42273B', 
+    },
+    bottomButtonText: {
+        fontSize: 16,
+        fontWeight: 'bold',
+        color: 'white',
+    },
+    bottomContainer: {
+        marginTop: 5,
+        marginBottom: 5,
+        alignItems: 'center',
+    },
+    scrollView: {
+        marginTop: 20,
+        width: "100%",
+    },
 
 
-    
+
     homeContainer: {
         flex: 1,
         justifyContent: "center",
@@ -132,12 +177,7 @@ export default styles = StyleSheet.create({
         fontWeight: "700",
         fontSize: 16,
       },
-    scrollView: {
-        width: "95%",
-    },
-    bottomContainer: {
-        marginBottom: 5,
-    },
+    
     UPcontainer: {
         flex: 1,
         justifyContent: "center",
