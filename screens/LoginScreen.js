@@ -21,8 +21,6 @@ import {
 import { collection, doc, setDoc } from "firebase/firestore";
 import { useNavigation } from "@react-navigation/native";
 import { CurrentUserContext } from "../contexts/userContext";
-import { useForm } from "react-hook-form";
-// import { TextInput } from "react-native-web";
 
 const LoginScreen = () => {
   const [email, setEmail] = useState("");
@@ -89,7 +87,7 @@ const LoginScreen = () => {
         }
       })
       .catch((error) => alert(error.message));
-    setEmail("");
+    // setEmail("");
     setPassword("");
   };
 

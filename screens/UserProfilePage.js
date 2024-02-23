@@ -16,7 +16,12 @@ import updateUser from "../src/updateUser";
 import deleteSingleUser from "../src/deleteUser";
 import { getStorage, ref, uploadBytes } from "firebase/storage";
 import { useNavigation } from "@react-navigation/native";
-import { getAuth, signOut, onAuthStateChanged } from "firebase/auth";
+import {
+  getAuth,
+  signOut,
+  onAuthStateChanged,
+  sendPasswordResetEmail,
+} from "firebase/auth";
 import { auth } from "../firebaseConfig";
 
 const UserProfilePage = () => {
@@ -91,6 +96,18 @@ const UserProfilePage = () => {
     });
   };
 
+  const handlePasswordChange = () => {
+    sendPasswordResetEmail(auth, user.email)
+      .then(() => {
+        alert(
+          "password reset email sent, please check your email and login with the new password"
+        );
+      })
+      .catch((error) => {
+        alert(error.message);
+      });
+  };
+
   //if statement to wait until currentUid has updated before calling getUser again
   //and rendering the page
   if (user) {
@@ -128,37 +145,44 @@ const UserProfilePage = () => {
               })
             }
           />
-          {/* <TextInput
-          placeholder="Last Name"
-          value={lastname}
-          onChangeText={(text) => setLastName(text)}
-          style={styles.input}
-        />
-        <TextInput
-          placeholder="Username"
-          value={username}
-          onChangeText={(text) => setUsername(text)}
-          style={styles.input}
-        />*/}
+          <TextInput
+            placeholder="Last Name"
+            editable={editable}
+            value={user.lastname}
+            onChangeText={(text) =>
+              setUser((currentUser) => {
+                return { ...currentUser, lastname: text };
+              })
+            }
+            style={styles.profileText}
+          />
+          <TextInput
+            placeholder="Username"
+            value={user.username}
+            // onChangeText={(text) => setUsername(text)}
+            style={styles.profileText}
+            readOnly
+          />
           <TextInput
             placeholder="Email"
             style={styles.profileText}
             editable={editable}
-            value={userAuth?.email}
+            value={user.email}
             onChangeText={(text) =>
               setUser((currentUser) => {
                 return { ...currentUser, email: text };
               })
             }
+            readOnly
           />
-          {userAuth && (
+          {/* {userAuth && (
             <Text
               style={[styles.profileText, { backgroundColor: "aquamarine" }]}>
               {userAuth?.emailVerified
                 ? "Email is verified"
                 : "Email is not verified"}
             </Text>
-          )}
+          )} */}
         </View>
         <View style={styles.buttonContainer}>
           {editable ? (
@@ -174,6 +198,11 @@ const UserProfilePage = () => {
               <Text style={styles.buttonOutlineText}>Edit profile</Text>
             </Pressable>
           )}
+          <Pressable
+            style={[styles.button, styles.buttonOutline]}
+            onPress={handlePasswordChange}>
+            <Text style={styles.buttonOutlineText}>Change Password</Text>
+          </Pressable>
         </View>
         <View>
           <Pressable
