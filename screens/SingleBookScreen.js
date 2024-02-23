@@ -5,7 +5,7 @@ import { useNavigation, useNavigationParam } from "@react-navigation/native";
 import { getAllBooks } from "../src/getAllBooks";
 import { getSingleBook } from "../src/getSingleBook";
 import { fetchBook } from "../components/api";
-
+import styles from '../styles/styles';
 
 const SingleBookScreen = ({ route }) => {
   const { catalogue_id, book_data, book_id } = route.params;
@@ -49,10 +49,10 @@ const SingleBookScreen = ({ route }) => {
 
   return (
   
-    <View style={styles.container}>
+    <View style={styles.SBcontainer}>
       <ScrollView>
       <View style={styles.imageContainer}>
-        <Image  source={{uri:currentBook.image}} style={styles.image} />
+        <Image  source={{uri:currentBook.image}} style={styles.SBimage} />
       </View>
       <View style={styles.detailsContainer}>
         <Text style={styles.title}>{currentBook.title}</Text>
@@ -69,53 +69,53 @@ const SingleBookScreen = ({ route }) => {
 
 export default SingleBookScreen;
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#F8F9FA', // Light gray
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderRadius: 20,
-    margin: 10,
-    padding: 10,
-    shadowColor: '#000',
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 3.84,
-    elevation: 5,
-  },
-  imageContainer: {
-    borderRadius: 20,
-    overflow: 'hidden',
-  },
-  image: {
-    width: 200,
-    height: 300,
-  },
-  detailsContainer: {
-    alignItems: 'center',
-    marginTop: 10,
-  },
-  title: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    marginBottom: 10,
-    textAlign: 'center',
-    color: '#333', // Dark gray
-  },
-  author: {
-    fontSize: 18,
-    fontStyle: 'italic',
-    marginBottom: 10,
-    textAlign: 'center',
-    color: '#555', // Medium gray
-  },
-  description: {
-    fontSize: 16,
-    textAlign: 'center',
-    color: '#777', // Light gray
-  },
-});
+// const styles = StyleSheet.create({
+//   SBcontainer: {
+//     flex: 1,
+//     backgroundColor: '#F8F9FA', // Light gray
+//     alignItems: 'center',
+//     justifyContent: 'center',
+//     borderRadius: 20,
+//     margin: 10,
+//     padding: 10,
+//     shadowColor: '#000',
+//     shadowOffset: {
+//       width: 0,
+//       height: 2,
+//     },
+//     shadowOpacity: 0.25,
+//     shadowRadius: 3.84,
+//     elevation: 5,
+//   },
+//   imageContainer: {
+//     borderRadius: 20,
+//     overflow: 'hidden',
+//   },
+//   SBimage: {
+//     width: 200,
+//     height: 300,
+//   },
+//   detailsContainer: {
+//     alignItems: 'center',
+//     marginTop: 10,
+//   },
+//   title: {
+//     fontSize: 24,
+//     fontWeight: 'bold',
+//     marginBottom: 10,
+//     textAlign: 'center',
+//     color: '#333', // Dark gray
+//   },
+//   author: {
+//     fontSize: 18,
+//     fontStyle: 'italic',
+//     marginBottom: 10,
+//     textAlign: 'center',
+//     color: '#555', // Medium gray
+//   },
+//   description: {
+//     fontSize: 16,
+//     textAlign: 'center',
+//     color: '#777', // Light gray
+//   },
+// });

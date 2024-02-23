@@ -25,7 +25,7 @@ export default function AddNewBookScreen(){
     },[manIsbn])
 
   return (
-    <View style={styles.container}>
+    <View style={styles.ADcontainer}>
       <NavigationBar/>
       <Text title="Enter ISBN if known" />
       {!manBookData ? (
@@ -53,7 +53,7 @@ export default function AddNewBookScreen(){
       )}
       <View style={styles.buttonContainer}>
         <Pressable
-          style={styles.button}
+          style={styles.ANbutton}
           onPress={() => {
             navigation.navigate("Scanner");
           }}
@@ -62,7 +62,7 @@ export default function AddNewBookScreen(){
         </Pressable>
 
         <Pressable
-          style={styles.button}
+          style={styles.ANbutton}
           onPress={() => {
             navigation.navigate("ManualSearch");
           }}
@@ -75,7 +75,7 @@ export default function AddNewBookScreen(){
 }
 
 const styles = StyleSheet.create({
-  container: {
+  ADcontainer: {
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
@@ -95,7 +95,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
   },
-  button: {
+  ANbutton: {
     backgroundColor: "#42273B",
     width: "100%",
     paddingHorizontal: 15,
