@@ -15,6 +15,8 @@ import NewCatalogueScreen from "./screens/NewCatalogueScreen";
 import SingleCatalogueScreen from "./screens/SingleCatalogueScreen";
 import SingleBookScreen from "./screens/SingleBookScreen";
 import ManualSearch from "./components/ManualSearch";
+import PublicUsersScreen from "./screens/PublicUsersScreen";
+import PublicProfileScreen from "./screens/PublicProfileScreen";
 
 const Stack = createNativeStackNavigator();
 
@@ -28,7 +30,7 @@ export default function App() {
         value={{ currentCatalogue, setCurrentCatalogue }}
       >
         <NavigationContainer>
-          <Stack.Navigator initialRouteName="Login">
+          <Stack.Navigator initialRouteName="PublicUsersScreen">
             <Stack.Screen
               options={{ headerShown: false }}
               name="Login"
@@ -40,6 +42,14 @@ export default function App() {
               component={SignUpScreen}
             />
             <Stack.Screen name="HomeScreen" component={HomeScreen} />
+            <Stack.Screen
+              name="PublicUsersScreen"
+              component={PublicUsersScreen}
+            />
+            <Stack.Screen
+              name="PublicProfile"
+              component={PublicProfileScreen}
+            />
             <Stack.Screen name="UserProfilePage" component={UserProfilePage} />
             <Stack.Screen
               name="NewCatalogueScreen"
