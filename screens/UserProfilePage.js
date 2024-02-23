@@ -17,6 +17,9 @@ import deleteSingleUser from "../src/deleteUser";
 import { getStorage, ref, uploadBytes } from "firebase/storage";
 import { useNavigation } from "@react-navigation/native";
 import { getAuth, signOut } from "firebase/auth";
+import ImageLibrary from "../components/Image-picker";
+import * as ImagePicker from 'expo-image-picker';
+import styles from "../styles/styles";
 
 const UserProfilePage = () => {
   const { currentUid, setCurrentUid } = useContext(CurrentUserContext);
@@ -26,6 +29,13 @@ const UserProfilePage = () => {
   const loggedInUser = getAuth().currentUser;
   const filename = "";
   const [image, setImage] = useState(null);
+  const [status, requestPermission] = useState(null)
+  useEffect(()=>{
+    (async()=>{
+      const libraryStatus = await ImagePicker.requestMediaLibraryPermissionsAsync()
+      requestPermission(libraryStatus.granted)
+    })()
+  },[])
 
   const profilePicRef = ref(
     getStorage(),
@@ -43,6 +53,7 @@ const UserProfilePage = () => {
   );
 
   const handlePicPick = () => {
+    ImageLibrary()
     // uploadBytes(profilePicRef, file);
   };
 
@@ -70,12 +81,28 @@ const UserProfilePage = () => {
       navigation.navigate("Login");
     });
   };
+  const pickImage = async () => {
+    if(status){
+    let result = await ImagePicker.launchImageLibraryAsync({
+    mediaTypes: ImagePicker.MediaTypeOptions.All,
+    allowsEditing: true,
+    aspect: [4, 3],
+    quality: 1,
+    });
+
+if (!result.canceled) {
+    setImage(result.assets[0].uri);
+  }
+}else{
+  console.warn("no access permissions for photo library")
+}
+};
 
   //if statement to wait until currentUid has updated before calling getUser again
   //and rendering the page
   if (user) {
     return (
-      <KeyboardAvoidingView style={styles.container} behavior="padding">
+      <KeyboardAvoidingView style={styles.UPcontainer} behavior="padding">
         <View style={styles.profileContainer}>
           {/*<Image
             style={styles.profileImage}
@@ -92,10 +119,11 @@ const UserProfilePage = () => {
 
           <Pressable
             style={[styles.button, styles.buttonOutline]}
-            onPress={handlePicPick}
+            onPress={pickImage}
           >
             <Text style={styles.buttonOutlineText}>Pick a profile pic</Text>
           </Pressable>
+          {image?<Image source={{ uri: image }} style={styles.image}/>:null}
 
           <TextInput
             style={styles.profileText}
@@ -136,14 +164,14 @@ const UserProfilePage = () => {
         <View style={styles.buttonContainer}>
           {editable ? (
             <Pressable
-              style={[styles.button, styles.buttonOutline]}
+              style={[styles.UPbutton, styles.buttonOutline]}
               onPress={handleEditSubmission}
             >
               <Text style={styles.buttonOutlineText}>Done!</Text>
             </Pressable>
           ) : (
             <Pressable
-              style={[styles.button, styles.buttonOutline]}
+              style={[styles.UPbutton, styles.buttonOutline]}
               onPress={handleEditClick}
             >
               <Text style={styles.buttonOutlineText}>Edit profile</Text>
@@ -153,7 +181,7 @@ const UserProfilePage = () => {
         <View>
           <Pressable
             onPress={handleSignOut}
-            style={[styles.button, styles.buttonOutline]}
+            style={[styles.UPbutton, styles.buttonOutline]}
           >
             <Text style={styles.buttonOutlineText}>Sign out</Text>
           </Pressable>
@@ -161,7 +189,7 @@ const UserProfilePage = () => {
 
         <View>
           <Pressable
-            style={[styles.button, styles.buttonOutline]}
+            style={[styles.UPbutton, styles.buttonOutline]}
             onPress={handleDelete}
           >
             <Text style={styles.buttonOutlineText}>Delete profile</Text>
@@ -174,60 +202,53 @@ const UserProfilePage = () => {
 
 export default UserProfilePage;
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    backgroundColor: "#42273B",
-  },
-  profileContainer: {
-    width: "80%",
-  },
-  profileText: {
-    backgroundColor: "white",
-    color: "#42273B",
-    marginTop: 20,
-    fontWeight: "700",
-    fontSize: 16,
-    padding: 10,
-    borderColor: "white",
-    borderWidth: 2,
-    borderRadius: 5,
-  },
-  profileImage: {
-    width: 150,
-    height: 150,
-    borderRadius: 10,
-  },
-  buttonContainer: {
-    width: "60%",
-    justifyContent: "center",
-    alignItems: "center",
-    marginTop: 40,
-  },
-  button: {
-    backgroundColor: "#42273B",
-    width: "100%",
-    paddingHorizontal: 15,
-    paddingVertical: 15,
-    borderRadius: 10,
-    alignItems: "center",
-  },
-  buttonOutline: {
-    backgroundColor: "white",
-    marginTop: 5,
-    borderColor: "#42273B",
-    borderWidth: 2,
-  },
-  buttonText: {
-    color: "white",
-    fontWeight: "700",
-    fontSize: 16,
-  },
-  buttonOutlineText: {
-    color: "#42273B",
-    fontWeight: "700",
-    fontSize: 16,
-  },
-});
+// const styles = StyleSheet.create({
+//   UPcontainer: {
+//     flex: 1,
+//     justifyContent: "center",
+//     alignItems: "center",
+//     backgroundColor: "#42273B",
+//   },
+//   profileContainer: {
+//     width: "80%",
+//   },
+//   profileText: {
+//     backgroundColor: "white",
+//     color: "#42273B",
+//     marginTop: 20,
+//     fontWeight: "700",
+//     fontSize: 16,
+//     padding: 10,
+//     borderColor: "white",
+//     borderWidth: 2,
+//     borderRadius: 5,
+//   },
+
+//   buttonContainer: {
+//     width: "60%",
+//     justifyContent: "center",
+//     alignItems: "center",
+//     marginTop: 40,
+//   },
+//   UPbutton: {
+//     backgroundColor: "#42273B",
+//     width: "100%",
+//     paddingHorizontal: 15,
+//     paddingVertical: 15,
+//     borderRadius: 10,
+//     alignItems: "center",
+//   },
+
+
+//   buttonOutlineText: {
+//     color: "#42273B",
+//     fontWeight: "700",
+//     fontSize: 16,
+//   },
+//   image:{ 
+//     width: 300,
+//     height: 300,
+//     alignSelf:'center',
+//     marginTop:10
+//     },
+// });
