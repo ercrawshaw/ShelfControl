@@ -6,19 +6,25 @@ import {
   ScrollView,
   Pressable,
 } from "react-native";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { getAllPublicUsers } from "../src/getAllUsers";
+import { CurrentUserContext } from "../contexts/userContext";
 import { useNavigation } from "@react-navigation/native";
 
 const PublicUsersScreen = () => {
+  //currentPublicUsers also shows person currently logged in, want to remove them
   const [currentPublicUsers, setCurrentPublicUsers] = useState([]);
+  const {currentUid} = useContext(CurrentUserContext);
   const navigation = useNavigation();
 
   useEffect(() => {
     getAllPublicUsers().then((res) => {
       let publicUsers = [];
       res.forEach((doc) => {
-        publicUsers.push(doc);
+        //hardcoded currentUid - change to currentUid when authentification fixed
+        if (doc.id !== 'N1xC3SF9KgNLNAde6sWvODrRaUO2') {
+          publicUsers.push(doc);
+        }
       });
       setCurrentPublicUsers(publicUsers);
     });
