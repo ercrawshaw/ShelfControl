@@ -84,7 +84,7 @@ const SingleCatalogueScreen = ({ route }) => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <View>
+      <View style={styles.searchBar}>
         <SearchBarComponent
           currentBooks={currentBooks}
           setMapArr={setMapArr}
@@ -141,12 +141,15 @@ const styles = StyleSheet.create({
     // alignItems: "center",
     // width: "100%",
   },
+  searchBar: {
+    margin: 15,
+  },
   button: {
     backgroundColor: "#42273B",
     width: "90%",
     paddingHorizontal: 15,
     paddingVertical: 15,
-    borderRadius: 10,
+    borderRadius: 20,
     alignItems: "center",
     marginTop: 40,
   },
