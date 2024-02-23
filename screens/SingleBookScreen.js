@@ -8,7 +8,7 @@ import { fetchBook } from "../components/api";
 
 
 const SingleBookScreen = ({ route }) => {
-  const { catalogue_id, book_data, book_id } = route.params;
+  const { catalogue_id, book_data, book_id, friendsUid } = route.params;
   const [currentBook, setCurrentBook] = useState({});
   const { currentUid } = useContext(CurrentUserContext);
   const [currentIsbn, setCurrentIsbn] = useState(null);
@@ -35,15 +35,22 @@ const SingleBookScreen = ({ route }) => {
     }
   }, [currentIsbn]);
 
-  console.log(currentBook);
 
 
   useEffect(() => {
-    getSingleBook(catalogue_id, currentUid, book_id).then((res) => {
+    if (friendsUid) {
+      getSingleBook(catalogue_id, friendsUid, book_id).then((res) => {
+        if (res.data().hasOwnProperty("isbn")) {
+          setCurrentIsbn(res.data().isbn)
+        }
+      })
+    }else{
+      getSingleBook(catalogue_id, currentUid, book_id).then((res) => {
       if (res.data().hasOwnProperty("isbn")) {
         setCurrentIsbn(res.data().isbn)
       }
     }) 
+    } 
   }, [book_id]);
 
 
