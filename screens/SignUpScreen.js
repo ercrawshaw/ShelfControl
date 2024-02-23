@@ -5,6 +5,7 @@ import {
   KeyboardAvoidingView,
   TextInput,
   Pressable,
+  Alert,
 } from "react-native";
 import React, { useEffect, useState, useContext } from "react";
 import { auth, db } from "../firebaseConfig";
@@ -42,25 +43,7 @@ const SignUpScreen = () => {
   const { currentUid, setCurrentUid } = useContext(CurrentUserContext);
   const navigation = useNavigation();
 
-  // const usernameExistsCheckFunc = (username) => {
-  //   const colRef = collection(db, "users");
-  //   const q = query(colRef, where("username", "==", username));
-  //   return getDocs(q)
-  //   .then((snapShot) => {
-  //     if(!snapShot.empty) {
-  //       setErrors(true)
-  //       alert("username is already taken")
-  //       // return errors;
-  //     } else {
-  //       setErrors(false)
-  //     }
-  //   });
-  // };
-
   const handleSignUp = () => {
-    //can add a validate password here - user need to enter password twice
-    //can add email and username check - don't already exist
-
     //Check for the Name TextInput
     if (!firstname.trim()) {
       alert("Please Enter Name");
@@ -86,13 +69,24 @@ const SignUpScreen = () => {
           createUserWithEmailAndPassword(auth, email, password).then(
             (userCredentials) => {
               const user = userCredentials.user;
-              console.log("Signed in with:", user.email);
+              // console.log("Signed in with:", user.email);
               setCurrentUid(userCredentials.user.uid);
               addUser(userCredentials.user.uid, username, firstname, lastname);
-              navigation.navigate("UserProfilePage");
+
               // email verification on sign up
               sendEmailVerification(user).then(() => {
-                alert("email verification was sent");
+                Alert.alert(
+                  "Verification was sent to your email",
+                  "Please verify and login",
+                  [
+                    {
+                      text: "Done",
+                      onPress: () => {
+                        navigation.navigate("Login");
+                      },
+                    },
+                  ]
+                );
               });
             }
           );
