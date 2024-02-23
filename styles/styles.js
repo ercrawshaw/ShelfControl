@@ -7,6 +7,11 @@ export default styles = StyleSheet.create({
         alignItems: "center",
         width: "100%",
     },
+    logContainer: {
+        flex: 1,
+        justifyContent: "center",
+        alignItems: "center",
+      },
     NCcontainer: {
         flex: 1,
         justifyContent: "center",
@@ -39,6 +44,14 @@ export default styles = StyleSheet.create({
         alignItems: "center",
         marginTop: 40,
     },
+    logButton: {
+        backgroundColor: "#42273B",
+        width: "100%",
+        paddingHorizontal: 15,
+        paddingVertical: 15,
+        borderRadius: 10,
+        alignItems: "center",
+      },
     ANbutton: {
         backgroundColor: "#42273B",
         width: "100%",
@@ -142,8 +155,8 @@ export default styles = StyleSheet.create({
         height: 300,
       },
     detailsContainer: {
-    alignItems: 'center',
-    marginTop: 10,
+        alignItems: 'center',
+        marginTop: 10,
     },
     buttonContainer: {
         width: "60%",
