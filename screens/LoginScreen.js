@@ -111,16 +111,6 @@ const LoginScreen = () => {
     <KeyboardAvoidingView style={styles.logContainer} behavior="padding">
       <View style={styles.inputContainer} name="form">
 
-        <Text
-          style={{
-            fontSize: 40,
-            fontWeight: "700",
-            textAlign: "center",
-            padding: 50,
-          }}>
-          Login
-        </Text>
-
         <TextInput
           placeholder="Email"
           value={email}
@@ -141,15 +131,22 @@ const LoginScreen = () => {
           <Text style={styles.buttonText}>Login</Text>
         </Pressable>
 
-        <Text
-          onPress={handleForgotPassword}
-          style={[styles.input, { color: "red" }]}>
-          Forgot Your Password?
-        </Text>
+        {/* <Pressable
+          onPress={handleSignUp}
+          style={[styles.button, styles.buttonOutline]}
+        >
+          <Text style={styles.buttonOutlineText}>Sign up</Text>
+        </Pressable> */}
         <Pressable
           onPress={handleSignUpClick}
           style={[styles.button, styles.buttonOutline]}>
           <Text style={styles.buttonOutlineText}>Sign up</Text>
+        </Pressable>
+
+        <Pressable
+          onPress={handleForgotPassword}
+          style={[styles.input, { backgroundColor: "red" }]}>
+          <Text style={styles.buttonText}>Forgot Your Password</Text>
         </Pressable>
       </View>
     </KeyboardAvoidingView>
