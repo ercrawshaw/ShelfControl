@@ -9,6 +9,7 @@ import {
 import React, { useEffect, useState, useContext } from "react";
 import { CurrentUserContext } from "../contexts/userContext";
 import { useNavigation, useNavigationParam } from "@react-navigation/native";
+import NavigationBar from "../components/Navbar";
 import { getAllBooks } from "../src/getAllBooks";
 import { CurrentCatalogueContext } from "../contexts/catalogueContext";
 
@@ -20,10 +21,12 @@ const SingleCatalogueScreen = ({ route }) => {
   const navigation = useNavigation();
   const { catalogue_id, friendsUid } = route.params;
   const [currentBooks, setCurrentBooks] = useState([]);
-  const { currentUid } = useContext(CurrentUserContext);
+  //const { currentUid } = useContext(CurrentUserContext);
+  const currentUid = "N1xC3SF9KgNLNAde6sWvODrRaUO2";
   const { currentCatalogue, setCurrentCatalogue } = useContext(
     CurrentCatalogueContext
   );
+  
   const [searchQuery, setSearchQuery] = useState("");
   const [foundBooks, setFoundBooks] = useState([]);
   const [mapArr, setMapArr] = useState([]);
@@ -86,7 +89,8 @@ const SingleCatalogueScreen = ({ route }) => {
   };
 
   return (
-    <SafeAreaView style={styles.homeContainer}>
+    <View style={styles.homeContainer}>
+      <NavigationBar/>
       <View>
 
         <SearchBarComponent
@@ -99,7 +103,7 @@ const SingleCatalogueScreen = ({ route }) => {
           setFoundBooks={setFoundBooks}
         />
       </View>
-      <View style={styles.styles.homeContainer}>
+      <View style={styles.homeContainer}>
 
         {/* <Text>{JSON.stringify(catalogue_id)}</Text> */}
         <ScrollView
@@ -135,7 +139,7 @@ const SingleCatalogueScreen = ({ route }) => {
       </View> 
       }
       
-    </SafeAreaView>
+    </View>
   );
 };
 

@@ -1,22 +1,23 @@
 import {
   Pressable,
-  SafeAreaView,
   Text,
   View,
   ScrollView,
+  SafeAreaView
 } from "react-native";
 import React, { useContext, useState, useEffect, useRef } from "react";
 import { auth } from "../firebaseConfig";
 import { useNavigation } from "@react-navigation/native";
 import { CurrentUserContext } from "../contexts/userContext";
 import { getAllCatalogues } from "../src/getAllCatalogues";
+import NavigationBar from "../components/Navbar";
 import { TextInput } from "react-native-web";
-import NavigationBar from "../components/Navbar"
 import styles from "../styles/styles";
 const HomeScreen = () => {
   const navigation = useNavigation();
   const [currentCatalogues, setCurrentCatalogues] = useState([]);
-  const { currentUid } = useContext(CurrentUserContext);
+  //const { currentUid } = useContext(CurrentUserContext);
+  const currentUid = "N1xC3SF9KgNLNAde6sWvODrRaUO2";
 
   useEffect(() => {
     getAllCatalogues(currentUid).then((res) => {
@@ -29,7 +30,7 @@ const HomeScreen = () => {
     });
   }, []);
 
-  console.log(auth.currentUser.providerData);
+  //console.log(auth.currentUser.providerData);
 
   const handleAddCatalogue = () => {
     navigation.navigate("NewCatalogueScreen");
@@ -39,16 +40,10 @@ const HomeScreen = () => {
     navigation.navigate("SingleCatalogueScreen", { catalogue_id: catalogue });
   };
 
-  const handleProfilePageClick = (catalogue) => {
-    navigation.navigate("UserProfilePage");
-  };
   
   return (
-
-    <SafeAreaView style={styles.homeContainer}>
-      <Pressable onPress={handleProfilePageClick} style={styles.button}>
-          <Text style={styles.buttonText}>Profile Page</Text>
-        </Pressable>
+     <View>
+      <NavigationBar />
       <View style={styles.container}>
 
         <ScrollView
@@ -74,7 +69,8 @@ const HomeScreen = () => {
           <Text style={styles.buttonText}>Add a new catalogue</Text>
         </Pressable>
       </View>
-    </SafeAreaView>
+    </View>
+
   );
 };
 

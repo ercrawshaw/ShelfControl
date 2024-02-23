@@ -26,8 +26,8 @@ import {
   onAuthStateChanged,
   sendPasswordResetEmail,
 } from "firebase/auth";
-import ImageLibrary from "../components/Image-picker";
-import * as ImagePicker from 'expo-image-picker';
+//import ImageLibrary from "../components/Image-picker";
+//import * as ImagePicker from 'expo-image-picker';
 
 import styles from "../styles/styles";
 
@@ -48,7 +48,7 @@ const UserProfilePage = () => {
   const [status, requestPermission] = useState(null)
   useEffect(()=>{
     (async()=>{
-      const libraryStatus = await ImagePicker.requestMediaLibraryPermissionsAsync()
+      //const libraryStatus = await ImagePicker.requestMediaLibraryPermissionsAsync()
       requestPermission(libraryStatus.granted)
     })()
   },[])
@@ -104,7 +104,7 @@ const UserProfilePage = () => {
   // }, []);
 
   const handlePicPick = () => {
-    ImageLibrary()
+    //ImageLibrary()
     // uploadBytes(profilePicRef, file);
   };
 
@@ -135,22 +135,22 @@ const UserProfilePage = () => {
       navigation.navigate("Login");
     });
   };
-  const pickImage = async () => {
-    if(status){
-    let result = await ImagePicker.launchImageLibraryAsync({
-    mediaTypes: ImagePicker.MediaTypeOptions.All,
-    allowsEditing: true,
-    aspect: [4, 3],
-    quality: 1,
-    });
+  // const pickImage = async () => {
+  //   if(status){
+  //   let result = await ImagePicker.launchImageLibraryAsync({
+  //   mediaTypes: ImagePicker.MediaTypeOptions.All,
+  //   allowsEditing: true,
+  //   aspect: [4, 3],
+  //   quality: 1,
+//     });
 
-if (!result.canceled) {
-    setImage(result.assets[0].uri);
-  }
-}else{
-  console.warn("no access permissions for photo library")
-}
-};
+// if (!result.canceled) {
+//     setImage(result.assets[0].uri);
+//   }
+// }else{
+//   console.warn("no access permissions for photo library")
+// }
+// };
 
   const handlePasswordChange = () => {
     sendPasswordResetEmail(auth, user.email).then(() => {
@@ -181,7 +181,7 @@ if (!result.canceled) {
 
           <Pressable
             style={[styles.button, styles.buttonOutline]}
-            onPress={pickImage}
+            //onPress={pickImage}
           >
             <Text style={styles.buttonOutlineText}>Pick a profile pic</Text>
           </Pressable>
@@ -300,66 +300,66 @@ if (!result.canceled) {
 export default UserProfilePage;
 
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    backgroundColor: "#42273B",
-  },
-  profileContainer: {
-    width: "80%",
-  },
-  profileText: {
-    backgroundColor: "white",
-    color: "#42273B",
-    marginTop: 20,
-    fontWeight: "700",
-    fontSize: 16,
-    padding: 10,
-    borderColor: "white",
-    borderWidth: 2,
-    borderRadius: 5,
-  },
-  profileImage: {
-    width: 150,
-    height: 150,
-    borderRadius: 10,
-  },
-  buttonContainer: {
-    width: "60%",
-    justifyContent: "center",
-    alignItems: "center",
-    marginTop: 40,
-  },
-  button: {
-    backgroundColor: "#42273B",
-    width: "100%",
-    paddingHorizontal: 15,
-    paddingVertical: 15,
-    borderRadius: 10,
-    alignItems: "center",
-  },
-  buttonOutline: {
-    backgroundColor: "white",
-    marginTop: 5,
-    borderColor: "#42273B",
-    borderWidth: 2,
-  },
-  buttonText: {
-    color: "white",
-    fontWeight: "700",
-    fontSize: 16,
-  },
-  buttonOutlineText: {
-    color: "#42273B",
-    fontWeight: "700",
-    fontSize: 16,
-  },
-  editable: {
-    backgroundColor: "aquamarine",
-    fontWeight: "700",
-    fontSize: 16,
-  },
-});
+// const styles = StyleSheet.create({
+//   container: {
+//     flex: 1,
+//     justifyContent: "center",
+//     alignItems: "center",
+//     backgroundColor: "#42273B",
+//   },
+//   profileContainer: {
+//     width: "80%",
+//   },
+//   profileText: {
+//     backgroundColor: "white",
+//     color: "#42273B",
+//     marginTop: 20,
+//     fontWeight: "700",
+//     fontSize: 16,
+//     padding: 10,
+//     borderColor: "white",
+//     borderWidth: 2,
+//     borderRadius: 5,
+//   },
+//   profileImage: {
+//     width: 150,
+//     height: 150,
+//     borderRadius: 10,
+//   },
+//   buttonContainer: {
+//     width: "60%",
+//     justifyContent: "center",
+//     alignItems: "center",
+//     marginTop: 40,
+//   },
+//   button: {
+//     backgroundColor: "#42273B",
+//     width: "100%",
+//     paddingHorizontal: 15,
+//     paddingVertical: 15,
+//     borderRadius: 10,
+//     alignItems: "center",
+//   },
+//   buttonOutline: {
+//     backgroundColor: "white",
+//     marginTop: 5,
+//     borderColor: "#42273B",
+//     borderWidth: 2,
+//   },
+//   buttonText: {
+//     color: "white",
+//     fontWeight: "700",
+//     fontSize: 16,
+//   },
+//   buttonOutlineText: {
+//     color: "#42273B",
+//     fontWeight: "700",
+//     fontSize: 16,
+//   },
+//   editable: {
+//     backgroundColor: "aquamarine",
+//     fontWeight: "700",
+//     fontSize: 16,
+//   },
+// });
 

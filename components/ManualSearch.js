@@ -17,8 +17,8 @@ import addBook from "../src/addBook";
 import { CurrentUserContext } from "../contexts/userContext";
 import { CurrentCatalogueContext } from "../contexts/catalogueContext";
 import { useNavigation } from "@react-navigation/native";
-import * as ImagePicker from 'expo-image-picker';
-import ImageLibrary from "./Image-picker";
+//import * as ImagePicker from 'expo-image-picker';
+// import ImageLibrary from "./Image-picker";
 const ManualSearch = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [bookTitle, setBookTitle] = useState("");
@@ -83,18 +83,18 @@ const ManualSearch = () => {
       setBookAdded(true);
     }
   }
-  const pickImage = async () => {
-    let result = await ImagePicker.launchImageLibraryAsync({
-    mediaTypes: ImagePicker.MediaTypeOptions.All,
-    allowsEditing: true,
-    aspect: [4, 3],
-    quality: 1,
-    });
+//   const pickImage = async () => {
+//     let result = await ImagePicker.launchImageLibraryAsync({
+//     mediaTypes: ImagePicker.MediaTypeOptions.All,
+//     allowsEditing: true,
+//     aspect: [4, 3],
+//     quality: 1,
+//     });
 
-if (!result.canceled) {
-    setImage(result.assets[0].uri);
-  }
-};
+// if (!result.canceled) {
+//     setImage(result.assets[0].uri);
+//   }
+// };
 
   function handleCancelClick() {
     setBookAdded(false);

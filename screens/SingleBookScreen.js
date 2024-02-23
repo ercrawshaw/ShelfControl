@@ -10,7 +10,8 @@ import styles from '../styles/styles';
 const SingleBookScreen = ({ route }) => {
   const { catalogue_id, book_data, book_id, friendsUid } = route.params;
   const [currentBook, setCurrentBook] = useState({});
-  const { currentUid } = useContext(CurrentUserContext);
+  //const { currentUid } = useContext(CurrentUserContext);
+  const currentUid = "N1xC3SF9KgNLNAde6sWvODrRaUO2";
   const [currentIsbn, setCurrentIsbn] = useState(null);
   
 
