@@ -189,6 +189,27 @@ export default styles = StyleSheet.create({
       activityIndicatorView: {
         marginBottom: 20,
       },
+      profileText: {
+        borderWidth: 1,
+        borderColor: '#ccc',
+        padding: 10,
+        borderRadius: 5,
+        width: '80%',
+        height: 50,
+      },
+    profileContainer: {
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        paddingHorizontal: 20,
+        marginBottom: 20,
+        marginTop: 100,
+      },
+      UPbutton: {
+        paddingVertical: 10,
+        paddingHorizontal: 20,
+        borderRadius: 5,
+      },
     
       
       
@@ -273,22 +294,7 @@ export default styles = StyleSheet.create({
         alignItems: "center",
         backgroundColor: "#42273B",
     },
-    profileText: {
-        backgroundColor: "white",
-        color: "#42273B",
-        marginTop: 20,
-        fontWeight: "700",
-        fontSize: 16,
-        padding: 10,
-        borderColor: "white",
-        borderWidth: 2,
-        borderRadius: 5,
-    },
-    profileContainer: {
-        flex: 1,
-        padding: 20,
-        backgroundColor: '#ffffff',
-    },
+    
     
 
     
@@ -298,14 +304,7 @@ export default styles = StyleSheet.create({
         alignItems: "center",
         marginTop: 40,
       },
-    UPbutton: {
-        backgroundColor: "#42273B",
-        width: "100%",
-        paddingHorizontal: 15,
-        paddingVertical: 15,
-        borderRadius: 10,
-        alignItems: "center",
-    },
+      
     SCbutton: {
         backgroundColor: "#42273B",
         width: "90%",

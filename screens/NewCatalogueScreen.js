@@ -25,18 +25,22 @@ const NewCatalogueScreen = () => {
     });
   };
 
+  
   return (
     <View>
     <NavigationBar />
 
     <KeyboardAvoidingView>
-      <View style={styles.profileContainer}>
+    <View style={styles.profileContainer}>
+      <View>
         <TextInput
           placeholder="Catalogue Name"
           style={styles.profileText}
           value={catalogueName}
           onChangeText={(text) => setCatalogueName(text)}
-        ></TextInput>
+        />
+      </View>
+      <View>
         <Pressable
           style={[styles.UPbutton, styles.buttonOutline]}
           onPress={handleCatalogueAdd}
@@ -44,6 +48,7 @@ const NewCatalogueScreen = () => {
           <Text style={styles.NCbuttonText}>Submit</Text>
         </Pressable>
       </View>
+    </View>
     </KeyboardAvoidingView>
     
     </View>
