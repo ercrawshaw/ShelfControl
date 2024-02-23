@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from "react";
 import { StyleSheet, TouchableOpacity, View, Pressable } from "react-native";
-import { CameraView, useCameraPermissions } from "expo-camera/next";
+import { CameraView } from "expo-camera/next";
 import {Camera} from 'expo-camera';
 import { fetchBook } from "./api";
 import { useNavigation } from "@react-navigation/native";
@@ -8,6 +8,7 @@ import { Button, Card, TextInput, Text } from "react-native-paper";
 import { CurrentUserContext } from "../contexts/userContext";
 import { CurrentCatalogueContext } from "../contexts/catalogueContext";
 import addBook from "../src/addBook";
+import * as MediaLibrary from 'expo-media-library';
 
 const BarcodeScanner = () => {
   const navigation = useNavigation();
@@ -15,7 +16,6 @@ const BarcodeScanner = () => {
   const [isbn, setIsbn] = useState(null);
   const [scanned, setScanned] = useState(false);
   const [bookData, setBookData] = useState(null);
-  const bookList = [];
   const { currentUid } = useContext(CurrentUserContext);
   const { currentCatalogue, setCurrentCatalogue } = useContext(
     CurrentCatalogueContext
@@ -23,6 +23,7 @@ const BarcodeScanner = () => {
   
   useEffect(()=>{
   (async()=>{
+    MediaLibrary.getPermissionsAsync()
     const cameraStatus = await Camera.requestCameraPermissionsAsync()
     requestPermission(cameraStatus.granted)
   })()
@@ -44,16 +45,6 @@ const BarcodeScanner = () => {
   const scannerSwitch = () => {
     setScanned(false);
     setBookData(null);
-  };
-  
-  const saveScan = () => {
-    if (bookData !== null) {
-      bookList.push(bookData);
-      setScanned(false);
-      setBookData(null);
-    } else {
-      console.warn("error with saved scan, check bookData value");
-    }
   };
 
   const handleScanAnotherBook = () => {
@@ -160,7 +151,7 @@ return (
   }
   else{
     return(
-      <Text>App does not have permission to access camer, please reload app and grant permissions</Text>
+      <Text>App does not have permission to access camera, please reload app and grant permissions</Text>
     )
   }
 }
