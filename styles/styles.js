@@ -128,6 +128,42 @@ export default styles = StyleSheet.create({
         paddingVertical: 10,
         borderRadius: 20, 
     },
+    profileHeader: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        marginBottom: 20,
+    },
+    profileAvatar: {
+        width: 200,
+        height: 200,
+        borderRadius: 100,
+        marginRight: 10,
+    },
+    profileHeaderTextContainer: {
+        flex: 1,
+    },
+    profileUsername: {
+        fontSize: 25,
+        fontWeight: 'bold',
+        marginBottom: 7,
+    },
+    pendingText: {
+        fontSize: 14,
+    },
+    button: {
+        backgroundColor: "#42273B",
+        width: "90%",
+        paddingHorizontal: 15,
+        paddingVertical: 15,
+        borderRadius: 10,
+        alignItems: "center",
+        marginTop: 40,
+    },
+    buttonText: {
+        color: "white",
+        fontWeight: "700",
+        fontSize: 16,
+    },
     
       
       
@@ -170,15 +206,7 @@ export default styles = StyleSheet.create({
         shadowRadius: 3.84,
         elevation: 5,
       },
-    button: {
-        backgroundColor: "#42273B",
-        width: "90%",
-        paddingHorizontal: 15,
-        paddingVertical: 15,
-        borderRadius: 10,
-        alignItems: "center",
-        marginTop: 40,
-    },
+    
     logButton: {
         backgroundColor: "#42273B",
         width: "100%",
@@ -207,11 +235,7 @@ export default styles = StyleSheet.create({
         fontWeight: "700",
         fontSize: 16,
     },
-    buttonText: {
-        color: "white",
-        fontWeight: "700",
-        fontSize: 16,
-    },
+    
     NCbuttonText: {
         color: "#42273B",
         fontWeight: "700",
@@ -235,6 +259,11 @@ export default styles = StyleSheet.create({
         borderColor: "white",
         borderWidth: 2,
         borderRadius: 5,
+    },
+    profileContainer: {
+        flex: 1,
+        padding: 20,
+        backgroundColor: '#ffffff',
     },
 
     
