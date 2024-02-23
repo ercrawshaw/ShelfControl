@@ -9,7 +9,7 @@ import {
   Alert,
 } from "react-native";
 import React, { useEffect, useState, useContext } from "react";
-
+import styles from "../styles/styles";
 import { auth, db } from "../firebaseConfig";
 import {
   onAuthStateChanged,
@@ -107,8 +107,10 @@ const LoginScreen = () => {
   };
 
   return (
-    <KeyboardAvoidingView style={styles.container} behavior="padding">
+
+    <KeyboardAvoidingView style={styles.logContainer} behavior="padding">
       <View style={styles.inputContainer} name="form">
+
         <TextInput
           placeholder="Email"
           value={email}
@@ -153,50 +155,50 @@ const LoginScreen = () => {
 
 export default LoginScreen;
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  inputContainer: {
-    width: "80%",
-  },
-  input: {
-    backgroundColor: "white",
-    paddingHorizontal: 15,
-    paddingVertical: 10,
-    borderRadius: 10,
-    marginTop: 5,
-  },
-  buttonContainer: {
-    width: "60%",
-    justifyContent: "center",
-    alignItems: "center",
-    marginTop: 40,
-  },
-  button: {
-    backgroundColor: "#42273B",
-    width: "100%",
-    paddingHorizontal: 15,
-    paddingVertical: 15,
-    borderRadius: 10,
-    alignItems: "center",
-  },
-  buttonOutline: {
-    backgroundColor: "white",
-    marginTop: 5,
-    borderColor: "#42273B",
-    borderWidth: 2,
-  },
-  buttonText: {
-    color: "white",
-    fontWeight: "700",
-    fontSize: 16,
-  },
-  buttonOutlineText: {
-    color: "#42273B",
-    fontWeight: "700",
-    fontSize: 16,
-  },
-});
+// const styles = StyleSheet.create({
+//   logContainer: {
+//     flex: 1,
+//     justifyContent: "center",
+//     alignItems: "center",
+//   },
+//   inputContainer: {
+//     width: "80%",
+//   },
+//   input: {
+//     backgroundColor: "white",
+//     paddingHorizontal: 15,
+//     paddingVertical: 10,
+//     borderRadius: 10,
+//     marginTop: 5,
+//   },
+//   buttonContainer: {
+//     width: "60%",
+//     justifyContent: "center",
+//     alignItems: "center",
+//     marginTop: 40,
+//   },
+//   logButton: {
+//     backgroundColor: "#42273B",
+//     width: "100%",
+//     paddingHorizontal: 15,
+//     paddingVertical: 15,
+//     borderRadius: 10,
+//     alignItems: "center",
+//   },
+//   buttonOutline: {
+//     backgroundColor: "white",
+//     marginTop: 5,
+//     borderColor: "#42273B",
+//     borderWidth: 2,
+//   },
+//   buttonText: {
+//     color: "white",
+//     fontWeight: "700",
+//     fontSize: 16,
+//   },
+//   buttonOutlineText: {
+//     color: "#42273B",
+//     fontWeight: "700",
+//     fontSize: 16,
+//   },
+// });

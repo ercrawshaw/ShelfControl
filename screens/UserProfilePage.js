@@ -1,5 +1,4 @@
 import {
-  StyleSheet,
   Text,
   View,
   Image,
@@ -29,6 +28,9 @@ import {
 } from "firebase/auth";
 import ImageLibrary from "../components/Image-picker";
 import * as ImagePicker from 'expo-image-picker';
+
+import styles from "../styles/styles";
+
 import { auth } from "../firebaseConfig";
 import { Switch } from "react-native-paper";
 import updateProfileStatus from "../src/updateProfileStatus";
@@ -183,7 +185,9 @@ if (!result.canceled) {
           >
             <Text style={styles.buttonOutlineText}>Pick a profile pic</Text>
           </Pressable>
+
           {image?<Image source={{ uri: image }} style={styles.image}/>:null}
+
           <View>
             <Text>{profileStatus}</Text>
             <Switch value={isSwitchOn} onValueChange={onToggleSwitch} />
@@ -294,6 +298,7 @@ if (!result.canceled) {
 };
 
 export default UserProfilePage;
+
 
 const styles = StyleSheet.create({
   container: {

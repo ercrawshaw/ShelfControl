@@ -11,7 +11,10 @@ import { CurrentUserContext } from "../contexts/userContext";
 import { useNavigation, useNavigationParam } from "@react-navigation/native";
 import { getAllBooks } from "../src/getAllBooks";
 import { CurrentCatalogueContext } from "../contexts/catalogueContext";
+
+import styles from "../styles/styles";
 import SearchBarComponent from "../components/SearchBar";
+
 
 const SingleCatalogueScreen = ({ route }) => {
   const navigation = useNavigation();
@@ -83,8 +86,9 @@ const SingleCatalogueScreen = ({ route }) => {
   };
 
   return (
-    <SafeAreaView style={styles.container}>
+    <SafeAreaView style={styles.homeContainer}>
       <View>
+
         <SearchBarComponent
           currentBooks={currentBooks}
           setMapArr={setMapArr}
@@ -95,7 +99,8 @@ const SingleCatalogueScreen = ({ route }) => {
           setFoundBooks={setFoundBooks}
         />
       </View>
-      <View style={styles.container}>
+      <View style={styles.styles.homeContainer}>
+
         {/* <Text>{JSON.stringify(catalogue_id)}</Text> */}
         <ScrollView
           style={styles.scrollView}
@@ -103,7 +108,7 @@ const SingleCatalogueScreen = ({ route }) => {
         >
           {mapArr.map((book, index) => (
             <Pressable
-              style={[styles.button, styles.buttonOutline]}
+              style={[styles.SCbutton, styles.buttonOutline]}
               // book={book}
               key={index}
               onPress={() => {
@@ -120,9 +125,11 @@ const SingleCatalogueScreen = ({ route }) => {
           ))}
         </ScrollView>
       </View>
+
       {friendsUid?null:
        <View style={styles.bottomContainer}>
-        <Pressable onPress={handleAddBook} style={styles.button}>
+        <Pressable onPress={handleAddBook} style={styles.SCbutton}>
+
           <Text style={styles.buttonText}>Add a book</Text>
         </Pressable>
       </View> 
@@ -133,43 +140,3 @@ const SingleCatalogueScreen = ({ route }) => {
 };
 
 export default SingleCatalogueScreen;
-
-const styles = StyleSheet.create({
-  container: {
-    // flex: 1,
-    // justifyContent: "center",
-    // alignItems: "center",
-    // width: "100%",
-  },
-  button: {
-    backgroundColor: "#42273B",
-    width: "90%",
-    paddingHorizontal: 15,
-    paddingVertical: 15,
-    borderRadius: 10,
-    alignItems: "center",
-    marginTop: 40,
-  },
-  buttonOutline: {
-    backgroundColor: "white",
-    marginTop: 5,
-    borderColor: "#42273B",
-    borderWidth: 2,
-  },
-  buttonCatalogueText: {
-    color: "#42273B",
-    fontWeight: "700",
-    fontSize: 16,
-  },
-  buttonText: {
-    color: "white",
-    fontWeight: "700",
-    fontSize: 16,
-  },
-  scrollView: {
-    width: "95%",
-  },
-  bottomContainer: {
-    marginBottom: 5,
-  },
-});

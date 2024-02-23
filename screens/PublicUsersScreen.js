@@ -35,75 +35,97 @@ const PublicUsersScreen = () => {
   }
 
   return (
-    <View>
-      <ScrollView
-        style={styles.scrollView}
-        contentContainerStyle={{ alignItems: "center" }}
-      >
-        {currentPublicUsers.map((user, index) => {
-          return (
-            <View key={index}>
+    <View style={styles.container}>
+      <View style={styles.titleContainer}>
+        <Text style={styles.titleText}>Public Users</Text>
+      </View>
+    <ScrollView contentContainerStyle={styles.scrollView}>
+      {currentPublicUsers.map((user, index) => {
+        return (
+          <View key={index} style={styles.profileContainer}>
+            <View style={styles.userInfoContainer}>
               <Image
                 style={styles.avatar}
                 source={{ uri: user.data().avatar_img }}
               />
-              <Text>{user.data().username}</Text>
-              <Pressable
-                style={styles.button}
-                onPress={() => handleViewProfile(user)}
-              >
-                <Text style={styles.buttonText}>View profile</Text>
-              </Pressable>
+              <View style={styles.usernameContainer}>
+                <Text style={styles.username}>{user.data().username}</Text>
+                <Pressable
+                  style={styles.button}
+                  onPress={() => handleViewProfile(user)}
+                >
+                  <Text style={styles.buttonText}>View Profile</Text>
+                </Pressable>
+              </View>
             </View>
-          );
-        })}
-      </ScrollView>
-    </View>
+          </View>
+        );
+      })}
+    </ScrollView>
+  </View>
   );
 };
 
 export default PublicUsersScreen;
 
 const styles = StyleSheet.create({
+  titleContainer: {
+    alignItems: 'center',
+    marginBottom: 10,
+    marginTop: 20,
+  },
+  titleText: {
+    fontSize: 40,
+    textAlign: 'center',
+    color: '#ffffff'
+  },
   container: {
     flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    width: "100%",
-  },
-  avatar: {
-    height: 50,
-    width: 50,
-  },
-  button: {
-    backgroundColor: "#42273B",
-    width: "90%",
-    paddingHorizontal: 15,
-    paddingVertical: 15,
-    borderRadius: 10,
-    alignItems: "center",
-    marginTop: 40,
-  },
-  buttonOutline: {
-    backgroundColor: "white",
-    marginTop: 5,
-    borderColor: "#42273B",
-    borderWidth: 2,
-  },
-  buttonCatalogueText: {
-    color: "#42273B",
-    fontWeight: "700",
-    fontSize: 16,
-  },
-  buttonText: {
-    color: "white",
-    fontWeight: "700",
-    fontSize: 16,
+    backgroundColor: '#525171',
   },
   scrollView: {
-    width: "95%",
+    alignItems: 'center',
+    paddingVertical: 20,
   },
-  bottomContainer: {
+  profileContainer: {
+    alignItems: 'center',
+    marginBottom: 20,
+  },
+  userInfoContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  avatar: {
+    width: 150,
+    height: 150,
+    borderRadius: 75,
+    marginRight: 20,
+    marginLeft: 20,
+  },
+  usernameContainer: {
+    flex: 1,
+    justifyContent: 'center',
+  },
+  username: {
+    color: '#ffffff',
+    fontSize: 40,
+    fontWeight: 'bold',
     marginBottom: 5,
+  },
+  button: {
+    backgroundColor: "#6F9871",
+    paddingVertical: 8,
+    paddingHorizontal: 16,
+    borderRadius: 30,
+    marginRight: 20,
+  },
+  smallButton: {
+    paddingVertical: 6,
+    paddingHorizontal: 12,
+  },
+  buttonText: {
+    color: '#ffffff',
+    fontSize: 16,
+    textAlign: 'center',
   },
 });
