@@ -15,6 +15,11 @@ import updateUser from "../src/updateUser";
 import deleteSingleUser from "../src/deleteUser";
 import { getStorage, ref, uploadBytes } from "firebase/storage";
 import { useNavigation } from "@react-navigation/native";
+
+
+
+
+
 import {
   getAuth,
   signOut,
@@ -23,7 +28,9 @@ import {
 } from "firebase/auth";
 import ImageLibrary from "../components/Image-picker";
 import * as ImagePicker from 'expo-image-picker';
+
 import styles from "../styles/styles";
+
 import { auth } from "../firebaseConfig";
 import { Switch } from "react-native-paper";
 import updateProfileStatus from "../src/updateProfileStatus";
@@ -37,6 +44,7 @@ const UserProfilePage = () => {
   const loggedInUser = getAuth().currentUser;
   const filename = "";
   const [image, setImage] = useState(null);
+
   const [status, requestPermission] = useState(null)
   useEffect(()=>{
     (async()=>{
@@ -51,6 +59,7 @@ const UserProfilePage = () => {
 
   //Hardcoded user, remove later
   const currentUid = "N1xC3SF9KgNLNAde6sWvODrRaUO2";
+
 
   const profilePicRef = ref(
     getStorage(),
@@ -178,7 +187,6 @@ if (!result.canceled) {
           </Pressable>
 
           {image?<Image source={{ uri: image }} style={styles.image}/>:null}
-
 
           <View>
             <Text>{profileStatus}</Text>
