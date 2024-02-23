@@ -77,7 +77,10 @@ const UserProfilePage = () => {
 
   const handleEditSubmission = () => {
     editable ? isEditable(false) : isEditable(true);
-    updateUser(currentUid, user).then(() => {});
+    console.log(currentUid);
+    updateUser(currentUid, user).then(() => {
+      alert("your profile has been updated");
+    });
   };
 
   const handleSignOut = () => {
@@ -97,15 +100,11 @@ const UserProfilePage = () => {
   };
 
   const handlePasswordChange = () => {
-    sendPasswordResetEmail(auth, user.email)
-      .then(() => {
-        alert(
-          "password reset email sent, please check your email and login with the new password"
-        );
-      })
-      .catch((error) => {
-        alert(error.message);
-      });
+    sendPasswordResetEmail(auth, user.email).then(() => {
+      alert(
+        "password reset email sent, please check your email and login with the new password"
+      );
+    });
   };
 
   //if statement to wait until currentUid has updated before calling getUser again
@@ -134,7 +133,11 @@ const UserProfilePage = () => {
           </Pressable>
 
           <TextInput
-            style={styles.profileText}
+            style={
+              editable
+                ? [styles.profileText, styles.editable]
+                : styles.profileText
+            }
             //style={styles.input}
             editable={editable}
             placeholder="First Name"
@@ -154,7 +157,11 @@ const UserProfilePage = () => {
                 return { ...currentUser, lastname: text };
               })
             }
-            style={styles.profileText}
+            style={
+              editable
+                ? [styles.profileText, styles.editable]
+                : styles.profileText
+            }
           />
           <TextInput
             placeholder="Username"
@@ -279,6 +286,11 @@ const styles = StyleSheet.create({
   },
   buttonOutlineText: {
     color: "#42273B",
+    fontWeight: "700",
+    fontSize: 16,
+  },
+  editable: {
+    backgroundColor: "aquamarine",
     fontWeight: "700",
     fontSize: 16,
   },
