@@ -8,16 +8,15 @@ export default NavigationBar= () =>{
     const navigation = useNavigation()
     return(
         <View style={styles.navbar}>
-            <Pressable style={styles.pressableButton} onPress={()=>{navigation.navigate('HomeScreen')}}>
-                <Text style={styles.buttonText}>Home</Text>
+            <Pressable style={styles.navPressableButton} onPress={()=>{navigation.navigate('HomeScreen')}}>
+                <Text style={styles.navButtonText}>Home</Text>
             </Pressable>
-            <Pressable style={styles.pressableButton} onPress={()=>{navigation.navigate('')}}>
-                <Text style={styles.buttonText}>Friends</Text>
+            <Pressable style={styles.navPressableButton} onPress={()=>{navigation.navigate('')}}>
+                <Text style={styles.navButtonText}>Friends</Text>
             </Pressable>
-            <Pressable style={styles.pressableButton} onPress={()=>{navigation.navigate('UserProfilePage')}}>
-                <Text style={styles.buttonText}>My Account</Text>
+            <Pressable style={styles.navPressableButton} onPress={()=>{navigation.navigate('UserProfilePage')}}>
+                <Text style={styles.navButtonText}>My Account</Text>
             </Pressable>
-        
         </View>
     )
 }
