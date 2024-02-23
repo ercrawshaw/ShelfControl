@@ -9,10 +9,16 @@ import React, { useState, useEffect } from "react";
 import { useNavigation } from "@react-navigation/native";
 import NavigationBar from "../components/Navbar";
 import styles from "../styles/styles";
+
+
+
 export default function AddNewBookScreen() {
+
   const navigation = useNavigation();
   const [manIsbn, setManIsbn] = useState(null);
   const [manBookData, setManBookData] = useState(null);
+
+
   useEffect(() => {
     if (manIsbn && manIsbn.length === 13) {
       fetchBook(manIsbn)
@@ -26,9 +32,11 @@ export default function AddNewBookScreen() {
     }
   }, [manIsbn]);
 
+
   return (
 
     <View style={styles.ADcontainer}>
+      
       <NavigationBar/>
 
       <Text title="Enter ISBN if known" />
@@ -55,25 +63,28 @@ export default function AddNewBookScreen() {
           </View>
         </View>
       )}
-      <View style={styles.buttonContainer}>
+      
+      <View style={styles.bigButtonContainer}>
         <Pressable
-          style={styles.ANbutton}
-          onPress={() => {
+        style={styles.bigButton}
+        onPress={() => {
             navigation.navigate("Scanner");
-          }}
+        }}
         >
-          <Text style={styles.buttonText}>Scan a book barcode</Text>
+            <Text style={styles.bigButtonText}>Scan a Book Barcode</Text>
         </Pressable>
 
         <Pressable
-          style={styles.ANbutton}
-          onPress={() => {
+        style={styles.bigButton}
+        onPress={() => {
             navigation.navigate("ManualSearch");
-          }}
+        }}
         >
-          <Text style={styles.buttonText}>Manually add a book</Text>
+            <Text style={styles.bigButtonText}>Manually Add a Book</Text>
         </Pressable>
       </View>
+
+
     </View>
   );
 }

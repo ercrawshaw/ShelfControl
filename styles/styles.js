@@ -1,10 +1,6 @@
 import { StyleSheet } from "react-native";
 
 export default styles = StyleSheet.create({
-    pressableButton: {
-        width: 100,
-        height: 100,
-    },
     navbar: {
         flexDirection: 'row',
         justifyContent: 'space-around',
@@ -27,6 +23,34 @@ export default styles = StyleSheet.create({
         fontSize: 16,
         fontWeight: 'bold',
     },
+    bigButtonContainer: {
+        flexDirection: 'column',
+        justifyContent: 'flex',
+        alignItems: 'center',
+        margin: 20,
+        marginTop: '25%',
+    },
+    bigButton: {
+        margin: 10,
+        backgroundColor: '#42273B',
+        paddingVertical: 45,
+        paddingHorizontal: 25,
+        borderRadius: 30, 
+        elevation: 4, 
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.2,
+        shadowRadius: 2,
+    },
+    bigButtonText: {
+        color: '#fff',
+        fontSize: 16,
+        fontWeight: 'bold',
+        textAlign: 'center',
+    },
+
+
+    
     homeContainer: {
         flex: 1,
         justifyContent: "center",

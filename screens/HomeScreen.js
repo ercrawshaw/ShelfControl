@@ -42,7 +42,7 @@ const HomeScreen = () => {
 
   
   return (
-     <View>
+     <SafeAreaView>
       <NavigationBar />
       <View style={styles.container}>
 
@@ -69,7 +69,7 @@ const HomeScreen = () => {
           <Text style={styles.buttonText}>Add a new catalogue</Text>
         </Pressable>
       </View>
-    </View>
+    </SafeAreaView>
 
   );
 };
