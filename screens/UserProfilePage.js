@@ -15,10 +15,7 @@ import updateUser from "../src/updateUser";
 import deleteSingleUser from "../src/deleteUser";
 import { getStorage, ref, uploadBytes } from "firebase/storage";
 import { useNavigation } from "@react-navigation/native";
-
-
-
-
+import LoadingMessage from "../components/LoadingMessage";
 
 import {
   getAuth,
@@ -38,14 +35,18 @@ import updateProfileStatus from "../src/updateProfileStatus";
 
 const UserProfilePage = () => {
   //const { currentUid, setCurrentUid } = useContext(CurrentUserContext);
+  //Hardcoded user, remove later
+  const currentUid = "N1xC3SF9KgNLNAde6sWvODrRaUO2";
+
   const [user, setUser] = useState();
   const [editable, isEditable] = useState(false);
   const navigation = useNavigation();
   const loggedInUser = getAuth().currentUser;
   const filename = "";
   const [image, setImage] = useState(null);
+  const [status, requestPermission] = useState(null);
+  const [pageLoading, setPageLoading] = useState(true);
 
-  const [status, requestPermission] = useState(null)
   useEffect(()=>{
     (async()=>{
       //const libraryStatus = await ImagePicker.requestMediaLibraryPermissionsAsync()
@@ -57,8 +58,7 @@ const UserProfilePage = () => {
   const [profileStatus, setProfileStatus] = useState("Private profile");
   const [isSwitchOn, setIsSwitchOn] = React.useState(true);
 
-  //Hardcoded user, remove later
-  const currentUid = "N1xC3SF9KgNLNAde6sWvODrRaUO2";
+  
 
 
   const profilePicRef = ref(
@@ -160,6 +160,7 @@ const UserProfilePage = () => {
     });
   };
 
+  
   //if statement to wait until currentUid has updated before calling getUser again
   //and rendering the page
   if (user) {

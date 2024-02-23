@@ -9,6 +9,7 @@ import React, { useState, useEffect } from "react";
 import { useNavigation } from "@react-navigation/native";
 import NavigationBar from "../components/Navbar";
 import styles from "../styles/styles";
+import LoadingMessage from "../components/LoadingMessage";
 
 
 
@@ -17,12 +18,15 @@ export default function AddNewBookScreen() {
   const navigation = useNavigation();
   const [manIsbn, setManIsbn] = useState(null);
   const [manBookData, setManBookData] = useState(null);
+  const [pageLoading, setPageLoading] = useState(true);
 
 
   useEffect(() => {
+    setPageLoading(false)
     if (manIsbn && manIsbn.length === 13) {
       fetchBook(manIsbn)
         .then(({ items }) => {
+          
           if (items.length === 0) setManBookData(null);
           setManBookData(items);
         })
@@ -32,8 +36,11 @@ export default function AddNewBookScreen() {
     }
   }, [manIsbn]);
 
+  if (pageLoading) {
+      return <LoadingMessage />
+  }else{
 
-  return (
+      return (
 
     <View style={styles.ADcontainer}>
       
@@ -87,6 +94,8 @@ export default function AddNewBookScreen() {
 
     </View>
   );
+  }
+    
 }
 
 

@@ -12,12 +12,14 @@ import { CurrentUserContext } from "../contexts/userContext";
 import { useNavigation } from "@react-navigation/native";
 import NavigationBar from "../components/Navbar";
 import styles from "../styles/styles";
+import LoadingMessage from "../components/LoadingMessage";
 
 const PublicUsersScreen = () => {
   //currentPublicUsers also shows person currently logged in, want to remove them
   const [currentPublicUsers, setCurrentPublicUsers] = useState([]);
   const {currentUid} = useContext(CurrentUserContext);
   const navigation = useNavigation();
+  const [pageLoading, setPageLoading] = useState(true);
 
   useEffect(() => {
     getAllPublicUsers().then((res) => {
@@ -28,15 +30,19 @@ const PublicUsersScreen = () => {
           publicUsers.push(doc);
         }
       });
+      setPageLoading(false)
       setCurrentPublicUsers(publicUsers);
     });
   }, []);
 
   function handleViewProfile(user) {
     navigation.navigate("PublicProfile", { user: user });
-  }
+  };
 
-  return (
+  if (pageLoading) {
+    return <LoadingMessage />
+  }else{
+    return (
     <View>
     <NavigationBar />
     <View style={styles.usersProfileContainer}>
@@ -68,6 +74,9 @@ const PublicUsersScreen = () => {
     </View>
   </View>
   );
+  }
+
+  
 };
 
 export default PublicUsersScreen;

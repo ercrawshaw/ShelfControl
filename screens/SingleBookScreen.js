@@ -6,6 +6,8 @@ import { getAllBooks } from "../src/getAllBooks";
 import { getSingleBook } from "../src/getSingleBook";
 import { fetchBook } from "../components/api";
 import styles from '../styles/styles';
+import LoadingMessage from "../components/LoadingMessage";
+import { LoadBundleTask } from 'firebase/firestore';
 
 const SingleBookScreen = ({ route }) => {
   const { catalogue_id, book_data, book_id, friendsUid } = route.params;
@@ -13,6 +15,7 @@ const SingleBookScreen = ({ route }) => {
   //const { currentUid } = useContext(CurrentUserContext);
   const currentUid = "N1xC3SF9KgNLNAde6sWvODrRaUO2";
   const [currentIsbn, setCurrentIsbn] = useState(null);
+  const [pageLoading, setPageLoading] = useState(true);
   
 
    
@@ -25,6 +28,7 @@ const SingleBookScreen = ({ route }) => {
           description: result.items[0].volumeInfo.description,
           image: result.items[0].volumeInfo.imageLinks.thumbnail,
         })
+        setPageLoading(false)
       })
     }else{
       setCurrentBook({
@@ -33,6 +37,7 @@ const SingleBookScreen = ({ route }) => {
         description: "no",
         image: 'https://png.pngtree.com/png-clipart/20230511/ourmid/pngtree-isolated-cat-on-white-background-png-image_7094927.png',
       })
+      setPageLoading(false)
     }
   }, [currentIsbn]);
 
@@ -55,7 +60,10 @@ const SingleBookScreen = ({ route }) => {
   }, [book_id]);
 
 
-  return (
+  if (pageLoading) {
+    return <LoadingMessage />
+  }else{
+    return (
   
     <View style={styles.SBcontainer}>
       <ScrollView>
@@ -71,8 +79,7 @@ const SingleBookScreen = ({ route }) => {
      </View>
   
   )
-  
-  
+  }
 };
 
 export default SingleBookScreen;
