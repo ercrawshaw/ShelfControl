@@ -138,6 +138,7 @@ export default styles = StyleSheet.create({
         height: 200,
         borderRadius: 100,
         marginRight: 10,
+        marginLeft: 5,
     },
     profileHeaderTextContainer: {
         flex: 1,
@@ -164,6 +165,17 @@ export default styles = StyleSheet.create({
         fontWeight: "700",
         fontSize: 16,
     },
+    usersProfileContainer: {
+        marginTop: 20,
+      },
+      usersInfoContainer: {
+        flexDirection: 'row',
+        alignItems: 'center',
+      },
+      userUsername: {
+        fontSize: 45,
+        fontWeight: 'bold',
+      },
     
       
       
@@ -248,7 +260,6 @@ export default styles = StyleSheet.create({
         alignItems: "center",
         backgroundColor: "#42273B",
     },
-    
     profileText: {
         backgroundColor: "white",
         color: "#42273B",
@@ -265,6 +276,7 @@ export default styles = StyleSheet.create({
         padding: 20,
         backgroundColor: '#ffffff',
     },
+    
 
     
     NCbuttonContainer: {

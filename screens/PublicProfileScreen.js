@@ -5,6 +5,7 @@ import { getAllCatalogues } from "../src/getAllCatalogues";
 import { CurrentUserContext } from "../contexts/userContext";
 import { useNavigation } from "@react-navigation/native";
 import styles from "../styles/styles";
+import NavigationBar from "../components/Navbar";
 
 
 
@@ -40,6 +41,8 @@ const PublicProfileScreen = ({ route }) => {
 
   //if add button click change to non editable and display "friend request sent"
   return (
+    <View>
+    <NavigationBar />
     <View style={styles.profileContainer}>
       <View style={styles.profileHeader}>
         <Image style={styles.profileAvatar} source={{ uri: user.data().avatar_img }} />
@@ -76,6 +79,7 @@ const PublicProfileScreen = ({ route }) => {
       )}
       </ScrollView>
       </View>
+    </View>
     </View>
   );
 };

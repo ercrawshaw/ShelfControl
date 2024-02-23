@@ -10,6 +10,8 @@ import React, { useEffect, useState, useContext } from "react";
 import { getAllPublicUsers } from "../src/getAllUsers";
 import { CurrentUserContext } from "../contexts/userContext";
 import { useNavigation } from "@react-navigation/native";
+import NavigationBar from "../components/Navbar";
+import styles from "../styles/styles";
 
 const PublicUsersScreen = () => {
   //currentPublicUsers also shows person currently logged in, want to remove them
@@ -35,21 +37,23 @@ const PublicUsersScreen = () => {
   }
 
   return (
-    <View style={styles.container}>
-      <View style={styles.titleContainer}>
-        <Text style={styles.titleText}>Public Users</Text>
-      </View>
-    <ScrollView contentContainerStyle={styles.scrollView}>
+    <View>
+    <NavigationBar />
+    <View style={styles.usersProfileContainer}>
       {currentPublicUsers.map((user, index) => {
         return (
-          <View key={index} style={styles.profileContainer}>
-            <View style={styles.userInfoContainer}>
+          <View key={index}>
+            <View style={styles.usersInfoContainer}>
               <Image
-                style={styles.avatar}
+                style={styles.profileAvatar}
                 source={{ uri: user.data().avatar_img }}
               />
-              <View style={styles.usernameContainer}>
-                <Text style={styles.username}>{user.data().username}</Text>
+              <View 
+              style={styles.profileHeaderTextContainer}>
+                <Text 
+                style={styles.userUsername}>
+                {user.data().username}
+                </Text>
                 <Pressable
                   style={styles.button}
                   onPress={() => handleViewProfile(user)}
@@ -61,71 +65,10 @@ const PublicUsersScreen = () => {
           </View>
         );
       })}
-    </ScrollView>
+    </View>
   </View>
   );
 };
 
 export default PublicUsersScreen;
 
-const styles = StyleSheet.create({
-  titleContainer: {
-    alignItems: 'center',
-    marginBottom: 10,
-    marginTop: 20,
-  },
-  titleText: {
-    fontSize: 40,
-    textAlign: 'center',
-    color: '#ffffff'
-  },
-  container: {
-    flex: 1,
-    backgroundColor: '#525171',
-  },
-  scrollView: {
-    alignItems: 'center',
-    paddingVertical: 20,
-  },
-  profileContainer: {
-    alignItems: 'center',
-    marginBottom: 20,
-  },
-  userInfoContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-  avatar: {
-    width: 150,
-    height: 150,
-    borderRadius: 75,
-    marginRight: 20,
-    marginLeft: 20,
-  },
-  usernameContainer: {
-    flex: 1,
-    justifyContent: 'center',
-  },
-  username: {
-    color: '#ffffff',
-    fontSize: 40,
-    fontWeight: 'bold',
-    marginBottom: 5,
-  },
-  button: {
-    backgroundColor: "#6F9871",
-    paddingVertical: 8,
-    paddingHorizontal: 16,
-    borderRadius: 30,
-    marginRight: 20,
-  },
-  smallButton: {
-    paddingVertical: 6,
-    paddingHorizontal: 12,
-  },
-  buttonText: {
-    color: '#ffffff',
-    fontSize: 16,
-    textAlign: 'center',
-  },
-});
