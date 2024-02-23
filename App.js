@@ -30,7 +30,7 @@ export default function App() {
         value={{ currentCatalogue, setCurrentCatalogue }}
       >
         <NavigationContainer>
-          <Stack.Navigator initialRouteName="PublicUsersScreen">
+          <Stack.Navigator initialRouteName="UserProfilePage">
             <Stack.Screen
               options={{ headerShown: false }}
               name="Login"
