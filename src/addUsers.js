@@ -8,5 +8,6 @@ export const addUser = (uid, username, firstname, lastname) => {
     lastname: lastname,
     avatar_img: "",
     created: Timestamp.now(),
+    private: true,
   }).catch((error) => alert(error));
 };

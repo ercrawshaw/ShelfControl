@@ -16,19 +16,33 @@ import updateUser from "../src/updateUser";
 import deleteSingleUser from "../src/deleteUser";
 import { getStorage, ref, uploadBytes } from "firebase/storage";
 import { useNavigation } from "@react-navigation/native";
-import { getAuth, signOut } from "firebase/auth";
+
+
+
+
+
+import {
+  getAuth,
+  signOut,
+  onAuthStateChanged,
+  sendPasswordResetEmail,
+} from "firebase/auth";
 import ImageLibrary from "../components/Image-picker";
 import * as ImagePicker from 'expo-image-picker';
-import styles from "../styles/styles";
+import { auth } from "../firebaseConfig";
+import { Switch } from "react-native-paper";
+import updateProfileStatus from "../src/updateProfileStatus";
+
 
 const UserProfilePage = () => {
-  const { currentUid, setCurrentUid } = useContext(CurrentUserContext);
+  //const { currentUid, setCurrentUid } = useContext(CurrentUserContext);
   const [user, setUser] = useState();
   const [editable, isEditable] = useState(false);
   const navigation = useNavigation();
   const loggedInUser = getAuth().currentUser;
   const filename = "";
   const [image, setImage] = useState(null);
+
   const [status, requestPermission] = useState(null)
   useEffect(()=>{
     (async()=>{
@@ -37,10 +51,27 @@ const UserProfilePage = () => {
     })()
   },[])
 
+  const [userAuth, setUserAuth] = useState(null);
+  const [profileStatus, setProfileStatus] = useState("Private profile");
+  const [isSwitchOn, setIsSwitchOn] = React.useState(true);
+
+  //Hardcoded user, remove later
+  const currentUid = "N1xC3SF9KgNLNAde6sWvODrRaUO2";
+
+
   const profilePicRef = ref(
     getStorage(),
     `images/${currentUid}/profilePicture/${filename}`
   );
+
+  const onToggleSwitch = () => {
+    setIsSwitchOn(!isSwitchOn);
+    profileStatus === "Private profile"
+      ? (setProfileStatus("Public profile"),
+        updateProfileStatus(currentUid, false))
+      : (setProfileStatus("Private profile"),
+        updateProfileStatus(currentUid, true));
+  };
 
   //   useLayoutEffect(() => {
   //     getUser(currentUid, setUser);
@@ -51,6 +82,24 @@ const UserProfilePage = () => {
       getUser(currentUid, setUser);
     }, [currentUid])
   );
+
+  // To have the track of the users and to see if their email has been verified
+  // useEffect(() => {
+  //   onAuthStateChanged(auth, (userCred) => {
+  //     if (userCred) {
+  //       console.log(userCred.email, "user is logged in");
+  //       // console.log(
+  //       //   userCred.email,
+  //       //   userCred.emailVerified,
+  //       //   "Has email been confirmed"
+  //       // );
+  //       const { email, emailVerified } = userCred;
+  //       setUserAuth({ email, emailVerified });
+  //     } else {
+  //       console.log(userAuth.email, "user is logged out");
+  //     }
+  //   });
+  // }, []);
 
   const handlePicPick = () => {
     ImageLibrary()
@@ -63,7 +112,10 @@ const UserProfilePage = () => {
 
   const handleEditSubmission = () => {
     editable ? isEditable(false) : isEditable(true);
-    updateUser(currentUid, user).then(() => {});
+    console.log(currentUid);
+    updateUser(currentUid, user).then(() => {
+      alert("your profile has been updated");
+    });
   };
 
   const handleSignOut = () => {
@@ -98,6 +150,14 @@ if (!result.canceled) {
 }
 };
 
+  const handlePasswordChange = () => {
+    sendPasswordResetEmail(auth, user.email).then(() => {
+      alert(
+        "password reset email sent, please check your email and login with the new password"
+      );
+    });
+  };
+
   //if statement to wait until currentUid has updated before calling getUser again
   //and rendering the page
   if (user) {
@@ -124,9 +184,17 @@ if (!result.canceled) {
             <Text style={styles.buttonOutlineText}>Pick a profile pic</Text>
           </Pressable>
           {image?<Image source={{ uri: image }} style={styles.image}/>:null}
+          <View>
+            <Text>{profileStatus}</Text>
+            <Switch value={isSwitchOn} onValueChange={onToggleSwitch} />
+          </View>
 
           <TextInput
-            style={styles.profileText}
+            style={
+              editable
+                ? [styles.profileText, styles.editable]
+                : styles.profileText
+            }
             //style={styles.input}
             editable={editable}
             placeholder="First Name"
@@ -137,18 +205,28 @@ if (!result.canceled) {
               })
             }
           />
-          {/* <TextInput
-          placeholder="Last Name"
-          value={lastname}
-          onChangeText={(text) => setLastName(text)}
-          style={styles.input}
-        />
-        <TextInput
-          placeholder="Username"
-          value={username}
-          onChangeText={(text) => setUsername(text)}
-          style={styles.input}
-        />*/}
+          <TextInput
+            placeholder="Last Name"
+            editable={editable}
+            value={user.lastname}
+            onChangeText={(text) =>
+              setUser((currentUser) => {
+                return { ...currentUser, lastname: text };
+              })
+            }
+            style={
+              editable
+                ? [styles.profileText, styles.editable]
+                : styles.profileText
+            }
+          />
+          <TextInput
+            placeholder="Username"
+            value={user.username}
+            // onChangeText={(text) => setUsername(text)}
+            style={styles.profileText}
+            readOnly
+          />
           <TextInput
             placeholder="Email"
             style={styles.profileText}
@@ -159,7 +237,17 @@ if (!result.canceled) {
                 return { ...currentUser, email: text };
               })
             }
+            readOnly
           />
+          {/* {userAuth && (
+            <Text
+              style={[styles.profileText, { backgroundColor: "aquamarine" }]}
+            >
+              {userAuth?.emailVerified
+                ? "Email is verified"
+                : "Email is not verified"}
+            </Text>
+          )} */}
         </View>
         <View style={styles.buttonContainer}>
           {editable ? (
@@ -177,6 +265,11 @@ if (!result.canceled) {
               <Text style={styles.buttonOutlineText}>Edit profile</Text>
             </Pressable>
           )}
+          <Pressable
+            style={[styles.button, styles.buttonOutline]}
+            onPress={handlePasswordChange}>
+            <Text style={styles.buttonOutlineText}>Change Password</Text>
+          </Pressable>
         </View>
         <View>
           <Pressable
@@ -202,53 +295,66 @@ if (!result.canceled) {
 
 export default UserProfilePage;
 
-// const styles = StyleSheet.create({
-//   UPcontainer: {
-//     flex: 1,
-//     justifyContent: "center",
-//     alignItems: "center",
-//     backgroundColor: "#42273B",
-//   },
-//   profileContainer: {
-//     width: "80%",
-//   },
-//   profileText: {
-//     backgroundColor: "white",
-//     color: "#42273B",
-//     marginTop: 20,
-//     fontWeight: "700",
-//     fontSize: 16,
-//     padding: 10,
-//     borderColor: "white",
-//     borderWidth: 2,
-//     borderRadius: 5,
-//   },
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "#42273B",
+  },
+  profileContainer: {
+    width: "80%",
+  },
+  profileText: {
+    backgroundColor: "white",
+    color: "#42273B",
+    marginTop: 20,
+    fontWeight: "700",
+    fontSize: 16,
+    padding: 10,
+    borderColor: "white",
+    borderWidth: 2,
+    borderRadius: 5,
+  },
+  profileImage: {
+    width: 150,
+    height: 150,
+    borderRadius: 10,
+  },
+  buttonContainer: {
+    width: "60%",
+    justifyContent: "center",
+    alignItems: "center",
+    marginTop: 40,
+  },
+  button: {
+    backgroundColor: "#42273B",
+    width: "100%",
+    paddingHorizontal: 15,
+    paddingVertical: 15,
+    borderRadius: 10,
+    alignItems: "center",
+  },
+  buttonOutline: {
+    backgroundColor: "white",
+    marginTop: 5,
+    borderColor: "#42273B",
+    borderWidth: 2,
+  },
+  buttonText: {
+    color: "white",
+    fontWeight: "700",
+    fontSize: 16,
+  },
+  buttonOutlineText: {
+    color: "#42273B",
+    fontWeight: "700",
+    fontSize: 16,
+  },
+  editable: {
+    backgroundColor: "aquamarine",
+    fontWeight: "700",
+    fontSize: 16,
+  },
+});
 
-//   buttonContainer: {
-//     width: "60%",
-//     justifyContent: "center",
-//     alignItems: "center",
-//     marginTop: 40,
-//   },
-//   UPbutton: {
-//     backgroundColor: "#42273B",
-//     width: "100%",
-//     paddingHorizontal: 15,
-//     paddingVertical: 15,
-//     borderRadius: 10,
-//     alignItems: "center",
-//   },
-
-
-//   buttonOutlineText: {
-//     color: "#42273B",
-//     fontWeight: "700",
-//     fontSize: 16,
-//   },
-//   image:{ 
-//     width: 300,
-//     height: 300,
-//     alignSelf:'center',
-//     marginTop:10
-//     },
-// });
