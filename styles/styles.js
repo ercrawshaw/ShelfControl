@@ -5,14 +5,28 @@ export default styles = StyleSheet.create({
         width: 100,
         height: 100,
     },
-    navbar:{
-        display:'flex',
-        flexDirection:'row',
-        margin: 20, 
+    navbar: {
+        flexDirection: 'row',
+        justifyContent: 'space-around',
         alignItems: 'center',
-        justifyContent: 'center',
-        backgroundColor: '#42273B'
-        },
+        backgroundColor: '#42273B',
+        height: 60,
+        elevation: 3,
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.2,
+        shadowRadius: 2,
+    },
+    navPressableButton: {
+        paddingVertical: 10,
+        paddingHorizontal: 20,
+        borderRadius: 5,
+    },
+    navButtonText: {
+        color: '#fff',
+        fontSize: 16,
+        fontWeight: 'bold',
+    },
     homeContainer: {
         flex: 1,
         justifyContent: "center",

@@ -30,7 +30,7 @@ export default function App() {
         value={{ currentCatalogue, setCurrentCatalogue }}
       >
         <NavigationContainer>
-          <Stack.Navigator initialRouteName="HomeScreen">
+          <Stack.Navigator initialRouteName="AddNewBookScreen">
             <Stack.Screen
               options={{ headerShown: false }}
               name="Login"
