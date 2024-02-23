@@ -1,5 +1,4 @@
 import {
-  StyleSheet,
   Text,
   View,
   Button,
@@ -8,25 +7,30 @@ import {
 } from "react-native";
 import React, { useState, useEffect } from "react";
 import { useNavigation } from "@react-navigation/native";
-import NavigationBar from "../components/Navbar"
-
-export default function AddNewBookScreen(){
-  const navigation = useNavigation()
-    const [manIsbn, setManIsbn] = useState(null)
-    const [manBookData,setManBookData]=useState(null)
-    useEffect(()=>{
-      if(manIsbn.length===13){
-      fetchBook(manIsbn).then(({items})=>{
-        if(items.length===0)setManBookData(null)
-        setManBookData(items)
-      }).catch((err)=>{
-        console.log(err)
-      })}
-    },[manIsbn])
+import NavigationBar from "../components/Navbar";
+import styles from "../styles/styles";
+export default function AddNewBookScreen() {
+  const navigation = useNavigation();
+  const [manIsbn, setManIsbn] = useState(null);
+  const [manBookData, setManBookData] = useState(null);
+  useEffect(() => {
+    if (manIsbn && manIsbn.length === 13) {
+      fetchBook(manIsbn)
+        .then(({ items }) => {
+          if (items.length === 0) setManBookData(null);
+          setManBookData(items);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+  }, [manIsbn]);
 
   return (
+
     <View style={styles.ADcontainer}>
       <NavigationBar/>
+
       <Text title="Enter ISBN if known" />
       {!manBookData ? (
         <TextInput
@@ -74,50 +78,50 @@ export default function AddNewBookScreen(){
   );
 }
 
-const styles = StyleSheet.create({
-  ADcontainer: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  inputContainer: {
-    width: "80%",
-  },
-  input: {
-    backgroundColor: "white",
-    paddingHorizontal: 15,
-    paddingVertical: 10,
-    borderRadius: 10,
-    marginTop: 5,
-  },
-  buttonContainer: {
-    width: "80%",
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  ANbutton: {
-    backgroundColor: "#42273B",
-    width: "100%",
-    paddingHorizontal: 15,
-    paddingVertical: 15,
-    borderRadius: 10,
-    alignItems: "center",
-    marginBottom: 15,
-  },
-  buttonOutline: {
-    backgroundColor: "white",
-    marginTop: 5,
-    borderColor: "#42273B",
-    borderWidth: 2,
-  },
-  buttonText: {
-    color: "white",
-    fontWeight: "700",
-    fontSize: 16,
-  },
-  buttonOutlineText: {
-    color: "#42273B",
-    fontWeight: "700",
-    fontSize: 16,
-  }
-})
+// const styles = StyleSheet.create({
+//   ADcontainer: {
+//     flex: 1,
+//     justifyContent: "center",
+//     alignItems: "center",
+//   },
+//   inputContainer: {
+//     width: "80%",
+//   },
+//   input: {
+//     backgroundColor: "white",
+//     paddingHorizontal: 15,
+//     paddingVertical: 10,
+//     borderRadius: 10,
+//     marginTop: 5,
+//   },
+//   buttonContainer: {
+//     width: "80%",
+//     justifyContent: "center",
+//     alignItems: "center",
+//   },
+//   ANbutton: {
+//     backgroundColor: "#42273B",
+//     width: "100%",
+//     paddingHorizontal: 15,
+//     paddingVertical: 15,
+//     borderRadius: 10,
+//     alignItems: "center",
+//     marginBottom: 15,
+//   },
+//   buttonOutline: {
+//     backgroundColor: "white",
+//     marginTop: 5,
+//     borderColor: "#42273B",
+//     borderWidth: 2,
+//   },
+//   buttonText: {
+//     color: "white",
+//     fontWeight: "700",
+//     fontSize: 16,
+//   },
+//   buttonOutlineText: {
+//     color: "#42273B",
+//     fontWeight: "700",
+//     fontSize: 16,
+//   },
+// });

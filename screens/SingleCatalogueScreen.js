@@ -11,62 +11,102 @@ import { CurrentUserContext } from "../contexts/userContext";
 import { useNavigation, useNavigationParam } from "@react-navigation/native";
 import { getAllBooks } from "../src/getAllBooks";
 import { CurrentCatalogueContext } from "../contexts/catalogueContext";
+
 import styles from "../styles/styles";
+import SearchBarComponent from "../components/SearchBar";
+
 
 const SingleCatalogueScreen = ({ route }) => {
   const navigation = useNavigation();
-  const { catalogue_id } = route.params;
+  const { catalogue_id, friendsUid } = route.params;
   const [currentBooks, setCurrentBooks] = useState([]);
   const { currentUid } = useContext(CurrentUserContext);
   const { currentCatalogue, setCurrentCatalogue } = useContext(
     CurrentCatalogueContext
   );
+  const [searchQuery, setSearchQuery] = useState("");
+  const [foundBooks, setFoundBooks] = useState([]);
+  const [mapArr, setMapArr] = useState([]);
   //   const catalogue = useNavigationParam("catalogue_id");
 
   useEffect(() => {
-    getAllBooks(currentUid, catalogue_id).then((res) => {
+    if (friendsUid) {
+      getAllBooks(friendsUid, catalogue_id).then((res) => {
+        let books = [];
+        res.forEach((doc) => {
+          books.push(doc);
+        });
+        //console.log(books);
+        setMapArr(books);
+        setCurrentBooks(books);
+      });
+    }else{
+      getAllBooks(currentUid, catalogue_id).then((res) => {
       let books = [];
       res.forEach((doc) => {
         books.push(doc);
       });
       //console.log(books);
+      setMapArr(books);
       setCurrentBooks(books);
     });
+  }  
   }, [catalogue_id]);
 
   const handleBookClick = (book) => {
-    navigation.navigate("SingleBookScreen", {
+
+    if (friendsUid) {
+      navigation.navigate("SingleBookScreen", {
+        catalogue_id: catalogue_id,
+        book_data: book.data(),
+        book_id: book.id,
+        friendsUid: friendsUid,
+      });
+    }else{
+      navigation.navigate("SingleBookScreen", {
       catalogue_id: catalogue_id,
       book_data: book.data(),
       book_id: book.id,
     });
+    } 
   };
+
+  useEffect(() => {
+    if (foundBooks.length !== 0) {
+      console.log("hello");
+      setMapArr(foundBooks);
+      //setMapArr(currentBooks)
+    }
+  }, [foundBooks]);
 
   const handleAddBook = () => {
     //connects here with Arran's AddNewBookScreen
     setCurrentCatalogue(catalogue_id);
-    navigation.navigate("AddNewBook");
+    navigation.navigate("AddNewBookScreen");
   };
 
-  //this should be moved to Arran's NewBookScreen
-  //isbn MUST be a string, will throw an indexOf error otherwise
-  // const handleScannedBook = () => {
-  //   addScannedBook(currentUid, catalogue_id, isbn);
-  // };
-
-  // const handleManualBook = () => {
-  //   addManualBook(currentUid, catalogue_id, bookInfo);
-  // };
-
   return (
+
     <SafeAreaView style={styles.homeContainer}>
-      <View style={styles.homeContainer}>
+      <View>
+        <SearchBarComponent
+          currentBooks={currentBooks}
+          setMapArr={setMapArr}
+          mapArr={mapArr}
+          searchQuery={searchQuery}
+          setSearchQuery={setSearchQuery}
+          foundBooks={foundBooks}
+          setFoundBooks={setFoundBooks}
+        />
+      </View>
+      <View style={styles.styles.homeContainer}>
+
         {/* <Text>{JSON.stringify(catalogue_id)}</Text> */}
         <ScrollView
           style={styles.scrollView}
           contentContainerStyle={{ alignItems: "center" }}
         >
-          {currentBooks.map((book, index) => (
+          {mapArr.map((book, index) => (
             <Pressable
               style={[styles.SCbutton, styles.buttonOutline]}
               // book={book}
@@ -85,22 +125,22 @@ const SingleCatalogueScreen = ({ route }) => {
           ))}
         </ScrollView>
       </View>
-      <View style={styles.bottomContainer}>
+
+      {friendsUid?null:
+       <View style={styles.bottomContainer}>
         <Pressable onPress={handleAddBook} style={styles.SCbutton}>
+
           <Text style={styles.buttonText}>Add a book</Text>
         </Pressable>
-        {/* <Pressable onPress={handleScannedBook} style={styles.button}>
-          <Text style={styles.buttonText}>Add a book using ISBN</Text>
-        </Pressable>
-        <Pressable onPress={handleManualBook} style={styles.button}>
-          <Text style={styles.buttonText}>Add a book using form</Text>
-        </Pressable> */}
-      </View>
+      </View> 
+      }
+      
     </SafeAreaView>
   );
 };
 
 export default SingleCatalogueScreen;
+
 
 // const styles = StyleSheet.create({
 //   container: {
@@ -141,3 +181,5 @@ export default SingleCatalogueScreen;
 //     marginBottom: 5,
 //   },
 // });
+
+

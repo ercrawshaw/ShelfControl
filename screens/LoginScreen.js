@@ -5,6 +5,8 @@ import {
   View,
   TextInput,
   Pressable,
+  Touchable,
+  Alert,
 } from "react-native";
 import React, { useEffect, useState, useContext } from "react";
 import styles from "../styles/styles";
@@ -13,11 +15,12 @@ import {
   onAuthStateChanged,
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
+  sendPasswordResetEmail,
+  sendEmailVerification,
 } from "firebase/auth";
 import { collection, doc, setDoc } from "firebase/firestore";
 import { useNavigation } from "@react-navigation/native";
 import { CurrentUserContext } from "../contexts/userContext";
-// import { TextInput } from "react-native-web";
 
 const LoginScreen = () => {
   const [email, setEmail] = useState("");
@@ -59,14 +62,55 @@ const LoginScreen = () => {
         const user = userCredentials.user;
         const uid = userCredentials.user.uid;
         setCurrentUid(userCredentials.user.uid);
-        navigation.navigate("HomeScreen");
+        if (auth.currentUser.emailVerified) {
+          navigation.navigate("HomeScreen");
+        } else {
+          Alert.alert(
+            "Only verified users can access the application",
+            "Please verify your email and login",
+            [
+              {
+                text: "Send verification again",
+                onPress: () => {
+                  sendEmailVerification(user).then(() => {
+                    alert(
+                      "Verification was sent to your email, please verify and login"
+                    );
+                  });
+                },
+              },
+              {
+                text: "Done",
+              },
+            ]
+          );
+        }
       })
       .catch((error) => alert(error.message));
+    // setEmail("");
+    setPassword("");
+  };
+
+  const handleForgotPassword = () => {
+    sendPasswordResetEmail(auth, email)
+      .then(() => {
+        alert("password reset email sent, please check your email");
+      })
+      .catch((error) => {
+        alert(
+          "please insert your email and click again on Forgot password button"
+        );
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        // ..
+      });
   };
 
   return (
+
     <KeyboardAvoidingView style={styles.logContainer} behavior="padding">
-      <View style={styles.inputContainer}>
+      <View style={styles.inputContainer} name="form">
+
         <TextInput
           placeholder="Email"
           value={email}
@@ -95,9 +139,14 @@ const LoginScreen = () => {
         </Pressable> */}
         <Pressable
           onPress={handleSignUpClick}
-          style={[styles.button, styles.buttonOutline]}
-        >
+          style={[styles.button, styles.buttonOutline]}>
           <Text style={styles.buttonOutlineText}>Sign up</Text>
+        </Pressable>
+
+        <Pressable
+          onPress={handleForgotPassword}
+          style={[styles.input, { backgroundColor: "red" }]}>
+          <Text style={styles.buttonText}>Forgot Your Password</Text>
         </Pressable>
       </View>
     </KeyboardAvoidingView>
