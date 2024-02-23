@@ -176,6 +176,19 @@ export default styles = StyleSheet.create({
         fontSize: 45,
         fontWeight: 'bold',
       },
+      loadingContainer: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+      },
+      loadingText: {
+        fontSize: 18,
+        fontWeight: 'bold',
+        marginBottom: 20,
+      },
+      activityIndicatorView: {
+        marginBottom: 20,
+      },
     
       
       
