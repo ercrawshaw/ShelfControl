@@ -6,6 +6,7 @@ import { CurrentUserContext } from "../contexts/userContext";
 import { useNavigation } from "@react-navigation/native";
 import styles from "../styles/styles";
 import NavigationBar from "../components/Navbar";
+import LoadingMessage from "../components/LoadingMessage";
 
 
 
@@ -15,6 +16,7 @@ const PublicProfileScreen = ({ route }) => {
   const { user } = route.params;
   const [requested, isRequested] = useState(false);
   const [currentCatalogues, setCurrentCatalogues] = useState([]);
+  const [pageLoading, setPageLoading] = useState(true);
   const uid = "N1xC3SF9KgNLNAde6sWvODrRaUO2";
 
 
@@ -34,13 +36,18 @@ const PublicProfileScreen = ({ route }) => {
       res.forEach((doc) => {
         catalogues.push(doc.id);
       });
+      setPageLoading(false)
       setCurrentCatalogues(catalogues);
     });
   }, []);
 
 
   //if add button click change to non editable and display "friend request sent"
-  return (
+
+  if (pageLoading) {
+    return <LoadingMessage />
+  }else{
+    return (
     <View>
     <NavigationBar />
     <View style={styles.profileContainer}>
@@ -82,6 +89,9 @@ const PublicProfileScreen = ({ route }) => {
     </View>
     </View>
   );
+  }
+
+  
 };
 
 export default PublicProfileScreen;
