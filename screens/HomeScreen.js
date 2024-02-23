@@ -1,7 +1,6 @@
 import {
   Pressable,
   SafeAreaView,
-  StyleSheet,
   Text,
   View,
   ScrollView,
@@ -12,7 +11,8 @@ import { useNavigation } from "@react-navigation/native";
 import { CurrentUserContext } from "../contexts/userContext";
 import { getAllCatalogues } from "../src/getAllCatalogues";
 import { TextInput } from "react-native-web";
-
+import NavigationBar from "../components/Navbar"
+import styles from "../styles/styles";
 const HomeScreen = () => {
   const navigation = useNavigation();
   const [currentCatalogues, setCurrentCatalogues] = useState([]);
@@ -44,11 +44,13 @@ const HomeScreen = () => {
   };
   
   return (
-    <SafeAreaView style={styles.container}>
+
+    <SafeAreaView style={styles.homeContainer}>
       <Pressable onPress={handleProfilePageClick} style={styles.button}>
           <Text style={styles.buttonText}>Profile Page</Text>
         </Pressable>
       <View style={styles.container}>
+
         <ScrollView
           style={styles.scrollView}
           contentContainerStyle={{ alignItems: "center" }}
@@ -78,42 +80,42 @@ const HomeScreen = () => {
 
 export default HomeScreen;
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    width: "100%",
-  },
-  button: {
-    backgroundColor: "#42273B",
-    width: "90%",
-    paddingHorizontal: 15,
-    paddingVertical: 15,
-    borderRadius: 10,
-    alignItems: "center",
-    marginTop: 40,
-  },
-  buttonOutline: {
-    backgroundColor: "white",
-    marginTop: 5,
-    borderColor: "#42273B",
-    borderWidth: 2,
-  },
-  buttonCatalogueText: {
-    color: "#42273B",
-    fontWeight: "700",
-    fontSize: 16,
-  },
-  buttonText: {
-    color: "white",
-    fontWeight: "700",
-    fontSize: 16,
-  },
-  scrollView: {
-    width: "95%",
-  },
-  bottomContainer: {
-    marginBottom: 5,
-  },
-});
+// const styles = StyleSheet.create({
+//   homeContainer: {
+//     flex: 1,
+//     justifyContent: "center",
+//     alignItems: "center",
+//     width: "100%",
+//   },
+//   button: {
+//     backgroundColor: "#42273B",
+//     width: "90%",
+//     paddingHorizontal: 15,
+//     paddingVertical: 15,
+//     borderRadius: 10,
+//     alignItems: "center",
+//     marginTop: 40,
+//   },
+//   buttonOutline: {
+//     backgroundColor: "white",
+//     marginTop: 5,
+//     borderColor: "#42273B",
+//     borderWidth: 2,
+//   },
+//   buttonCatalogueText: {
+//     color: "#42273B",
+//     fontWeight: "700",
+//     fontSize: 16,
+//   },
+//   buttonText: {
+//     color: "white",
+//     fontWeight: "700",
+//     fontSize: 16,
+//   },
+//   scrollView: {
+//     width: "95%",
+//   },
+//   bottomContainer: {
+//     marginBottom: 5,
+//   },
+// });

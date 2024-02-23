@@ -20,7 +20,11 @@
           "expo-camera",
           {
             "cameraPermission": "Allow $(PRODUCT_NAME) to access your camera."
-          }
+          },
+          "expo-image-picker",
+        {
+          "photosPermission": "$(PRODUCT_NAME) accesses your photos to let you share them with your friends."
+        }
         ]
       ]
     },

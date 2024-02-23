@@ -7,7 +7,7 @@ export default NavigationBar= () =>{
         <View style={styles.navbar}>
             <Button title='Library'onPress={()=>{navigation.navigate()}}/>
             <Button title='Friends'onPress={()=>{navigation.navigate()}}/>
-            <Button title='Account'onPress={()=>{navigation.navigate()}}/>
+            <Button title='Account'onPress={()=>{navigation.navigate("UserProfilePage")}}/>
         </View>
     )
 }
