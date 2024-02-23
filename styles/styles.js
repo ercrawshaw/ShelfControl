@@ -105,7 +105,7 @@ export default styles = StyleSheet.create({
         borderRadius: 10,
         marginBottom: 10,
         fontSize: 16,
-        color: '#333', // Set text color for input fields
+        color: '#333',
     },
     buttonContainer: {
         width: "60%",
@@ -126,9 +126,13 @@ export default styles = StyleSheet.create({
         width: "90%",
         paddingHorizontal: 15,
         paddingVertical: 10,
-        borderRadius: 20,
-        
+        borderRadius: 20, 
     },
+    
+      
+      
+      
+    
 
 
 
@@ -220,9 +224,7 @@ export default styles = StyleSheet.create({
         alignItems: "center",
         backgroundColor: "#42273B",
     },
-    profileContainer: {
-        width: "80%",
-    },
+    
     profileText: {
         backgroundColor: "white",
         color: "#42273B",

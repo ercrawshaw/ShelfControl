@@ -149,7 +149,7 @@ const LoginScreen = () => {
           onPress={handleForgotPassword}
           style={styles.forgotPasswordButton}
         >
-          <Text style={styles.smallButtonText}>Forgot Your Password</Text>
+          <Text style={styles.smallButtonText}>Forgot Your Password?</Text>
         </Pressable>
       </View>
     </KeyboardAvoidingView>
