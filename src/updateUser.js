@@ -6,15 +6,16 @@ import { doc, updateDoc } from "firebase/firestore";
 
 const updateUser = (uid, user) => {
   // return verifyBeforeUpdateEmail(getAuth().currentUser, user.email).then(() => {
-    //   return updateEmail(getAuth().currentUser, user.email).then(() => {
+      // return updateEmail(getAuth().currentUser, user.email).then(() => {
     const docRef = doc(db, "users", uid);
     return updateDoc(docRef, {
-      username: user.username,
+      // username: user.username,
       firstname: user.firstname,
       lastname: user.lastname,
     });
   // });
 };
+
 
 export default updateUser;
 
