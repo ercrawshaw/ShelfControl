@@ -13,22 +13,26 @@ import { getAllCatalogues } from "../src/getAllCatalogues";
 import NavigationBar from "../components/Navbar";
 import { TextInput } from "react-native-web";
 import styles from "../styles/styles";
+import LoadingMessage from "../components/LoadingMessage";
 
 
 
 const HomeScreen = () => {
   const navigation = useNavigation();
   const [currentCatalogues, setCurrentCatalogues] = useState([]);
+  const [pageLoading, setPageLoading] = useState(true);
   //const { currentUid } = useContext(CurrentUserContext);
   const currentUid = "N1xC3SF9KgNLNAde6sWvODrRaUO2";
 
   useEffect(() => {
+    
     getAllCatalogues(currentUid).then((res) => {
       let catalogues = [];
       res.forEach((doc) => {
         catalogues.push(doc.id);
         // console.log(doc.data());
       });
+      setPageLoading(false)
       setCurrentCatalogues(catalogues);
     });
   }, []);
@@ -43,8 +47,10 @@ const HomeScreen = () => {
     navigation.navigate("SingleCatalogueScreen", { catalogue_id: catalogue });
   };
 
-  
-  return (
+  if (pageLoading) {
+    return <LoadingMessage />
+  }else{
+    return (
     <SafeAreaView>
 
       <NavigationBar />
@@ -78,46 +84,10 @@ const HomeScreen = () => {
     </SafeAreaView>
 
   );
+  }
+  
+  
 };
 
 export default HomeScreen;
 
-// const styles = StyleSheet.create({
-//   homeContainer: {
-//     flex: 1,
-//     justifyContent: "center",
-//     alignItems: "center",
-//     width: "100%",
-//   },
-//   button: {
-//     backgroundColor: "#42273B",
-//     width: "90%",
-//     paddingHorizontal: 15,
-//     paddingVertical: 15,
-//     borderRadius: 10,
-//     alignItems: "center",
-//     marginTop: 40,
-//   },
-//   buttonOutline: {
-//     backgroundColor: "white",
-//     marginTop: 5,
-//     borderColor: "#42273B",
-//     borderWidth: 2,
-//   },
-//   buttonCatalogueText: {
-//     color: "#42273B",
-//     fontWeight: "700",
-//     fontSize: 16,
-//   },
-//   buttonText: {
-//     color: "white",
-//     fontWeight: "700",
-//     fontSize: 16,
-//   },
-//   scrollView: {
-//     width: "95%",
-//   },
-//   bottomContainer: {
-//     marginBottom: 5,
-//   },
-// });
