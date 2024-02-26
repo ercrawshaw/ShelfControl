@@ -7,6 +7,7 @@ import {
   Pressable,
   TextInput,
   ScrollView,
+  Alert,
 } from "react-native";
 import React, { useContext, useEffect, useLayoutEffect, useState } from "react";
 import { CurrentUserContext } from "../contexts/userContext";
@@ -127,9 +128,19 @@ const UserProfilePage = () => {
   };
 
   const handleDelete = () => {
-    deleteSingleUser(currentUid, user).then(() => {
-      navigation.navigate("Login");
-    });
+    Alert.alert("Warning", "Are you sure you want to delete your account", [
+      {
+        text: "Yes, I am sure",
+        onPress: () => {
+          deleteSingleUser(currentUid, user).then(() => {
+            navigation.navigate("Login");
+          });
+        },
+      },
+      {
+        text: "No, keep my account ",
+      },
+    ]);
   };
   // const pickImage = async () => {
   //   if(status){
@@ -253,15 +264,13 @@ const UserProfilePage = () => {
               {editable ? (
                 <Pressable
                   style={[styles.UPbutton, styles.buttonOutline]}
-                  onPress={handleEditSubmission}
-                >
+                  onPress={handleEditSubmission}>
                   <Text style={styles.buttonOutlineText}>Done!</Text>
                 </Pressable>
               ) : (
                 <Pressable
                   style={[styles.UPbutton, styles.buttonOutline]}
-                  onPress={handleEditClick}
-                >
+                  onPress={handleEditClick}>
                   <Text style={styles.buttonOutlineText}>Edit profile</Text>
                 </Pressable>
               )}
@@ -269,16 +278,14 @@ const UserProfilePage = () => {
               <View>
                 <Pressable
                   style={[styles.UPbutton, styles.buttonOutline]}
-                  onPress={handlePasswordChange}
-                >
+                  onPress={handlePasswordChange}>
                   <Text style={styles.buttonOutlineText}>Change Password</Text>
                 </Pressable>
               </View>
               <View>
                 <Pressable
                   onPress={handleSignOut}
-                  style={[styles.UPbutton, styles.buttonOutline]}
-                >
+                  style={[styles.UPbutton, styles.buttonOutline]}>
                   <Text style={styles.buttonOutlineText}>Sign out</Text>
                 </Pressable>
               </View>
@@ -290,8 +297,7 @@ const UserProfilePage = () => {
                     styles.buttonOutline,
                     styles.deleteButton,
                   ]}
-                  onPress={handleDelete}
-                >
+                  onPress={handleDelete}>
                   <Text style={styles.buttonOutlineText}>Delete profile</Text>
                 </Pressable>
               </View>
