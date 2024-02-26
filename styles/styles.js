@@ -135,19 +135,20 @@ export default styles = StyleSheet.create({
     marginBottom: 20,
   },
   profileAvatar: {
-    width: 100,
-    height: 100,
-    borderRadius: 50,
+    width: 150,
+    height: 150,
+    borderRadius: 100,
     marginRight: 10,
     marginLeft: 5,
-    borderColor: "#42273B",
-    borderWidth: 3,
+    // borderColor: "#42273B",
+    // borderWidth: 3,
   },
   profileHeaderTextContainer: {
     flex: 1,
+    marginTop: 20,
   },
   profileUsername: {
-    fontSize: 25,
+    fontSize: 35,
     fontWeight: "bold",
     marginBottom: 7,
   },
@@ -207,6 +208,11 @@ export default styles = StyleSheet.create({
     // justifyContent: "center",
     paddingHorizontal: 20,
     marginBottom: 20,
+    marginTop: 10,
+  },
+  PPSHeader: {
+    fontSize: 25,
+    fontWeight: '400',
   },
   UPcontainer: {
     // flex: 1,
@@ -448,6 +454,7 @@ export default styles = StyleSheet.create({
     height: 200,
     resizeMode: "cover",
   },
+  
 
 
 

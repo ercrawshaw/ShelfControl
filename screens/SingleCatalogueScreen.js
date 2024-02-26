@@ -84,7 +84,7 @@ const SingleCatalogueScreen = ({ route }) => {
   };
 
   return (
-    <View style={styles.homeContainer}>
+    <View>
       <NavigationBar />
       <View>
         <SearchBarComponent
