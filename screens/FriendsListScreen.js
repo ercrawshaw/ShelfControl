@@ -4,6 +4,8 @@ import { CurrentUserContext } from '../contexts/userContext';
 import { db } from '../firebaseConfig';
 import { collection, query, where, getDocs, doc, getDoc, addDoc } from 'firebase/firestore';
 import { useNavigation } from '@react-navigation/native';
+import NavigationBar from "../components/Navbar";
+import styles from '../styles/styles';
 
 
 const FriendsListScreen = () => {
@@ -80,7 +82,10 @@ const FriendsListScreen = () => {
 
 
  return (
-   <SafeAreaView style={styles.container}>
+  
+  <SafeAreaView style={styles.FLcontainer}>
+  <NavigationBar /> 
+    <View style={styles.FLmainScreen}>
      <ScrollView
        style={styles.scrollView}
        contentContainerStyle={{ alignItems: "center" }}>
@@ -101,66 +106,26 @@ const FriendsListScreen = () => {
          </View>
        ))}
      </ScrollView>
+     
+
+      <View style={styles.FLfooter}>
+        <Pressable 
+        style={[styles.bottomButton, styles.bottomButtonOutline]}
+        onPress={() => {navigation.navigate('PublicUsersScreen')}}
+        >
+          <Text style={styles.bottomButtonText}>Find Friends</Text>
+        </Pressable>
+      </View>
+
+      </View>
+
    </SafeAreaView>
+  
  );
 };
 
 
-const styles = StyleSheet.create({
- container: {
-   flex: 1,
-   justifyContent: "center",
-   alignItems: "center",
-   width: "100%",
- },
- button: {
-   backgroundColor: "#42273B",
-   width: "90%",
-   paddingHorizontal: 15,
-   paddingVertical: 15,
-   borderRadius: 10,
-   alignItems: "center",
-   marginTop: 20,
- },
- buttonOutline: {
-   backgroundColor: "white",
-   marginTop: 5,
-   borderColor: "#42273B",
-   borderWidth: 2,
- },
- buttonCatalogueText: {
-   color: "#42273B",
-   fontWeight: "700",
-   fontSize: 16,
- },
- buttonText: {
-   color: "white",
-   fontWeight: "700",
-   fontSize: 16,
- },
- scrollView: {
-   width: "100%",
- },
- chatButton: {
-   backgroundColor: '#42273B',
-   padding: 10,
-   borderRadius: 10,
- },
- chatButtonText: {
-   color: 'white',
-   fontSize: 16,
- },
- friendContainer: {
-   flexDirection: 'row',
-   alignItems: 'center',
-   justifyContent: 'space-between',
-   width: '90%',
-   marginVertical: 5,
-   padding: 10,
-   backgroundColor: '#f0f0f0',
-   borderRadius: 10,
- }
-});
 
+ 
 
 export default FriendsListScreen;
