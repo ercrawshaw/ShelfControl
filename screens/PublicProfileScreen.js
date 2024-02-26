@@ -18,26 +18,26 @@ import LoadingMessage from "../components/LoadingMessage";
 const PublicProfileScreen = ({ route }) => {
   const navigation = useNavigation();
   const { currentUid } = useContext(CurrentUserContext);
-  const { user } = route.params;
+  const { friend } = route.params;
   const [requested, isRequested] = useState(false);
   const [currentCatalogues, setCurrentCatalogues] = useState([]);
   const [pageLoading, setPageLoading] = useState(true);
 
   function handleAddFriend() {
     //creating friendship document for both user
-    addFriend(currentUid, user.id);
+    addFriend(currentUid, friend.id);
     isRequested(true);
   }
 
   const handleCatalogueClick = (catalogue) => {
     navigation.navigate("SingleCatalogueScreen", {
       catalogue_id: catalogue,
-      friendsUid: user.id,
+      friendsUid: friend.id,
     });
   };
 
   useEffect(() => {
-    getAllCatalogues(user.id).then((res) => {
+    getAllCatalogues(friend.id).then((res) => {
       let catalogues = [];
       res.forEach((doc) => {
         catalogues.push(doc.id);
@@ -48,6 +48,7 @@ const PublicProfileScreen = ({ route }) => {
   }, []);
 
   //if add button click change to non editable and display "friend request sent"
+  console.log(friend);
 
   if (pageLoading) {
     return <LoadingMessage />;
@@ -59,10 +60,10 @@ const PublicProfileScreen = ({ route }) => {
           <View style={styles.profileHeader}>
             <Image
               style={styles.profileAvatar}
-              source={{ uri: user.data().avatar_img }}
+              source={{ uri: friend.data().avatar_img }}
             />
             <View style={styles.profileHeaderTextContainer}>
-              <Text style={styles.profileUsername}>{user.data().username}</Text>
+              <Text style={styles.profileUsername}>{friend.data().username}</Text>
               {requested ? (
                 <View>
                   <Text style={styles.pendingText}>Friend request pending</Text>

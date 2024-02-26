@@ -4,6 +4,9 @@ import { CurrentUserContext } from '../contexts/userContext';
 import { db } from '../firebaseConfig';
 import { collection, query, where, getDocs, doc, getDoc, addDoc } from 'firebase/firestore';
 import { useNavigation } from '@react-navigation/native';
+import NavigationBar from "../components/Navbar";
+import styles from '../styles/styles';
+import { getFriend } from '../src/getFriend';
 
 
 const FriendsListScreen = () => {
@@ -27,7 +30,7 @@ const FriendsListScreen = () => {
              const userRef = doc(db, 'users', uid);
              const userSnap = await getDoc(userRef);
              if (userSnap.exists()) {
-               return { id: uid, username: userSnap.data().username };
+               return { id: uid, username: userSnap.data().username, accepted: userSnap.data().accepted };
              }
              return null;
            })
@@ -76,11 +79,24 @@ const FriendsListScreen = () => {
      const docRef = await addDoc(chatRoomsRef, newChatRoomData);
      return docRef.id;
    }
- }
+ };
 
+ function handleViewProfile(friend) {
+  getFriend(friend.id)
+  .then((res) => {
+    navigation.navigate("PublicProfile", { friend: res });
+  })
+  .catch((err) => {
+    console.log("friend not found");
+  })
+  
+ };
 
  return (
-   <SafeAreaView style={styles.container}>
+  
+  <SafeAreaView style={styles.FLcontainer}>
+  <NavigationBar /> 
+    <View style={styles.FLmainScreen}>
      <ScrollView
        style={styles.scrollView}
        contentContainerStyle={{ alignItems: "center" }}>
@@ -88,79 +104,50 @@ const FriendsListScreen = () => {
          <View key={index} style={styles.friendContainer}>
            <Pressable
              style={[styles.button, styles.buttonOutline]}
-             onPress={() => handleChatPress(friend.id)}
+             onPress={() => handleViewProfile(friend)}
            >
              <Text style={styles.buttonCatalogueText}>{friend.username}</Text>
            </Pressable>
-           <Pressable
+          {friend.accepted? <Pressable
              style={styles.chatButton}
              onPress={() => handleChatPress(friend.id)}
            >
              <Text style={styles.chatButtonText}>Chat</Text>
-           </Pressable>
+           </Pressable> 
+            :
+            <View>
+              <Pressable>
+                <Text>Accept</Text>
+              </Pressable>
+              <Pressable>
+                <Text>Decline</Text>
+              </Pressable>
+            </View>
+          }
+           
          </View>
        ))}
      </ScrollView>
+     
+
+      <View style={styles.FLfooter}>
+        <Pressable 
+        style={[styles.bottomButton, styles.bottomButtonOutline]}
+        onPress={() => {navigation.navigate('PublicUsersScreen')}}
+        >
+          <Text style={styles.bottomButtonText}>Find Friends</Text>
+        </Pressable>
+      </View>
+
+      </View>
+
    </SafeAreaView>
+  
  );
 };
 
 
-const styles = StyleSheet.create({
- container: {
-   flex: 1,
-   justifyContent: "center",
-   alignItems: "center",
-   width: "100%",
- },
- button: {
-   backgroundColor: "#42273B",
-   width: "90%",
-   paddingHorizontal: 15,
-   paddingVertical: 15,
-   borderRadius: 10,
-   alignItems: "center",
-   marginTop: 20,
- },
- buttonOutline: {
-   backgroundColor: "white",
-   marginTop: 5,
-   borderColor: "#42273B",
-   borderWidth: 2,
- },
- buttonCatalogueText: {
-   color: "#42273B",
-   fontWeight: "700",
-   fontSize: 16,
- },
- buttonText: {
-   color: "white",
-   fontWeight: "700",
-   fontSize: 16,
- },
- scrollView: {
-   width: "100%",
- },
- chatButton: {
-   backgroundColor: '#42273B',
-   padding: 10,
-   borderRadius: 10,
- },
- chatButtonText: {
-   color: 'white',
-   fontSize: 16,
- },
- friendContainer: {
-   flexDirection: 'row',
-   alignItems: 'center',
-   justifyContent: 'space-between',
-   width: '90%',
-   marginVertical: 5,
-   padding: 10,
-   backgroundColor: '#f0f0f0',
-   borderRadius: 10,
- }
-});
 
+ 
 
 export default FriendsListScreen;

@@ -135,9 +135,9 @@ export default styles = StyleSheet.create({
     marginBottom: 20,
   },
   profileAvatar: {
-    width: 200,
-    height: 200,
-    borderRadius: 100,
+    width: 100,
+    height: 100,
+    borderRadius: 50,
     marginRight: 10,
     marginLeft: 5,
     borderColor: "#42273B",
@@ -170,13 +170,16 @@ export default styles = StyleSheet.create({
   },
   usersProfileContainer: {
     marginTop: 20,
+    marginBottom: 20,
+    flexDirection: 'column',
+    columnGap: 5,
   },
   usersInfoContainer: {
     flexDirection: "row",
     alignItems: "center",
   },
   userUsername: {
-    fontSize: 45,
+    fontSize: 25,
     fontWeight: "bold",
   },
   loadingContainer: {
@@ -247,7 +250,16 @@ export default styles = StyleSheet.create({
   deleteButton: {
     marginBottom: 70,
   },
-
+  friendContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    width: '90%',
+    marginVertical: 5,
+    padding: 10,
+    backgroundColor: '#f0f0f0',
+    borderRadius: 10,
+  },
   homeContainer: {
     flex: 1,
     justifyContent: "center",
@@ -435,5 +447,32 @@ export default styles = StyleSheet.create({
     width: 100,
     height: 200,
     resizeMode: "cover",
+  },
+
+
+
+
+  //to stick to bottom - as shown on FriendsListScreen
+  FLcontainer: {
+    flex: 1,
+  },
+  FLmainScreen: {
+    flex: 1,
+  },
+  FLscrollView: {
+    flex: 1,
+  },
+  FLfooter: {
+    marginBottom: 20,
+    position: 'absolute',
+    bottom: 0,
+    width: '100%',
+    alignItems: 'center',
+  },
+  FLfriendContainer: {
+    marginBottom: 20,
+  },
+  FLbottomButton: {
+
   },
 });
