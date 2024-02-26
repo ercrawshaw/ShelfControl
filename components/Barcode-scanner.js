@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from "react";
-import { StyleSheet, TouchableOpacity, View, Pressable } from "react-native";
+import { StyleSheet, TouchableOpacity, View, Pressable, Dimensions } from "react-native";
 import { CameraView } from "expo-camera/next";
 import {Camera} from 'expo-camera';
 import { fetchBook } from "./api";
@@ -110,7 +110,7 @@ return (
             style={styles.camera}
           >
             <TouchableOpacity>
-              <Text style={styles.crosshair}>[ ]</Text>
+              <Text style={styles.crosshair}>[    ]</Text>
             </TouchableOpacity>
           </CameraView>
           <Pressable
@@ -156,6 +156,12 @@ return (
   }
 }
 
+const screenWidth = Dimensions.get('window').width;
+const screenHeight = Dimensions.get('window').height;
+
+const maxWidth = screenWidth * 0.9;
+const maxHeight = screenHeight * 0.6;
+
 export default BarcodeScanner;
 
 const styles = StyleSheet.create({
@@ -166,8 +172,14 @@ const styles = StyleSheet.create({
     gap: 10,
   },
   camera: {
-    height: "auto",
-    width: 300,
+    flex: 1,
+    width: '100%',
+    aspectRatio: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    maxWidth,
+    maxHeight, 
+    overflow: 'hidden',
   },
   crosshair: {
     color: "white",
