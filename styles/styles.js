@@ -171,8 +171,8 @@ export default styles = StyleSheet.create({
   usersProfileContainer: {
     marginTop: 20,
     marginBottom: 20,
-    // flexDirection: 'column',
-    // columnGap: 5,
+    flexDirection: 'column',
+    columnGap: 5,
   },
   usersInfoContainer: {
     flexDirection: "row",

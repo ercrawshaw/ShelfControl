@@ -6,6 +6,7 @@ import { collection, query, where, getDocs, doc, getDoc, addDoc } from 'firebase
 import { useNavigation } from '@react-navigation/native';
 import NavigationBar from "../components/Navbar";
 import styles from '../styles/styles';
+import { getFriend } from '../src/getFriend';
 
 
 const FriendsListScreen = () => {
@@ -78,8 +79,18 @@ const FriendsListScreen = () => {
      const docRef = await addDoc(chatRoomsRef, newChatRoomData);
      return docRef.id;
    }
- }
+ };
 
+ function handleViewProfile(friend) {
+  getFriend(friend.id)
+  .then((res) => {
+    navigation.navigate("PublicProfile", { friend: res });
+  })
+  .catch((err) => {
+    console.log("friend not found");
+  })
+  
+ };
 
  return (
   
@@ -93,10 +104,11 @@ const FriendsListScreen = () => {
          <View key={index} style={styles.friendContainer}>
            <Pressable
              style={[styles.button, styles.buttonOutline]}
-             onPress={() => handleChatPress(friend.id)}
+             onPress={() => handleViewProfile(friend)}
            >
              <Text style={styles.buttonCatalogueText}>{friend.username}</Text>
            </Pressable>
+
            <Pressable
              style={styles.chatButton}
              onPress={() => handleChatPress(friend.id)}

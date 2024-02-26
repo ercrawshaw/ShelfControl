@@ -34,8 +34,8 @@ const PublicUsersScreen = () => {
     });
   }, []);
 
-  function handleViewProfile(user) {
-    navigation.navigate("PublicProfile", { user: user });
+  function handleViewProfile(friend) {
+    navigation.navigate("PublicProfile", { friend: friend });
   }
 
   if (pageLoading) {
@@ -45,21 +45,21 @@ const PublicUsersScreen = () => {
       <View>
         <NavigationBar />
         <View style={styles.usersProfileContainer}>
-          {currentPublicUsers.map((user, index) => {
+          {currentPublicUsers.map((friend, index) => {
             return (
               <View key={index}>
                 <View style={styles.usersInfoContainer}>
                   <Image
                     style={styles.profileAvatar}
-                    source={{ uri: user.data().avatar_img }}
+                    source={{ uri: friend.data().avatar_img }}
                   />
                   <View style={styles.profileHeaderTextContainer}>
                     <Text style={styles.userUsername}>
-                      {user.data().username}
+                      {friend.data().username}
                     </Text>
                     <Pressable
                       style={styles.button}
-                      onPress={() => handleViewProfile(user)}
+                      onPress={() => handleViewProfile(friend)}
                     >
                       <Text style={styles.buttonText}>View Profile</Text>
                     </Pressable>
