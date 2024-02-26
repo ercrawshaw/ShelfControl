@@ -6,6 +6,7 @@ import {
   KeyboardAvoidingView,
   Pressable,
   TextInput,
+  ScrollView,
 } from "react-native";
 import React, { useContext, useEffect, useLayoutEffect, useState } from "react";
 import { CurrentUserContext } from "../contexts/userContext";
@@ -161,74 +162,83 @@ const UserProfilePage = () => {
     return (
       <View>
         <NavigationBar />
-        <KeyboardAvoidingView style={styles.UPcontainer} behavior="padding">
+        <ScrollView style={styles.scrollView}>
           <View style={styles.profileContainer}>
-            <Pressable
-              style={[styles.button, styles.buttonOutline]}
-              //onPress={pickImage}
-            >
-              <Text style={styles.buttonOutlineText}>Pick a profile pic</Text>
-            </Pressable>
-
-            {image ? (
+            {/* {image ? (
               <Image source={{ uri: image }} style={styles.image} />
+            ) : null} */}
+            <Image
+              source={{ uri: user.avatar_img }}
+              style={styles.profileAvatar}
+            />
+            {editable ? (
+              <Pressable
+                style={[styles.button, styles.buttonOutline]}
+                //onPress={pickImage}
+              >
+                <Text style={styles.buttonOutlineText}>Pick a profile pic</Text>
+              </Pressable>
             ) : null}
-
-            <View>
-              <Text>{profileStatus}</Text>
+            <View style={styles.UPtoggle}>
+              <Text style={styles.UPtoggleText}>{profileStatus}</Text>
               <Switch value={isSwitchOn} onValueChange={onToggleSwitch} />
             </View>
-
-            <TextInput
-              style={
-                editable
-                  ? [styles.profileText, styles.editable]
-                  : styles.profileText
-              }
-              //style={styles.input}
-              editable={editable}
-              placeholder="First Name"
-              value={user.firstname}
-              onChangeText={(text) =>
-                setUser((currentUser) => {
-                  return { ...currentUser, firstname: text };
-                })
-              }
-            />
-            <TextInput
-              placeholder="Last Name"
-              editable={editable}
-              value={user.lastname}
-              onChangeText={(text) =>
-                setUser((currentUser) => {
-                  return { ...currentUser, lastname: text };
-                })
-              }
-              style={
-                editable
-                  ? [styles.profileText, styles.editable]
-                  : styles.profileText
-              }
-            />
-            <TextInput
-              placeholder="Username"
-              value={user.username}
-              // onChangeText={(text) => setUsername(text)}
-              style={styles.profileText}
-              readOnly
-            />
-            <TextInput
-              placeholder="Email"
-              style={styles.profileText}
-              editable={editable}
-              value={user.email}
-              onChangeText={(text) =>
-                setUser((currentUser) => {
-                  return { ...currentUser, email: text };
-                })
-              }
-              readOnly
-            />
+            <KeyboardAvoidingView style={styles.UPcontainer} behavior="padding">
+              <View>
+                <View style={styles.UPfullname}>
+                  <TextInput
+                    style={
+                      editable
+                        ? [styles.UPText, styles.editable]
+                        : styles.UPText
+                    }
+                    //style={styles.input}
+                    editable={editable}
+                    placeholder="First Name"
+                    value={user.firstname}
+                    onChangeText={(text) =>
+                      setUser((currentUser) => {
+                        return { ...currentUser, firstname: text };
+                      })
+                    }
+                  />
+                  <TextInput
+                    placeholder="Last Name"
+                    editable={editable}
+                    value={user.lastname}
+                    onChangeText={(text) =>
+                      setUser((currentUser) => {
+                        return { ...currentUser, lastname: text };
+                      })
+                    }
+                    style={
+                      editable
+                        ? [styles.UPText, styles.editable]
+                        : styles.UPText
+                    }
+                  />
+                </View>
+                <TextInput
+                  placeholder="Username"
+                  value={user.username}
+                  // onChangeText={(text) => setUsername(text)}
+                  style={styles.profileText}
+                  readOnly
+                />
+                <TextInput
+                  placeholder="Email"
+                  style={styles.profileText}
+                  editable={editable}
+                  value={user.email}
+                  onChangeText={(text) =>
+                    setUser((currentUser) => {
+                      return { ...currentUser, email: text };
+                    })
+                  }
+                  readOnly
+                />
+              </View>
+            </KeyboardAvoidingView>
             {/* {userAuth && (
             <Text
               style={[styles.profileText, { backgroundColor: "aquamarine" }]}
@@ -238,48 +248,56 @@ const UserProfilePage = () => {
                 : "Email is not verified"}
             </Text>
           )} */}
-          </View>
-          <View style={styles.buttonContainer}>
-            {editable ? (
-              <Pressable
-                style={[styles.UPbutton, styles.buttonOutline]}
-                onPress={handleEditSubmission}
-              >
-                <Text style={styles.buttonOutlineText}>Done!</Text>
-              </Pressable>
-            ) : (
-              <Pressable
-                style={[styles.UPbutton, styles.buttonOutline]}
-                onPress={handleEditClick}
-              >
-                <Text style={styles.buttonOutlineText}>Edit profile</Text>
-              </Pressable>
-            )}
-            <Pressable
-              style={[styles.button, styles.buttonOutline]}
-              onPress={handlePasswordChange}
-            >
-              <Text style={styles.buttonOutlineText}>Change Password</Text>
-            </Pressable>
-          </View>
-          <View>
-            <Pressable
-              onPress={handleSignOut}
-              style={[styles.UPbutton, styles.buttonOutline]}
-            >
-              <Text style={styles.buttonOutlineText}>Sign out</Text>
-            </Pressable>
-          </View>
 
-          <View>
-            <Pressable
-              style={[styles.UPbutton, styles.buttonOutline]}
-              onPress={handleDelete}
-            >
-              <Text style={styles.buttonOutlineText}>Delete profile</Text>
-            </Pressable>
+            <View style={styles.buttonContainer}>
+              {editable ? (
+                <Pressable
+                  style={[styles.UPbutton, styles.buttonOutline]}
+                  onPress={handleEditSubmission}
+                >
+                  <Text style={styles.buttonOutlineText}>Done!</Text>
+                </Pressable>
+              ) : (
+                <Pressable
+                  style={[styles.UPbutton, styles.buttonOutline]}
+                  onPress={handleEditClick}
+                >
+                  <Text style={styles.buttonOutlineText}>Edit profile</Text>
+                </Pressable>
+              )}
+
+              <View>
+                <Pressable
+                  style={[styles.UPbutton, styles.buttonOutline]}
+                  onPress={handlePasswordChange}
+                >
+                  <Text style={styles.buttonOutlineText}>Change Password</Text>
+                </Pressable>
+              </View>
+              <View>
+                <Pressable
+                  onPress={handleSignOut}
+                  style={[styles.UPbutton, styles.buttonOutline]}
+                >
+                  <Text style={styles.buttonOutlineText}>Sign out</Text>
+                </Pressable>
+              </View>
+
+              <View>
+                <Pressable
+                  style={[
+                    styles.UPbutton,
+                    styles.buttonOutline,
+                    styles.deleteButton,
+                  ]}
+                  onPress={handleDelete}
+                >
+                  <Text style={styles.buttonOutlineText}>Delete profile</Text>
+                </Pressable>
+              </View>
+            </View>
           </View>
-        </KeyboardAvoidingView>
+        </ScrollView>
       </View>
     );
   }
