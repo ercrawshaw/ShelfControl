@@ -23,6 +23,9 @@ export default styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: "bold",
   },
+  SCsearchBar: {
+    marginTop: 10, 
+  },
   bigButtonContainer: {
     flexDirection: "column",
     justifyContent: "flex",
@@ -228,16 +231,21 @@ export default styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: "#ccc",
   },
-  UPfullname: {
-    flexDirection: "row",
-    // alignItems: "center",
-    // justifyContent: "center",
-    marginBottom: 3,
-  },
   UPText: {
-    fontSize: 18,
+    fontSize: 30,
     fontWeight: "bold",
     color: "#42273B",
+    marginRight: 10,
+  },
+  fullNameContainer: {
+    flexDirection: 'row',
+    marginTop: 40,
+  },
+  UPContactInfo: {
+    marginTop: 10,
+  },
+  contactText: {
+    fontSize: 15,
   },
   UPbutton: {
     paddingVertical: 10,
@@ -254,8 +262,62 @@ export default styles = StyleSheet.create({
     fontWeight: "700",
     paddingBottom: 2,
   },
+  rowContainer: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  UPButtonContainer: {
+    flexDirection: 'column',
+    marginTop: 30,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  UPfilledPressButtonOutline: {
+    justifyContent: "center",
+    alignItems: "center",
+    paddingVertical: 10,
+    paddingHorizontal: 10,
+    borderRadius: 20,
+    marginBottom: 10,
+    minWidth: 150,
+  },
+  passwordButton: {
+    borderBlockColor: "#42273B",
+    borderWidth: 1,
+    width: 300,
+  },
+  editingButton: {
+    backgroundColor:"#42273B", 
+    width: 300,
+  },
+  editable: {
+    borderWidth: 2,
+    borderBlockColor: 'black',
+    margin: 3,
+  },
+  editingButtonText: {
+    fontSize: 17,
+    fontWeight: 'bold',
+    color: 'white',
+  },
+  editingPicButton: {
+    borderBlockColor: 'black',
+    borderWidth: 2,
+    margin: 10,
+    padding: 10,
+  },
+  editingText: {
+    textAlign: 'center',
+  },
   deleteButton: {
-    marginBottom: 70,
+    backgroundColor: 'red',
+    width: 300,
+  },
+  deleteText: {
+    fontSize: 17,
+    fontWeight: 'bold',
+    color: 'white',
   },
   friendContainer: {
     flexDirection: 'row',
@@ -357,7 +419,8 @@ export default styles = StyleSheet.create({
     paddingVertical: 15,
     borderRadius: 10,
     alignItems: "center",
-    marginTop: 40,
+    marginTop: 10,
+    marginBottom: 10,
   },
 
   buttonOutlineText: {
@@ -487,6 +550,66 @@ export default styles = StyleSheet.create({
     marginBottom: 20,
   },
   FLbottomButton: {
-
+  },
+  SCcontainer: {
+    flex: 1,
+  },
+  SCmain: {
+    flex: 1,
+  },
+  SCscrollView: {
+    flex: 1,
+  },
+  SCheaderText: {
+    textAlign: 'center',
+    fontSize: 25,
+    marginTop: 15,
+    marginBottom: 10,
+    fontWeight: 800,
+  },
+  SCsearchBar: {
+    marginTop: 10,
+  },
+  MSsearchBar: {
+    marginTop: 10,
+  },
+  MSscrollContainer: {
+    marginTop: 10,
+  },
+  bookcard: {
+    margin: 10,
+    flex: 1,
+  },
+  signoutButtonContainer: {
+    position: 'absolute',
+    right: 30, 
+    flexDirection: 'row',
+  },
+  signoutButton: {
+    borderWidth: 2,
+    borderBlockColor: "#42273B",
+    borderRadius: 20,
+    marginTop: 5,
+    marginBottom: 15,
+    height: 40,
+    justifyContent: 'center',
+    width: 100,
+  },
+  editButton: {
+    borderWidth: 2,
+    borderBlockColor: "#42273B",
+    borderRadius: 20,
+    marginTop: 30,
+    marginBottom: 30,
+    height: 40,
+    justifyContent: 'center',
+    right: 30,
+    position: 'absolute',
+  },
+  profileInformationContainer: {
+    flexDirection: 'row',
+  },
+  UPContainer: {
+    marginTop: 30,
   },
 });
