@@ -140,6 +140,8 @@ export default styles = StyleSheet.create({
     borderRadius: 100,
     marginRight: 10,
     marginLeft: 5,
+    borderColor: "#42273B",
+    borderWidth: 3,
   },
   profileHeaderTextContainer: {
     flex: 1,
@@ -191,25 +193,59 @@ export default styles = StyleSheet.create({
     marginBottom: 20,
   },
   profileText: {
-    borderWidth: 1,
     borderColor: "#ccc",
     padding: 10,
-    borderRadius: 5,
     width: "80%",
     height: 50,
   },
   profileContainer: {
     flexDirection: "column",
     alignItems: "center",
-    justifyContent: "space-between",
+    // justifyContent: "center",
     paddingHorizontal: 20,
     marginBottom: 20,
-    marginTop: 100,
   },
+  UPcontainer: {
+    // flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    width: "90%",
+    flexDirection: "column",
+    padding: 10,
+    backgroundColor: "#fff",
+    borderRadius: 5,
+    borderWidth: 1,
+    borderColor: "#ccc",
+  },
+  UPfullname: {
+    flexDirection: "row",
+    // alignItems: "center",
+    // justifyContent: "center",
+    marginBottom: 3,
+  },
+  UPText: {
+    fontSize: 18,
+    fontWeight: "bold",
+    color: "#42273B",
+  },
+
   UPbutton: {
     paddingVertical: 10,
     paddingHorizontal: 20,
     borderRadius: 5,
+    width: 250,
+  },
+  UPtoggle: {
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  UPtoggleText: {
+    fontWeight: "700",
+    paddingBottom: 2,
+  },
+  deleteButton: {
+    marginBottom: 70,
   },
 
   homeContainer: {
@@ -275,18 +311,11 @@ export default styles = StyleSheet.create({
     fontWeight: "700",
     fontSize: 16,
   },
-
   NCbuttonText: {
     color: "#42273B",
     fontWeight: "700",
     fontSize: 16,
-  },
 
-  UPcontainer: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    backgroundColor: "#42273B",
   },
 
   NCbuttonContainer: {
@@ -310,6 +339,8 @@ export default styles = StyleSheet.create({
     color: "#42273B",
     fontWeight: "700",
     fontSize: 16,
+    padding: 5,
+    textAlign: "center",
   },
   image: {
     width: 300,
@@ -317,6 +348,13 @@ export default styles = StyleSheet.create({
     alignSelf: "center",
     marginTop: 10,
   },
+  UPimage: {
+    width: 300,
+    height: 300,
+    alignSelf: "center",
+    marginTop: 10,
+  },
+
   SBimage: {
     width: 200,
     height: 300,
