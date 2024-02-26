@@ -30,7 +30,7 @@ const FriendsListScreen = () => {
              const userRef = doc(db, 'users', uid);
              const userSnap = await getDoc(userRef);
              if (userSnap.exists()) {
-               return { id: uid, username: userSnap.data().username };
+               return { id: uid, username: userSnap.data().username, accepted: userSnap.data().accepted };
              }
              return null;
            })
@@ -108,13 +108,23 @@ const FriendsListScreen = () => {
            >
              <Text style={styles.buttonCatalogueText}>{friend.username}</Text>
            </Pressable>
-
-           <Pressable
+          {friend.accepted? <Pressable
              style={styles.chatButton}
              onPress={() => handleChatPress(friend.id)}
            >
              <Text style={styles.chatButtonText}>Chat</Text>
-           </Pressable>
+           </Pressable> 
+            :
+            <View>
+              <Pressable>
+                <Text>Accept</Text>
+              </Pressable>
+              <Pressable>
+                <Text>Decline</Text>
+              </Pressable>
+            </View>
+          }
+           
          </View>
        ))}
      </ScrollView>
