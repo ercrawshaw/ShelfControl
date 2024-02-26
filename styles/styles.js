@@ -197,18 +197,20 @@ export default styles = StyleSheet.create({
     marginBottom: 20,
   },
   profileText: {
-    borderColor: "#ccc",
+    borderColor: 'grey',
+    borderWidth: 1,
     padding: 10,
     width: "80%",
     height: 50,
+    alignItems: 'center',
+    marginTop: 60,
   },
   profileContainer: {
     flexDirection: "column",
     alignItems: "center",
-    // justifyContent: "center",
-    paddingHorizontal: 20,
+    paddingHorizontal: 10,
     marginBottom: 20,
-    marginTop: 10,
+    marginTop: 10, 
   },
   PPSHeader: {
     fontSize: 25,
@@ -237,7 +239,6 @@ export default styles = StyleSheet.create({
     fontWeight: "bold",
     color: "#42273B",
   },
-
   UPbutton: {
     paddingVertical: 10,
     paddingHorizontal: 20,
@@ -331,11 +332,17 @@ export default styles = StyleSheet.create({
   },
   NCbuttonText: {
     color: "#42273B",
-    fontWeight: "700",
-    fontSize: 16,
-
+    fontWeight: "500",
+    fontSize: 25,
+    textAlign: 'center',
   },
-
+  profileTextInput: {
+    fontSize: 30,
+    height: 70, 
+    paddingVertical: 8, 
+    paddingHorizontal: 70,
+    marginTop: 80,
+  },
   NCbuttonContainer: {
     width: "100%",
     justifyContent: "center",

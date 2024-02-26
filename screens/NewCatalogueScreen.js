@@ -32,8 +32,8 @@ const NewCatalogueScreen = () => {
         <View style={styles.profileContainer}>
           <View>
             <TextInput
+              style={styles.profileTextInput}
               placeholder="Catalogue Name"
-              style={styles.profileText}
               value={catalogueName}
               onChangeText={(text) => setCatalogueName(text)}
             />
