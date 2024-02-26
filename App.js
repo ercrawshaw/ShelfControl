@@ -17,6 +17,8 @@ import SingleBookScreen from "./screens/SingleBookScreen";
 import ManualSearch from "./components/ManualSearch";
 import PublicUsersScreen from "./screens/PublicUsersScreen";
 import PublicProfileScreen from "./screens/PublicProfileScreen";
+import FriendsListScreen from "./screens/FriendsListScreen";
+import ChatScreen from "./screens/ChatScreen";
 
 const Stack = createNativeStackNavigator();
 
@@ -69,6 +71,8 @@ export default function App() {
               component={AddNewBookScreen}
             />
             <Stack.Screen name="Scanner" component={BarcodeScanner} />
+            <Stack.Screen name="FriendsList" component={FriendsListScreen} />
+            <Stack.Screen name="ChatScreen" component={ChatScreen} />
           </Stack.Navigator>
         </NavigationContainer>
       </CurrentCatalogueContext.Provider>

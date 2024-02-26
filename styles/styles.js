@@ -96,12 +96,13 @@ export default styles = StyleSheet.create({
   loginInputContainer: {
     marginBottom: 1,
     marginTop: 30,
+    width: "90%",
   },
   loginInput: {
     borderWidth: 2,
     borderColor: "grey",
     paddingVertical: 15,
-    paddingHorizontal: 120,
+    paddingHorizontal: 20,
     borderRadius: 10,
     marginBottom: 10,
     fontSize: 16,
@@ -310,11 +311,11 @@ export default styles = StyleSheet.create({
     fontWeight: "700",
     fontSize: 16,
   },
-
   NCbuttonText: {
     color: "#42273B",
     fontWeight: "700",
     fontSize: 16,
+
   },
 
   NCbuttonContainer: {
@@ -353,6 +354,7 @@ export default styles = StyleSheet.create({
     alignSelf: "center",
     marginTop: 10,
   },
+
   SBimage: {
     width: 200,
     height: 300,
