@@ -33,11 +33,8 @@ import { auth } from "../firebaseConfig";
 import { Switch } from "react-native-paper";
 import updateProfileStatus from "../src/updateProfileStatus";
 
-
 const UserProfilePage = () => {
-  //const { currentUid, setCurrentUid } = useContext(CurrentUserContext);
-  //Hardcoded user, remove later
-  const currentUid = "N1xC3SF9KgNLNAde6sWvODrRaUO2";
+  const { currentUid, setCurrentUid } = useContext(CurrentUserContext);
 
   const [user, setUser] = useState();
   const [editable, isEditable] = useState(false);
@@ -48,19 +45,16 @@ const UserProfilePage = () => {
   const [status, requestPermission] = useState(null);
   const [pageLoading, setPageLoading] = useState(true);
 
-  useEffect(()=>{
-    (async()=>{
-      //const libraryStatus = await ImagePicker.requestMediaLibraryPermissionsAsync()
-      requestPermission(libraryStatus.granted)
-    })()
-  },[])
+  // useEffect(() => {
+  //   (async () => {
+  //     const libraryStatus = await ImagePicker.requestMediaLibraryPermissionsAsync()
+  //     requestPermission(libraryStatus.granted);
+  //   })();
+  // }, []);
 
   const [userAuth, setUserAuth] = useState(null);
   const [profileStatus, setProfileStatus] = useState("Private profile");
   const [isSwitchOn, setIsSwitchOn] = React.useState(true);
-
-  
-
 
   const profilePicRef = ref(
     getStorage(),
@@ -143,15 +137,15 @@ const UserProfilePage = () => {
   //   allowsEditing: true,
   //   aspect: [4, 3],
   //   quality: 1,
-//     });
+  //     });
 
-// if (!result.canceled) {
-//     setImage(result.assets[0].uri);
-//   }
-// }else{
-//   console.warn("no access permissions for photo library")
-// }
-// };
+  // if (!result.canceled) {
+  //     setImage(result.assets[0].uri);
+  //   }
+  // }else{
+  //   console.warn("no access permissions for photo library")
+  // }
+  // };
 
   const handlePasswordChange = () => {
     sendPasswordResetEmail(auth, user.email).then(() => {
@@ -161,93 +155,81 @@ const UserProfilePage = () => {
     });
   };
 
-  
   //if statement to wait until currentUid has updated before calling getUser again
   //and rendering the page
   if (user) {
     return (
       <View>
-      <NavigationBar />
-      <KeyboardAvoidingView style={styles.UPcontainer} behavior="padding">
-        <View style={styles.profileContainer}>
-          {/*<Image
-            style={styles.profileImage}
-            source={{ uri: user.avatar_img }}
-          />
-          <Text style={styles.profileText}>Firstname - {user.firstname}</Text>
-          <Text style={styles.profileText}>Username - {user.username}</Text>
-        </View>
+        <NavigationBar />
+        <KeyboardAvoidingView style={styles.UPcontainer} behavior="padding">
+          <View style={styles.profileContainer}>
+            <Pressable
+              style={[styles.button, styles.buttonOutline]}
+              //onPress={pickImage}
+            >
+              <Text style={styles.buttonOutlineText}>Pick a profile pic</Text>
+            </Pressable>
 
-        <View style={styles.buttonContainer}>
-          <Pressable style={[styles.button, styles.buttonOutline]}>
-            <Text style={styles.buttonOutlineText}>Edit profile</Text>
-          </Pressable>*/}
+            {image ? (
+              <Image source={{ uri: image }} style={styles.image} />
+            ) : null}
 
-          <Pressable
-            style={[styles.button, styles.buttonOutline]}
-            //onPress={pickImage}
-          >
-            <Text style={styles.buttonOutlineText}>Pick a profile pic</Text>
-          </Pressable>
+            <View>
+              <Text>{profileStatus}</Text>
+              <Switch value={isSwitchOn} onValueChange={onToggleSwitch} />
+            </View>
 
-          {image?<Image source={{ uri: image }} style={styles.image}/>:null}
-
-          <View>
-            <Text>{profileStatus}</Text>
-            <Switch value={isSwitchOn} onValueChange={onToggleSwitch} />
-          </View>
-
-          <TextInput
-            style={
-              editable
-                ? [styles.profileText, styles.editable]
-                : styles.profileText
-            }
-            //style={styles.input}
-            editable={editable}
-            placeholder="First Name"
-            value={user.firstname}
-            onChangeText={(text) =>
-              setUser((currentUser) => {
-                return { ...currentUser, firstname: text };
-              })
-            }
-          />
-          <TextInput
-            placeholder="Last Name"
-            editable={editable}
-            value={user.lastname}
-            onChangeText={(text) =>
-              setUser((currentUser) => {
-                return { ...currentUser, lastname: text };
-              })
-            }
-            style={
-              editable
-                ? [styles.profileText, styles.editable]
-                : styles.profileText
-            }
-          />
-          <TextInput
-            placeholder="Username"
-            value={user.username}
-            // onChangeText={(text) => setUsername(text)}
-            style={styles.profileText}
-            readOnly
-          />
-          <TextInput
-            placeholder="Email"
-            style={styles.profileText}
-            editable={editable}
-            value={user.email}
-            onChangeText={(text) =>
-              setUser((currentUser) => {
-                return { ...currentUser, email: text };
-              })
-            }
-            readOnly
-          />
-          {/* {userAuth && (
+            <TextInput
+              style={
+                editable
+                  ? [styles.profileText, styles.editable]
+                  : styles.profileText
+              }
+              //style={styles.input}
+              editable={editable}
+              placeholder="First Name"
+              value={user.firstname}
+              onChangeText={(text) =>
+                setUser((currentUser) => {
+                  return { ...currentUser, firstname: text };
+                })
+              }
+            />
+            <TextInput
+              placeholder="Last Name"
+              editable={editable}
+              value={user.lastname}
+              onChangeText={(text) =>
+                setUser((currentUser) => {
+                  return { ...currentUser, lastname: text };
+                })
+              }
+              style={
+                editable
+                  ? [styles.profileText, styles.editable]
+                  : styles.profileText
+              }
+            />
+            <TextInput
+              placeholder="Username"
+              value={user.username}
+              // onChangeText={(text) => setUsername(text)}
+              style={styles.profileText}
+              readOnly
+            />
+            <TextInput
+              placeholder="Email"
+              style={styles.profileText}
+              editable={editable}
+              value={user.email}
+              onChangeText={(text) =>
+                setUser((currentUser) => {
+                  return { ...currentUser, email: text };
+                })
+              }
+              readOnly
+            />
+            {/* {userAuth && (
             <Text
               style={[styles.profileText, { backgroundColor: "aquamarine" }]}
             >
@@ -256,115 +238,51 @@ const UserProfilePage = () => {
                 : "Email is not verified"}
             </Text>
           )} */}
-        </View>
-        <View style={styles.buttonContainer}>
-          {editable ? (
+          </View>
+          <View style={styles.buttonContainer}>
+            {editable ? (
+              <Pressable
+                style={[styles.UPbutton, styles.buttonOutline]}
+                onPress={handleEditSubmission}
+              >
+                <Text style={styles.buttonOutlineText}>Done!</Text>
+              </Pressable>
+            ) : (
+              <Pressable
+                style={[styles.UPbutton, styles.buttonOutline]}
+                onPress={handleEditClick}
+              >
+                <Text style={styles.buttonOutlineText}>Edit profile</Text>
+              </Pressable>
+            )}
             <Pressable
-              style={[styles.UPbutton, styles.buttonOutline]}
-              onPress={handleEditSubmission}
+              style={[styles.button, styles.buttonOutline]}
+              onPress={handlePasswordChange}
             >
-              <Text style={styles.buttonOutlineText}>Done!</Text>
+              <Text style={styles.buttonOutlineText}>Change Password</Text>
             </Pressable>
-          ) : (
+          </View>
+          <View>
             <Pressable
+              onPress={handleSignOut}
               style={[styles.UPbutton, styles.buttonOutline]}
-              onPress={handleEditClick}
             >
-              <Text style={styles.buttonOutlineText}>Edit profile</Text>
+              <Text style={styles.buttonOutlineText}>Sign out</Text>
             </Pressable>
-          )}
-          <Pressable
-            style={[styles.button, styles.buttonOutline]}
-            onPress={handlePasswordChange}>
-            <Text style={styles.buttonOutlineText}>Change Password</Text>
-          </Pressable>
-        </View>
-        <View>
-          <Pressable
-            onPress={handleSignOut}
-            style={[styles.UPbutton, styles.buttonOutline]}
-          >
-            <Text style={styles.buttonOutlineText}>Sign out</Text>
-          </Pressable>
-        </View>
+          </View>
 
-        <View>
-          <Pressable
-            style={[styles.UPbutton, styles.buttonOutline]}
-            onPress={handleDelete}
-          >
-            <Text style={styles.buttonOutlineText}>Delete profile</Text>
-          </Pressable>
-        </View>
-      </KeyboardAvoidingView>
+          <View>
+            <Pressable
+              style={[styles.UPbutton, styles.buttonOutline]}
+              onPress={handleDelete}
+            >
+              <Text style={styles.buttonOutlineText}>Delete profile</Text>
+            </Pressable>
+          </View>
+        </KeyboardAvoidingView>
       </View>
     );
   }
 };
 
 export default UserProfilePage;
-
-
-// const styles = StyleSheet.create({
-//   container: {
-//     flex: 1,
-//     justifyContent: "center",
-//     alignItems: "center",
-//     backgroundColor: "#42273B",
-//   },
-//   profileContainer: {
-//     width: "80%",
-//   },
-//   profileText: {
-//     backgroundColor: "white",
-//     color: "#42273B",
-//     marginTop: 20,
-//     fontWeight: "700",
-//     fontSize: 16,
-//     padding: 10,
-//     borderColor: "white",
-//     borderWidth: 2,
-//     borderRadius: 5,
-//   },
-//   profileImage: {
-//     width: 150,
-//     height: 150,
-//     borderRadius: 10,
-//   },
-//   buttonContainer: {
-//     width: "60%",
-//     justifyContent: "center",
-//     alignItems: "center",
-//     marginTop: 40,
-//   },
-//   button: {
-//     backgroundColor: "#42273B",
-//     width: "100%",
-//     paddingHorizontal: 15,
-//     paddingVertical: 15,
-//     borderRadius: 10,
-//     alignItems: "center",
-//   },
-//   buttonOutline: {
-//     backgroundColor: "white",
-//     marginTop: 5,
-//     borderColor: "#42273B",
-//     borderWidth: 2,
-//   },
-//   buttonText: {
-//     color: "white",
-//     fontWeight: "700",
-//     fontSize: 16,
-//   },
-//   buttonOutlineText: {
-//     color: "#42273B",
-//     fontWeight: "700",
-//     fontSize: 16,
-//   },
-//   editable: {
-//     backgroundColor: "aquamarine",
-//     fontWeight: "700",
-//     fontSize: 16,
-//   },
-// });
-

@@ -22,37 +22,11 @@ import { collection, doc, setDoc } from "firebase/firestore";
 import { useNavigation } from "@react-navigation/native";
 import { CurrentUserContext } from "../contexts/userContext";
 
-
-
 const LoginScreen = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigation = useNavigation();
   const { currentUid, setCurrentUid } = useContext(CurrentUserContext);
-
-  //using replace here means that on the screen there is no back button to the login screen from home screen
-  // useEffect(() => {
-  //   const unsubscribe = onAuthStateChanged(auth, (user) => {
-  //     if (user) {
-  //       // navigation.replace("HomeScreen");
-  //       console.log("here in login screen");
-  //       navigation.navigate("UserProfilePage");
-  //     }
-  //   });
-  //   return unsubscribe;
-  // }, []);
-
-  // const handleSignUp = () => {
-  //   createUserWithEmailAndPassword(auth, email, password)
-  //     .then((userCredentials) => {
-  //       const user = userCredentials.user;
-  //       console.log("Signed in with:", user.email);
-  //       return db.collection("users").doc(userCredentials.user.uid).setDoc({
-  //         email: userCredentials.email
-  //       })
-  //     })
-  //     .catch((error) => alert(error.message));
-  // };
 
   const handleSignUpClick = () => {
     navigation.navigate("SignUpScreen");
@@ -109,9 +83,7 @@ const LoginScreen = () => {
   };
 
   return (
-
     <KeyboardAvoidingView style={styles.logContainer} behavior="padding">
-
       <View style={styles.loginInputContainer} name="form">
         <TextInput
           placeholder="Email"
@@ -141,7 +113,8 @@ const LoginScreen = () => {
         </Pressable> */}
         <Pressable
           onPress={handleSignUpClick}
-          style={[styles.button, styles.buttonOutline]}>
+          style={[styles.button, styles.buttonOutline]}
+        >
           <Text style={styles.buttonOutlineText}>Sign up</Text>
         </Pressable>
 
@@ -157,4 +130,3 @@ const LoginScreen = () => {
 };
 
 export default LoginScreen;
-

@@ -16,17 +16,15 @@ import { CurrentCatalogueContext } from "../contexts/catalogueContext";
 import styles from "../styles/styles";
 import SearchBarComponent from "../components/SearchBar";
 
-
 const SingleCatalogueScreen = ({ route }) => {
   const navigation = useNavigation();
   const { catalogue_id, friendsUid } = route.params;
   const [currentBooks, setCurrentBooks] = useState([]);
-  //const { currentUid } = useContext(CurrentUserContext);
-  const currentUid = "N1xC3SF9KgNLNAde6sWvODrRaUO2";
+  const { currentUid } = useContext(CurrentUserContext);
   const { currentCatalogue, setCurrentCatalogue } = useContext(
     CurrentCatalogueContext
   );
-  
+
   const [searchQuery, setSearchQuery] = useState("");
   const [foundBooks, setFoundBooks] = useState([]);
   const [mapArr, setMapArr] = useState([]);
@@ -39,25 +37,23 @@ const SingleCatalogueScreen = ({ route }) => {
         res.forEach((doc) => {
           books.push(doc);
         });
+        setMapArr(books);
+        setCurrentBooks(books);
+      });
+    } else {
+      getAllBooks(currentUid, catalogue_id).then((res) => {
+        let books = [];
+        res.forEach((doc) => {
+          books.push(doc);
+        });
         //console.log(books);
         setMapArr(books);
         setCurrentBooks(books);
       });
-    }else{
-      getAllBooks(currentUid, catalogue_id).then((res) => {
-      let books = [];
-      res.forEach((doc) => {
-        books.push(doc);
-      });
-      //console.log(books);
-      setMapArr(books);
-      setCurrentBooks(books);
-    });
-  }  
+    }
   }, [catalogue_id]);
 
   const handleBookClick = (book) => {
-
     if (friendsUid) {
       navigation.navigate("SingleBookScreen", {
         catalogue_id: catalogue_id,
@@ -65,18 +61,17 @@ const SingleCatalogueScreen = ({ route }) => {
         book_id: book.id,
         friendsUid: friendsUid,
       });
-    }else{
+    } else {
       navigation.navigate("SingleBookScreen", {
-      catalogue_id: catalogue_id,
-      book_data: book.data(),
-      book_id: book.id,
-    });
-    } 
+        catalogue_id: catalogue_id,
+        book_data: book.data(),
+        book_id: book.id,
+      });
+    }
   };
 
   useEffect(() => {
     if (foundBooks.length !== 0) {
-      console.log("hello");
       setMapArr(foundBooks);
       //setMapArr(currentBooks)
     }
@@ -90,9 +85,8 @@ const SingleCatalogueScreen = ({ route }) => {
 
   return (
     <View style={styles.homeContainer}>
-      <NavigationBar/>
+      <NavigationBar />
       <View>
-
         <SearchBarComponent
           currentBooks={currentBooks}
           setMapArr={setMapArr}
@@ -104,7 +98,6 @@ const SingleCatalogueScreen = ({ route }) => {
         />
       </View>
       <View style={styles.homeContainer}>
-
         {/* <Text>{JSON.stringify(catalogue_id)}</Text> */}
         <ScrollView
           style={styles.scrollView}
@@ -130,15 +123,13 @@ const SingleCatalogueScreen = ({ route }) => {
         </ScrollView>
       </View>
 
-      {friendsUid?null:
-       <View style={styles.bottomContainer}>
-        <Pressable onPress={handleAddBook} style={styles.SCbutton}>
-
-          <Text style={styles.buttonText}>Add a book</Text>
-        </Pressable>
-      </View> 
-      }
-      
+      {friendsUid ? null : (
+        <View style={styles.bottomContainer}>
+          <Pressable onPress={handleAddBook} style={styles.SCbutton}>
+            <Text style={styles.buttonText}>Add a book</Text>
+          </Pressable>
+        </View>
+      )}
     </View>
   );
 };

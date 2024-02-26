@@ -1,25 +1,22 @@
-import { View, Text, Image, StyleSheet, ScrollView } from 'react-native';
+import { View, Text, Image, StyleSheet, ScrollView } from "react-native";
 import React, { useEffect, useState, useContext } from "react";
 import { CurrentUserContext } from "../contexts/userContext";
 import { useNavigation, useNavigationParam } from "@react-navigation/native";
 import { getAllBooks } from "../src/getAllBooks";
 import { getSingleBook } from "../src/getSingleBook";
 import { fetchBook } from "../components/api";
-import styles from '../styles/styles';
+import styles from "../styles/styles";
 import LoadingMessage from "../components/LoadingMessage";
 import NavigationBar from "../components/Navbar";
-import { LoadBundleTask } from 'firebase/firestore';
+import { LoadBundleTask } from "firebase/firestore";
 
 const SingleBookScreen = ({ route }) => {
   const { catalogue_id, book_data, book_id, friendsUid } = route.params;
   const [currentBook, setCurrentBook] = useState({});
-  //const { currentUid } = useContext(CurrentUserContext);
-  const currentUid = "N1xC3SF9KgNLNAde6sWvODrRaUO2";
+  const { currentUid } = useContext(CurrentUserContext);
   const [currentIsbn, setCurrentIsbn] = useState(null);
   const [pageLoading, setPageLoading] = useState(true);
-  
 
-   
   useEffect(() => {
     if (currentIsbn) {
       fetchBook(currentIsbn).then((result) => {
@@ -28,60 +25,60 @@ const SingleBookScreen = ({ route }) => {
           author: result.items[0].volumeInfo.authors,
           description: result.items[0].volumeInfo.description,
           image: result.items[0].volumeInfo.imageLinks.thumbnail,
-        })
-        setPageLoading(false)
-      })
-    }else{
+        });
+        setPageLoading(false);
+      });
+    } else {
       setCurrentBook({
         title: book_data.title,
         author: book_data.author,
         description: "no",
-        image: 'https://png.pngtree.com/png-clipart/20230511/ourmid/pngtree-isolated-cat-on-white-background-png-image_7094927.png',
-      })
-      setPageLoading(false)
+        image:
+          "https://png.pngtree.com/png-clipart/20230511/ourmid/pngtree-isolated-cat-on-white-background-png-image_7094927.png",
+      });
+      setPageLoading(false);
     }
   }, [currentIsbn]);
-
-
 
   useEffect(() => {
     if (friendsUid) {
       getSingleBook(catalogue_id, friendsUid, book_id).then((res) => {
         if (res.data().hasOwnProperty("isbn")) {
-          setCurrentIsbn(res.data().isbn)
+          setCurrentIsbn(res.data().isbn);
         }
-      })
-    }else{
+      });
+    } else {
       getSingleBook(catalogue_id, currentUid, book_id).then((res) => {
-      if (res.data().hasOwnProperty("isbn")) {
-        setCurrentIsbn(res.data().isbn)
-      }
-    }) 
-    } 
+        if (res.data().hasOwnProperty("isbn")) {
+          setCurrentIsbn(res.data().isbn);
+        }
+      });
+    }
   }, [book_id]);
 
-
   if (pageLoading) {
-    return <LoadingMessage />
-  }else{
+    return <LoadingMessage />;
+  } else {
     return (
-    <View>
-    <NavigationBar />
-    <View style={styles.SBcontainer}>
-      <ScrollView>
-      <View style={styles.imageContainer}>
-        <Image  source={{uri:currentBook.image}} style={styles.SBimage} />
+      <View>
+        <NavigationBar />
+        <View style={styles.SBcontainer}>
+          <ScrollView>
+            <View style={styles.imageContainer}>
+              <Image
+                source={{ uri: currentBook.image }}
+                style={styles.SBimage}
+              />
+            </View>
+            <View style={styles.detailsContainer}>
+              <Text style={styles.title}>{currentBook.title}</Text>
+              <Text style={styles.author}>By {currentBook.author}</Text>
+              <Text style={styles.description}>{currentBook.description}</Text>
+            </View>
+          </ScrollView>
+        </View>
       </View>
-      <View style={styles.detailsContainer}>
-        <Text style={styles.title}>{currentBook.title}</Text>
-        <Text style={styles.author}>By {currentBook.author}</Text>
-        <Text style={styles.description}>{currentBook.description}</Text>
-      </View>
-      </ScrollView>
-     </View>
-     </View>
-  
-  )
+    );
   }
 };
 
