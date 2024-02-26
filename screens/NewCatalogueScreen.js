@@ -13,7 +13,6 @@ import { useNavigation } from "@react-navigation/native";
 import styles from "../styles/styles";
 import NavigationBar from "../components/Navbar";
 
-
 const NewCatalogueScreen = () => {
   const [catalogueName, setCatalogueName] = useState("");
   const { currentUid, setCurrentUid } = useContext(CurrentUserContext);
@@ -25,35 +24,32 @@ const NewCatalogueScreen = () => {
     });
   };
 
-  
   return (
     <View>
-    <NavigationBar />
+      <NavigationBar />
 
-    <KeyboardAvoidingView>
-    <View style={styles.profileContainer}>
-      <View>
-        <TextInput
-          placeholder="Catalogue Name"
-          style={styles.profileText}
-          value={catalogueName}
-          onChangeText={(text) => setCatalogueName(text)}
-        />
-      </View>
-      <View>
-        <Pressable
-          style={[styles.UPbutton, styles.buttonOutline]}
-          onPress={handleCatalogueAdd}
-        >
-          <Text style={styles.NCbuttonText}>Submit</Text>
-        </Pressable>
-      </View>
-    </View>
-    </KeyboardAvoidingView>
-    
+      <KeyboardAvoidingView>
+        <View style={styles.profileContainer}>
+          <View>
+            <TextInput
+              placeholder="Catalogue Name"
+              style={styles.profileText}
+              value={catalogueName}
+              onChangeText={(text) => setCatalogueName(text)}
+            />
+          </View>
+          <View>
+            <Pressable
+              style={[styles.UPbutton, styles.buttonOutline]}
+              onPress={handleCatalogueAdd}
+            >
+              <Text style={styles.NCbuttonText}>Submit</Text>
+            </Pressable>
+          </View>
+        </View>
+      </KeyboardAvoidingView>
     </View>
   );
 };
 
 export default NewCatalogueScreen;
-

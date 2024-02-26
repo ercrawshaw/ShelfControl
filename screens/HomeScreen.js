@@ -1,9 +1,10 @@
 import {
   Pressable,
+  SafeAreaView,
+  StyleSheet,
   Text,
   View,
   ScrollView,
-  SafeAreaView
 } from "react-native";
 import React, { useContext, useState, useEffect, useRef } from "react";
 import { auth } from "../firebaseConfig";
@@ -15,24 +16,19 @@ import { TextInput } from "react-native-web";
 import styles from "../styles/styles";
 import LoadingMessage from "../components/LoadingMessage";
 
-
-
 const HomeScreen = () => {
   const navigation = useNavigation();
   const [currentCatalogues, setCurrentCatalogues] = useState([]);
   const [pageLoading, setPageLoading] = useState(true);
-  //const { currentUid } = useContext(CurrentUserContext);
-  const currentUid = "N1xC3SF9KgNLNAde6sWvODrRaUO2";
+  const { currentUid } = useContext(CurrentUserContext);
 
   useEffect(() => {
-    
     getAllCatalogues(currentUid).then((res) => {
       let catalogues = [];
       res.forEach((doc) => {
         catalogues.push(doc.id);
-        // console.log(doc.data());
       });
-      setPageLoading(false)
+      setPageLoading(false);
       setCurrentCatalogues(catalogues);
     });
   }, []);
@@ -48,46 +44,41 @@ const HomeScreen = () => {
   };
 
   if (pageLoading) {
-    return <LoadingMessage />
-  }else{
+    return <LoadingMessage />;
+  } else {
     return (
-    <SafeAreaView>
+      <SafeAreaView>
+        <NavigationBar />
 
-      <NavigationBar />
-
-      <View>
-      <ScrollView
-        style={styles.scrollView}
-        contentContainerStyle={{ alignItems: "center" }}
-      >
-        {currentCatalogues.map((catalogue, index) => (
-            <Pressable
-              style={[styles.filledPressButton, styles.filledPressButtonOutline]}
-              // catalogue={catalogue}
-              key={index}
-              onPress={() => {
-                handleCatalogueClick(catalogue);
-              }}
-            >
+        <View>
+          <ScrollView
+            style={styles.scrollView}
+            contentContainerStyle={{ alignItems: "center" }}
+          >
+            {currentCatalogues.map((catalogue, index) => (
+              <Pressable
+                style={[
+                  styles.filledPressButton,
+                  styles.filledPressButtonOutline,
+                ]}
+                // catalogue={catalogue}
+                key={index}
+                onPress={() => {
+                  handleCatalogueClick(catalogue);
+                }}
+              >
                 <Text style={styles.filledPressButtonText}>{catalogue}</Text>
-            </Pressable>
-          ))}   
-      </ScrollView>
-      </View>
-
-      <View style={styles.bottomContainer}>
+              </Pressable>
+            ))}
+          </ScrollView>
+        </View>
+        <View style={styles.bottomContainer}>
           <Pressable onPress={handleAddCatalogue} style={styles.bottomButton}>
-              <Text style={styles.bottomButtonText}>Add a New Catalogue</Text>
+            <Text style={styles.bottomButtonText}>Add a New Catalogue</Text>
           </Pressable>
-      </View>
-
-    </SafeAreaView>
-
-  );
+        </View>
+      </SafeAreaView>
+    );
   }
-  
-  
 };
-
 export default HomeScreen;
-

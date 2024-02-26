@@ -17,7 +17,7 @@ import LoadingMessage from "../components/LoadingMessage";
 const PublicUsersScreen = () => {
   //currentPublicUsers also shows person currently logged in, want to remove them
   const [currentPublicUsers, setCurrentPublicUsers] = useState([]);
-  const {currentUid} = useContext(CurrentUserContext);
+  const { currentUid } = useContext(CurrentUserContext);
   const navigation = useNavigation();
   const [pageLoading, setPageLoading] = useState(true);
 
@@ -25,59 +25,53 @@ const PublicUsersScreen = () => {
     getAllPublicUsers().then((res) => {
       let publicUsers = [];
       res.forEach((doc) => {
-        //hardcoded currentUid - change to currentUid when authentification fixed
-        if (doc.id !== 'N1xC3SF9KgNLNAde6sWvODrRaUO2') {
+        if (doc.id !== currentUid) {
           publicUsers.push(doc);
         }
       });
-      setPageLoading(false)
+      setPageLoading(false);
       setCurrentPublicUsers(publicUsers);
     });
   }, []);
 
   function handleViewProfile(user) {
     navigation.navigate("PublicProfile", { user: user });
-  };
-
-  if (pageLoading) {
-    return <LoadingMessage />
-  }else{
-    return (
-    <View>
-    <NavigationBar />
-    <View style={styles.usersProfileContainer}>
-      {currentPublicUsers.map((user, index) => {
-        return (
-          <View key={index}>
-            <View style={styles.usersInfoContainer}>
-              <Image
-                style={styles.profileAvatar}
-                source={{ uri: user.data().avatar_img }}
-              />
-              <View 
-              style={styles.profileHeaderTextContainer}>
-                <Text 
-                style={styles.userUsername}>
-                {user.data().username}
-                </Text>
-                <Pressable
-                  style={styles.button}
-                  onPress={() => handleViewProfile(user)}
-                >
-                  <Text style={styles.buttonText}>View Profile</Text>
-                </Pressable>
-              </View>
-            </View>
-          </View>
-        );
-      })}
-    </View>
-  </View>
-  );
   }
 
-  
+  if (pageLoading) {
+    return <LoadingMessage />;
+  } else {
+    return (
+      <View>
+        <NavigationBar />
+        <View style={styles.usersProfileContainer}>
+          {currentPublicUsers.map((user, index) => {
+            return (
+              <View key={index}>
+                <View style={styles.usersInfoContainer}>
+                  <Image
+                    style={styles.profileAvatar}
+                    source={{ uri: user.data().avatar_img }}
+                  />
+                  <View style={styles.profileHeaderTextContainer}>
+                    <Text style={styles.userUsername}>
+                      {user.data().username}
+                    </Text>
+                    <Pressable
+                      style={styles.button}
+                      onPress={() => handleViewProfile(user)}
+                    >
+                      <Text style={styles.buttonText}>View Profile</Text>
+                    </Pressable>
+                  </View>
+                </View>
+              </View>
+            );
+          })}
+        </View>
+      </View>
+    );
+  }
 };
 
 export default PublicUsersScreen;
-
