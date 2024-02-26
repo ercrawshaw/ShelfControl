@@ -68,8 +68,8 @@ const SignUpScreen = () => {
     usernameExistsCheckFunc(username)
       .then(() => {
         if (validatePasswordFunc(password, confirmPassword)) {
-          createUserWithEmailAndPassword(auth, email, password).then(
-            (userCredentials) => {
+          createUserWithEmailAndPassword(auth, email, password)
+            .then((userCredentials) => {
               const user = userCredentials.user;
               // console.log("Signed in with:", user.email);
               setCurrentUid(userCredentials.user.uid);
@@ -90,8 +90,8 @@ const SignUpScreen = () => {
                   ]
                 );
               });
-            }
-          );
+            })
+            .catch((error) => alert(error.message));
         }
       })
       .catch((error) => alert(error.message));
@@ -143,10 +143,7 @@ const SignUpScreen = () => {
       <View style={styles.buttonContainer}>
         <Pressable
           onPress={handleSignUp}
-
-          style={[styles.UPbutton, styles.buttonOutline]}
-        >
-
+          style={[styles.UPbutton, styles.buttonOutline]}>
           <Text style={styles.buttonOutlineText}>Sign up</Text>
         </Pressable>
       </View>
