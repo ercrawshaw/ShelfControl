@@ -27,6 +27,7 @@ import { getFriend } from "../src/getFriend";
 import getFriendshipStatus from "../src/getFriendshipStatus";
 import getAllFriends from "../src/getAllFriends";
 import acceptFriendship from "../src/acceptFriendship";
+import declineFriendship from "../src/declineFriendship";
 
 const FriendsListScreen = () => {
   const { currentUid } = useContext(CurrentUserContext);
@@ -109,7 +110,25 @@ const FriendsListScreen = () => {
   }
 
   function handleAcceptFriend(currentUid, friend) {
-    acceptFriendship(currentUid, friend.id);
+    const fetchFriend = async () => {
+      try {
+        const singleFriend = await acceptFriendship(currentUid, friend.id);
+        console.log(singleFriend.data());
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    fetchFriend();
+  }
+
+  function handleDeleteFriend(currentUid, friend) {
+    declineFriendship(currentUid, friend.id)
+      .then(() => {
+        console.log("Successfully declined friendship!");
+      })
+      .catch((err) => {
+        console.log("Cannot decline friend requests at this time");
+      });
   }
 
   return (
@@ -163,7 +182,12 @@ const FriendsListScreen = () => {
                     <Text style={styles.FRButtonText}>Accept</Text>
                   </Pressable>
                   <Pressable style={styles.FRButton}>
-                    <Text style={styles.FRButtonText}>Decline</Text>
+                    <Text
+                      style={styles.FRButtonText}
+                      onPress={() => handleDeleteFriend(currentUid, friend)}
+                    >
+                      Decline
+                    </Text>
                   </Pressable>
                 </View>
               ) : null}
