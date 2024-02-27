@@ -592,7 +592,7 @@ export default styles = StyleSheet.create({
     fontSize: 25,
     marginTop: 15,
     marginBottom: 10,
-    fontWeight: 800,
+    fontWeight: "800",
   },
   SCsearchBar: {
     marginTop: 10,

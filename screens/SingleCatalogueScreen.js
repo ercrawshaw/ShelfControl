@@ -16,6 +16,7 @@ import { CurrentCatalogueContext } from "../contexts/catalogueContext";
 
 import styles from "../styles/styles";
 import SearchBarComponent from "../components/SearchBar";
+import { useIsFocused } from "@react-navigation/native";
 
 const SingleCatalogueScreen = ({ route }) => {
   const navigation = useNavigation();
@@ -29,6 +30,7 @@ const SingleCatalogueScreen = ({ route }) => {
   const [searchQuery, setSearchQuery] = useState("");
   const [foundBooks, setFoundBooks] = useState([]);
   const [mapArr, setMapArr] = useState([]);
+  const isFocused = useIsFocused()
   //   const catalogue = useNavigationParam("catalogue_id");
 
   useEffect(() => {
@@ -52,7 +54,7 @@ const SingleCatalogueScreen = ({ route }) => {
         setCurrentBooks(books);
       });
     }
-  }, [catalogue_id]);
+  }, [catalogue_id, isFocused]);
 
   const handleBookClick = (book) => {
     if (friendsUid) {

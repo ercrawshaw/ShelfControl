@@ -15,14 +15,17 @@ import NavigationBar from "../components/Navbar";
 import { TextInput } from "react-native-web";
 import styles from "../styles/styles";
 import LoadingMessage from "../components/LoadingMessage";
+import { useIsFocused } from "@react-navigation/native";
 
 const HomeScreen = () => {
   const navigation = useNavigation();
   const [currentCatalogues, setCurrentCatalogues] = useState([]);
   const [pageLoading, setPageLoading] = useState(true);
   const { currentUid } = useContext(CurrentUserContext);
+  const isFocused = useIsFocused()
 
   useEffect(() => {
+    if(isFocused){
     getAllCatalogues(currentUid).then((res) => {
       let catalogues = [];
       res.forEach((doc) => {
@@ -31,7 +34,8 @@ const HomeScreen = () => {
       setPageLoading(false);
       setCurrentCatalogues(catalogues);
     });
-  }, []);
+    }
+  }, [isFocused]);
 
   //console.log(auth.currentUser.providerData);
 
