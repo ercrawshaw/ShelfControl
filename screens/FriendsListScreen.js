@@ -123,13 +123,7 @@ const FriendsListScreen = () => {
 
   function handleDeleteFriend(currentUid, friend) {
     declineFriendship(currentUid, friend.id)
-      .then(() => {
-        console.log("Successfully declined friendship!");
-      })
-      .catch((err) => {
-        console.log("Cannot decline friend requests at this time");
-      });
-  }
+  };
 
   return (
     <SafeAreaView style={styles.FLcontainer}>
