@@ -30,8 +30,9 @@ const PublicUsersScreen = () => {
           publicUsers.push(doc);
         }
       });
-      setPageLoading(false);
+      
       setCurrentPublicUsers(publicUsers);
+      setPageLoading(false);
     });
   }, []);
 
