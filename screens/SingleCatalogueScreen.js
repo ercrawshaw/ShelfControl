@@ -132,7 +132,7 @@ const SingleCatalogueScreen = ({ route }) => {
 
       {friendsUid ? null : (
         <View style={styles.bottomContainer}>
-          <Pressable onPress={handleAddBook} style={styles.SCbutton}>
+          <Pressable onPress={handleAddBook} style={styles.bottomButton}>
             <Text style={styles.buttonText}>Add a book</Text>
           </Pressable>
         </View>

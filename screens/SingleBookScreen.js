@@ -16,6 +16,7 @@ const SingleBookScreen = ({ route }) => {
   const { currentUid } = useContext(CurrentUserContext);
   const [currentIsbn, setCurrentIsbn] = useState(null);
   const [pageLoading, setPageLoading] = useState(true);
+  const [hasIsbn, setHasIsbn] = useState(null);
 
   useEffect(() => {
     if (currentIsbn) {
@@ -28,7 +29,7 @@ const SingleBookScreen = ({ route }) => {
         });
         setPageLoading(false);
       });
-    } else {
+    } else if (hasIsbn === false){
       setCurrentBook({
         title: book_data.title,
         author: book_data.author,
@@ -36,7 +37,7 @@ const SingleBookScreen = ({ route }) => {
         image:
           "https://png.pngtree.com/png-clipart/20230511/ourmid/pngtree-isolated-cat-on-white-background-png-image_7094927.png",
       });
-      setPageLoading(false);
+      
     }
   }, [currentIsbn]);
 
@@ -51,6 +52,7 @@ const SingleBookScreen = ({ route }) => {
       getSingleBook(catalogue_id, currentUid, book_id).then((res) => {
         if (res.data().hasOwnProperty("isbn")) {
           setCurrentIsbn(res.data().isbn);
+          setHasIsbn(false)
         }
       });
     }
@@ -62,21 +64,23 @@ const SingleBookScreen = ({ route }) => {
     return (
       <View>
         <NavigationBar />
-        <View style={styles.SBcontainer}>
-          <ScrollView>
-            <View style={styles.imageContainer}>
+        <ScrollView>
+        <View>
+            <View style={styles.SBimageContainer}>
               <Image
                 source={{ uri: currentBook.image }}
                 style={styles.SBimage}
               />
             </View>
-            <View style={styles.detailsContainer}>
-              <Text style={styles.title}>{currentBook.title}</Text>
-              <Text style={styles.author}>By {currentBook.author}</Text>
-              <Text style={styles.description}>{currentBook.description}</Text>
-            </View>
-          </ScrollView>
-        </View>
+            <View style={styles.SBinfoContainer}>
+              <Text style={styles.SBtitleInfo}>{currentBook.title}</Text>
+              <Text style={styles.SBauthorInfo}>By {currentBook.author}</Text>
+            </View>  
+            
+              <Text style={styles.SBsynopsisInfo}>{currentBook.description}</Text>
+            
+          </View>
+        </ScrollView>
       </View>
     );
   }

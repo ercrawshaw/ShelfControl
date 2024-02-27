@@ -88,8 +88,8 @@ export default styles = StyleSheet.create({
     color: "white",
   },
   bottomContainer: {
-    marginTop: 5,
-    marginBottom: 5,
+    marginTop: 1,
+    marginBottom: 20,
     alignItems: "center",
   },
   scrollView: {
@@ -442,10 +442,35 @@ export default styles = StyleSheet.create({
     alignSelf: "center",
     marginTop: 10,
   },
-
+  SBimageContainer: {
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
   SBimage: {
     width: 200,
     height: 300,
+    marginTop: 10,
+    marginBottom: 20
+  },
+  SBinfoContainer: {
+    marginLeft: 20,
+    marginRight: 20,
+    alignItems: 'center',
+    marginBottom: 10,
+  },
+  SBtitleInfo: {
+    fontWeight: 'bold',
+    fontSize: 25,
+  },
+  SBauthorInfo: {
+    fontWeight: '500',
+    fontSize: 18,
+  },
+  SBsynopsisInfo: {
+    marginHorizontal: 25,
+    marginBottom: 100,
+    lineHeight: 25,
+    fontSize: 15,
   },
   detailsContainer: {
     alignItems: "center",
@@ -530,6 +555,12 @@ export default styles = StyleSheet.create({
 
 
   //to stick to bottom - as shown on FriendsListScreen
+  HScontainer: {
+    flex: 1,
+  },
+  HSmainScreen: {
+    flex: 1,
+  },
   FLcontainer: {
     flex: 1,
   },
