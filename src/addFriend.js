@@ -24,13 +24,13 @@ const addFriend = (uid1, uid2) => {
       uid1: uid2,
       uid2: uid1,
       accepted: false,
-      created_at: Date.now(),
+      created: Date.now(),
     }),
     setDoc(docRef1, {
-      uid1: uid2,
-      uid2: uid1,
+      uid1: uid1,
+      uid2: uid2,
       accepted: true,
-      created_at: Date.now(),
+      created: Date.now(),
     }),
   ]).then(() => {
     console.log("Success");

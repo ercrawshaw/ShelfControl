@@ -50,7 +50,7 @@ const FriendsListScreen = () => {
               //get the friend profile information
               getFriend(friendData.uid2),
             ]);
-
+            console.log(results[0].data());
             return {
               id: results[1].id,
               username: results[1].data().username,
