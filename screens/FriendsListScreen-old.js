@@ -10,6 +10,7 @@ import {
 } from "react-native";
 import { CurrentUserContext } from "../contexts/userContext";
 import { db } from "../firebaseConfig";
+import LoadingMessage from "../components/LoadingMessage";
 import {
   collection,
   query,
@@ -30,6 +31,7 @@ const OldFriendsListScreen = () => {
   const [friends, setFriends] = useState([]);
   const [updatedFriendsList, setUpdatedFriendsList] = useState([]);
   const navigation = useNavigation();
+  const [pageLoading, setPageLoading] = useState(true);
 
   useEffect(() => {
     const fetchFriends = async () => {
@@ -74,6 +76,7 @@ const OldFriendsListScreen = () => {
               setUpdatedFriendsList((currentUpdatedFriendsList) => {
                 [...currentUpdatedFriendsList, updatedFriend];
               });
+              setPageLoading(false);
             });
           });
           //setFriends(friendsList);
@@ -129,7 +132,10 @@ const OldFriendsListScreen = () => {
       });
   }
 
-  return (
+  if (pageLoading) {
+    return <LoadingMessage />
+  }else{
+    return (
     <SafeAreaView style={styles.FLcontainer}>
       <NavigationBar />
       <View style={styles.FLmainScreen}>
@@ -181,6 +187,9 @@ const OldFriendsListScreen = () => {
       </View>
     </SafeAreaView>
   );
+  }
+
+  
 };
 
 export default OldFriendsListScreen;
