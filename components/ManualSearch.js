@@ -18,7 +18,8 @@ import { CurrentUserContext } from "../contexts/userContext";
 import { CurrentCatalogueContext } from "../contexts/catalogueContext";
 import { useNavigation } from "@react-navigation/native";
 import NavigationBar from "../components/Navbar";
-import styles from '../styles/styles';
+import styles from "../styles/styles";
+import { bookExistsCheckFunc } from "../utils/bookExistsCheck";
 
 //import * as ImagePicker from 'expo-image-picker';
 // import ImageLibrary from "./Image-picker";
@@ -82,23 +83,24 @@ const ManualSearch = () => {
         title: manualBookTitle,
         author: manualAuthorName,
         publication_date: manualPublishDate,
-        image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/No-Image-Placeholder.svg/832px-No-Image-Placeholder.svg.png',
+        image:
+          "https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/No-Image-Placeholder.svg/832px-No-Image-Placeholder.svg.png",
       });
       setBookAdded(true);
     }
   }
-//   const pickImage = async () => {
-//     let result = await ImagePicker.launchImageLibraryAsync({
-//     mediaTypes: ImagePicker.MediaTypeOptions.All,
-//     allowsEditing: true,
-//     aspect: [4, 3],
-//     quality: 1,
-//     });
+  //   const pickImage = async () => {
+  //     let result = await ImagePicker.launchImageLibraryAsync({
+  //     mediaTypes: ImagePicker.MediaTypeOptions.All,
+  //     allowsEditing: true,
+  //     aspect: [4, 3],
+  //     quality: 1,
+  //     });
 
-// if (!result.canceled) {
-//     setImage(result.assets[0].uri);
-//   }
-// };
+  // if (!result.canceled) {
+  //     setImage(result.assets[0].uri);
+  //   }
+  // };
 
   function handleCancelClick() {
     setBookAdded(false);
@@ -112,14 +114,20 @@ const ManualSearch = () => {
   }
 
   function handleSubmitManualBook() {
-    addBook(currentUid, currentCatalogue, manuallyAddedBook).then(() => {
-      // navigation.navigate("ManualSearch");
-      setManualAdd(true);
-      setManualBookTitle("");
-      setManualAuthorName("");
-      setManualPublishDate("");
-      setBookAdded(false);
-    });
+    bookExistsCheckFunc(currentUid, currentCatalogue, manualBookTitle)
+      .then(() => {
+        addBook(currentUid, currentCatalogue, manuallyAddedBook).then(() => {
+          // navigation.navigate("ManualSearch");
+          setManualAdd(true);
+          setManualBookTitle("");
+          setManualAuthorName("");
+          setManualPublishDate("");
+          setBookAdded(false);
+        });
+      })
+      .catch((error) => {
+        alert(error.message);
+      });
   }
 
   //console.log(selectedBook);
@@ -130,9 +138,19 @@ const ManualSearch = () => {
       publication_date: book.volumeInfo.publishedDate,
       isbn: book.volumeInfo.industryIdentifiers[0].identifier,
     };
-    addBook(currentUid, currentCatalogue, bookInfo).then(() => {
-      console.log("success");
-    });
+    bookExistsCheckFunc(currentUid, currentCatalogue, bookInfo.title)
+      .then(() => {
+        addBook(currentUid, currentCatalogue, bookInfo)
+          .then(() => {
+            console.log("success");
+          })
+          .catch((error) => {
+            alert(error.message);
+          });
+      })
+      .catch((error) => {
+        alert(error.message);
+      });
   }
 
   //Search Options Chosen
@@ -140,22 +158,21 @@ const ManualSearch = () => {
     return (
       <View>
         <NavigationBar />
-      <View style={styles.MSsearchBar}>
-        <Searchbar
-          placeholder="Search Book Title"
-          onChangeText={(bookTitle) => setBookTitle(bookTitle)}
-          value={bookTitle}
-          onIconPress={searchBook}
-        />
-        <Text>{alert}</Text>
-        <Text>{error}</Text>
-        <StatusBar style="auto" />
-      </View>
-      
-      <Button icon="plus" mode="contained" onPress={handleAddClick}>
+        <View style={styles.MSsearchBar}>
+          <Searchbar
+            placeholder="Search Book Title"
+            onChangeText={(bookTitle) => setBookTitle(bookTitle)}
+            value={bookTitle}
+            onIconPress={searchBook}
+          />
+          <Text>{alert}</Text>
+          <Text>{error}</Text>
+          <StatusBar style="auto" />
+        </View>
+
+        <Button icon="plus" mode="contained" onPress={handleAddClick}>
           Add a Book
         </Button>
-      
       </View>
     );
 
@@ -164,15 +181,15 @@ const ManualSearch = () => {
     return (
       <View style={styles.searchbar}>
         <NavigationBar />
-      <View style={styles.MSsearchBar}>
-        <Searchbar
-          placeholder="Search Book Title"
-          onChangeText={(bookTitle) => setBookTitle(bookTitle)}
-          value={bookTitle}
-          onIconPress={searchBook}
-        />
-        <StatusBar style="auto" />
-      </View>
+        <View style={styles.MSsearchBar}>
+          <Searchbar
+            placeholder="Search Book Title"
+            onChangeText={(bookTitle) => setBookTitle(bookTitle)}
+            value={bookTitle}
+            onIconPress={searchBook}
+          />
+          <StatusBar style="auto" />
+        </View>
 
         <ScrollView style={styles.MSscrollContainer}>
           <View>
@@ -192,8 +209,7 @@ const ManualSearch = () => {
                     <Button
                       onPress={() => {
                         handleSubmitSearchedBook(book);
-                      }}
-                    >
+                      }}>
                       Add Book
                     </Button>
                   </Card.Actions>
@@ -207,7 +223,7 @@ const ManualSearch = () => {
             <Text>Back</Text>
           </Pressable>
         </View>
-        </View>
+      </View>
     );
 
     //Manually adding book information
@@ -274,8 +290,7 @@ const ManualSearch = () => {
               }}
               mode="contained"
               onPress={handleManualBookAdd}
-              title="Check Book Details"
-            >
+              title="Check Book Details">
               Check Details
             </Button>
 
@@ -329,5 +344,3 @@ const ManualSearch = () => {
 };
 
 export default ManualSearch;
-
-

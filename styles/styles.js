@@ -444,27 +444,27 @@ export default styles = StyleSheet.create({
     marginTop: 10,
   },
   SBimageContainer: {
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
   },
   SBimage: {
     width: 200,
     height: 300,
     marginTop: 10,
-    marginBottom: 20
+    marginBottom: 20,
   },
   SBinfoContainer: {
     marginLeft: 20,
     marginRight: 20,
-    alignItems: 'center',
+    alignItems: "center",
     marginBottom: 10,
   },
   SBtitleInfo: {
-    fontWeight: 'bold',
+    fontWeight: "bold",
     fontSize: 25,
   },
   SBauthorInfo: {
-    fontWeight: '500',
+    fontWeight: "500",
     fontSize: 18,
   },
   SBsynopsisInfo: {
@@ -592,7 +592,7 @@ export default styles = StyleSheet.create({
     fontSize: 25,
     marginTop: 15,
     marginBottom: 10,
-    fontWeight: 800,
+    fontWeight: "800",
   },
   SCsearchBar: {
     marginTop: 10,
