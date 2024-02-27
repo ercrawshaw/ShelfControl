@@ -79,6 +79,7 @@ const UserProfilePage = () => {
   useFocusEffect(
     React.useCallback(() => {
       getUser(currentUid, setUser);
+      setPageLoading(false)
     }, [currentUid])
   );
 
@@ -169,7 +170,9 @@ const UserProfilePage = () => {
 
   //if statement to wait until currentUid has updated before calling getUser again
   //and rendering the page
-  if (user) {
+  if (pageLoading) {
+    return <LoadingMessage />
+  }else if (user) {
     return (
       <View>
         <NavigationBar />

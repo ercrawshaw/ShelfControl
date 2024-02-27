@@ -12,6 +12,7 @@ import { CurrentUserContext } from "../contexts/userContext";
 import { useNavigation, useNavigationParam } from "@react-navigation/native";
 import NavigationBar from "../components/Navbar";
 import { getAllBooks } from "../src/getAllBooks";
+import LoadingMessage from "../components/LoadingMessage";
 import { CurrentCatalogueContext } from "../contexts/catalogueContext";
 
 import styles from "../styles/styles";
@@ -23,6 +24,7 @@ const SingleCatalogueScreen = ({ route }) => {
   const { catalogue_id, friendsUid } = route.params;
   const [currentBooks, setCurrentBooks] = useState([]);
   const { currentUid } = useContext(CurrentUserContext);
+  const [pageLoading, setPageLoading] = useState(true);
   const { currentCatalogue, setCurrentCatalogue } = useContext(
     CurrentCatalogueContext
   );
@@ -42,6 +44,7 @@ const SingleCatalogueScreen = ({ route }) => {
         });
         setMapArr(books);
         setCurrentBooks(books);
+        setPageLoading(false)
       });
     } else {
       getAllBooks(currentUid, catalogue_id).then((res) => {
@@ -52,6 +55,7 @@ const SingleCatalogueScreen = ({ route }) => {
         //console.log(books);
         setMapArr(books);
         setCurrentBooks(books);
+        setPageLoading(false)
       });
     }
   }, [catalogue_id, isFocused]);
@@ -87,8 +91,10 @@ const SingleCatalogueScreen = ({ route }) => {
     navigation.navigate("AddNewBookScreen");
   };
 
-
-  return (
+  if (pageLoading) {
+    return <LoadingMessage />
+  }else{
+    return (
     <View style={styles.SCcontainer}>
         <NavigationBar />
 
@@ -141,6 +147,9 @@ const SingleCatalogueScreen = ({ route }) => {
       )}
     </View>
   );
+  }
+
+  
 };
 
 export default SingleCatalogueScreen;
