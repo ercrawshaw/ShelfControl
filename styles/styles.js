@@ -577,7 +577,41 @@ export default styles = StyleSheet.create({
   FLfriendContainer: {
     marginBottom: 20,
   },
-  FLbottomButton: {},
+  FLbottomButton: {
+    backgroundColor: "#42273B",
+  },
+  FRButtonContainer: {
+    flexDirection: "row",
+    rowGap: 5,
+  },
+
+  FRButtonText: {
+    color: "white",
+    fontWeight: "700",
+  },
+  FRButton: {
+    backgroundColor: "#42273B",
+    paddingHorizontal: 15,
+    paddingVertical: 15,
+    borderRadius: 10,
+  },
+  FPbutton: {
+    backgroundColor: "#42273B",
+    width: "45%",
+    paddingHorizontal: 15,
+    paddingVertical: 15,
+    borderRadius: 10,
+    alignItems: "center",
+    marginTop: 40,
+    marginRight: 5,
+  },
+  FRImage: {
+    width: 50,
+    height: 50,
+    borderRadius: 25,
+    borderColor: "#42273B",
+    borderWidth: 2,
+  },
   SCcontainer: {
     flex: 1,
   },
