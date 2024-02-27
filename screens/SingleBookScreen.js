@@ -16,7 +16,8 @@ const SingleBookScreen = ({ route }) => {
   const { currentUid } = useContext(CurrentUserContext);
   const [currentIsbn, setCurrentIsbn] = useState(null);
   const [pageLoading, setPageLoading] = useState(true);
-  const [hasIsbn, setHasIsbn] = useState(null);
+
+
 
   useEffect(() => {
     if (currentIsbn) {
@@ -29,13 +30,14 @@ const SingleBookScreen = ({ route }) => {
         });
         setPageLoading(false);
       });
-    } else if (hasIsbn === false){
+    } else {
+      console.log("hello");
       setCurrentBook({
         title: book_data.title,
         author: book_data.author,
         description: "no",
         image:
-          "https://png.pngtree.com/png-clipart/20230511/ourmid/pngtree-isolated-cat-on-white-background-png-image_7094927.png",
+          "https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/No-Image-Placeholder.svg/832px-No-Image-Placeholder.svg.png",
       });
       
     }
@@ -52,7 +54,6 @@ const SingleBookScreen = ({ route }) => {
       getSingleBook(catalogue_id, currentUid, book_id).then((res) => {
         if (res.data().hasOwnProperty("isbn")) {
           setCurrentIsbn(res.data().isbn);
-          setHasIsbn(false)
         }
       });
     }
