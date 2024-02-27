@@ -1,14 +1,21 @@
 import React, { useState, useEffect, useContext } from "react";
-import { StyleSheet, TouchableOpacity, View, Pressable, Dimensions } from "react-native";
+import {
+  StyleSheet,
+  TouchableOpacity,
+  View,
+  Pressable,
+  Dimensions,
+} from "react-native";
 import { CameraView } from "expo-camera/next";
-import {Camera} from 'expo-camera';
+import { Camera } from "expo-camera";
 import { fetchBook } from "./api";
 import { useNavigation } from "@react-navigation/native";
 import { Button, Card, TextInput, Text } from "react-native-paper";
 import { CurrentUserContext } from "../contexts/userContext";
 import { CurrentCatalogueContext } from "../contexts/catalogueContext";
 import addBook from "../src/addBook";
-import * as MediaLibrary from 'expo-media-library';
+import * as MediaLibrary from "expo-media-library";
+import { bookExistsCheckFunc } from "../utils/bookExistsCheck";
 
 const BarcodeScanner = () => {
   const navigation = useNavigation();
@@ -20,14 +27,14 @@ const BarcodeScanner = () => {
   const { currentCatalogue, setCurrentCatalogue } = useContext(
     CurrentCatalogueContext
   );
-  
-  useEffect(()=>{
-  (async()=>{
-    MediaLibrary.getPermissionsAsync()
-    const cameraStatus = await Camera.requestCameraPermissionsAsync()
-    requestPermission(cameraStatus.granted)
-  })()
-},[])
+
+  useEffect(() => {
+    (async () => {
+      MediaLibrary.getPermissionsAsync();
+      const cameraStatus = await Camera.requestCameraPermissionsAsync();
+      requestPermission(cameraStatus.granted);
+    })();
+  }, []);
 
   useEffect(() => {
     if (isbn) {
@@ -55,6 +62,7 @@ const BarcodeScanner = () => {
       publication_date: bookData[0].volumeInfo.publishedDate,
       isbn: bookData[0].volumeInfo.industryIdentifiers[0].identifier,
     };
+
     addBook(currentUid, currentCatalogue, bookInfo);
     setScanned(false);
     setBookData(null);
@@ -68,72 +76,78 @@ const BarcodeScanner = () => {
       publication_date: bookData[0].volumeInfo.publishedDate,
       isbn: bookData[0].volumeInfo.industryIdentifiers[0].identifier,
     };
-    addBook(currentUid, currentCatalogue, bookInfo);
-    setScanned(false);
-    setBookData(null);
-    setIsbn(null);
-    navigation.navigate("SingleCatalogueScreen", {
-      catalogue_id: currentCatalogue,
-    });
+    bookExistsCheckFunc(currentUid, currentCatalogue, bookInfo.title)
+      .then(() => {
+        addBook(currentUid, currentCatalogue, bookInfo);
+        setScanned(false);
+        setBookData(null);
+        setIsbn(null);
+        navigation.navigate("SingleCatalogueScreen", {
+          catalogue_id: currentCatalogue,
+        });
+      })
+      .catch((error) => {
+        alert(error.message);
+      });
   };
 
-if(permission){  
-return (  
-    <View style={styles.container}>
-      {bookData ? (
-        <Card style={styles.bookcard}>
-          <Card.Content>
-            <Text style={styles.bookcardText}>ISBN: {isbn}</Text>
-            <Text style={styles.bookcardText}>Book id: {bookData[0].id} </Text>
-            <Text style={styles.bookcardText}>
-              Author: {bookData[0].volumeInfo.authors[0]}
-            </Text>
-            <Text style={styles.bookcardText}>
-              Title: {bookData[0].volumeInfo.title}
-            </Text>
-          </Card.Content>
-        </Card>
-      ) : (
-        <Text>No book detected</Text>
-      )}
+  if (permission) {
+    return (
+      <View style={styles.container}>
+        {bookData ? (
+          <Card style={styles.bookcard}>
+            <Card.Content>
+              <Text style={styles.bookcardText}>ISBN: {isbn}</Text>
+              <Text style={styles.bookcardText}>
+                Book id: {bookData[0].id}{" "}
+              </Text>
+              <Text style={styles.bookcardText}>
+                Author: {bookData[0].volumeInfo.authors[0]}
+              </Text>
+              <Text style={styles.bookcardText}>
+                Title: {bookData[0].volumeInfo.title}
+              </Text>
+            </Card.Content>
+          </Card>
+        ) : (
+          <Text>No book detected</Text>
+        )}
 
-      {!scanned ? (
-        <View>
-          <CameraView
-            barCodeScannerSettings={{
-              barCodeTypes: ["ean13"],
-            }}
-            onBarcodeScanned={(bookDetails) => {
-              setIsbn(bookDetails.data);
-              setScanned(true);
-            }}
-            style={styles.camera}
-          >
-            <TouchableOpacity>
-              <Text style={styles.crosshair}>[    ]</Text>
-            </TouchableOpacity>
-          </CameraView>
-          <Pressable
-            style={styles.button}
-            onPress={() => {
-              navigation.goBack();
-            }}
-          >
-            <Text style={styles.buttonText}>Go Back</Text>
-          </Pressable>
-        </View>
-      ) : (
-        <View style={styles.buttonContainer}>
-          <Pressable style={styles.button} onPress={scannerSwitch}>
-            <Text style={styles.buttonText}>Scan again?/Cancel scan</Text>
-          </Pressable>
-          {/* <Pressable style={styles.button} onPress={saveScan}>
+        {!scanned ? (
+          <View>
+            <CameraView
+              barCodeScannerSettings={{
+                barCodeTypes: ["ean13"],
+              }}
+              onBarcodeScanned={(bookDetails) => {
+                setIsbn(bookDetails.data);
+                setScanned(true);
+              }}
+              style={styles.camera}>
+              <TouchableOpacity>
+                <Text style={styles.crosshair}>[ ]</Text>
+              </TouchableOpacity>
+            </CameraView>
+            <Pressable
+              style={styles.button}
+              onPress={() => {
+                navigation.goBack();
+              }}>
+              <Text style={styles.buttonText}>Go Back</Text>
+            </Pressable>
+          </View>
+        ) : (
+          <View style={styles.buttonContainer}>
+            <Pressable style={styles.button} onPress={scannerSwitch}>
+              <Text style={styles.buttonText}>Scan again?/Cancel scan</Text>
+            </Pressable>
+            {/* <Pressable style={styles.button} onPress={saveScan}>
             <Text style={styles.buttonText}>Scan another book?</Text>
           </Pressable> */}
-          <Pressable style={styles.button} onPress={handleScanAnotherBook}>
-            <Text style={styles.buttonText}>Scan another book</Text>
-          </Pressable>
-          {/* <Pressable
+            <Pressable style={styles.button} onPress={handleScanAnotherBook}>
+              <Text style={styles.buttonText}>Scan another book</Text>
+            </Pressable>
+            {/* <Pressable
             style={styles.button}
             onPress={() => {
               navigation.goBack();
@@ -141,23 +155,25 @@ return (
           >
             <Text style={styles.buttonText}>Return to Catalogue</Text>
           </Pressable> */}
-          <Pressable style={styles.button} onPress={handleReturnToCatalogue}>
-            <Text style={styles.buttonText}>Return to Catalogue</Text>
-          </Pressable>
-        </View>
-      )}
-    </View>
-  );
+            <Pressable style={styles.button} onPress={handleReturnToCatalogue}>
+              <Text style={styles.buttonText}>Return to Catalogue</Text>
+            </Pressable>
+          </View>
+        )}
+      </View>
+    );
+  } else {
+    return (
+      <Text>
+        App does not have permission to access camera, please reload app and
+        grant permissions
+      </Text>
+    );
   }
-  else{
-    return(
-      <Text>App does not have permission to access camera, please reload app and grant permissions</Text>
-    )
-  }
-}
+};
 
-const screenWidth = Dimensions.get('window').width;
-const screenHeight = Dimensions.get('window').height;
+const screenWidth = Dimensions.get("window").width;
+const screenHeight = Dimensions.get("window").height;
 
 const maxWidth = screenWidth * 0.9;
 const maxHeight = screenHeight * 0.6;
@@ -173,13 +189,13 @@ const styles = StyleSheet.create({
   },
   camera: {
     flex: 1,
-    width: '100%',
+    width: "100%",
     aspectRatio: 1,
     justifyContent: "center",
     alignItems: "center",
     maxWidth,
-    maxHeight, 
-    overflow: 'hidden',
+    maxHeight,
+    overflow: "hidden",
   },
   crosshair: {
     color: "white",
