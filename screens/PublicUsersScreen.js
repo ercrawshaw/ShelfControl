@@ -25,6 +25,7 @@ const PublicUsersScreen = () => {
     getAllPublicUsers().then((res) => {
       let publicUsers = [];
       res.forEach((doc) => {
+        console.log(doc.data().username);
         if (doc.id !== currentUid) {
           publicUsers.push(doc);
         }
@@ -44,6 +45,7 @@ const PublicUsersScreen = () => {
     return (
       <View>
         <NavigationBar />
+        <ScrollView>
         <View style={styles.usersProfileContainer}>
           {currentPublicUsers.map((friend, index) => {
             return (
@@ -69,6 +71,7 @@ const PublicUsersScreen = () => {
             );
           })}
         </View>
+        </ScrollView>
       </View>
     );
   }

@@ -5,6 +5,7 @@ import {
   ScrollView,
   SafeAreaView,
   Pressable,
+  LogBox,
 } from "react-native";
 import React, { useEffect, useState, useContext } from "react";
 import { CurrentUserContext } from "../contexts/userContext";
@@ -15,6 +16,7 @@ import { CurrentCatalogueContext } from "../contexts/catalogueContext";
 
 import styles from "../styles/styles";
 import SearchBarComponent from "../components/SearchBar";
+import { useIsFocused } from "@react-navigation/native";
 
 const SingleCatalogueScreen = ({ route }) => {
   const navigation = useNavigation();
@@ -28,6 +30,7 @@ const SingleCatalogueScreen = ({ route }) => {
   const [searchQuery, setSearchQuery] = useState("");
   const [foundBooks, setFoundBooks] = useState([]);
   const [mapArr, setMapArr] = useState([]);
+  const isFocused = useIsFocused()
   //   const catalogue = useNavigationParam("catalogue_id");
 
   useEffect(() => {
@@ -51,7 +54,7 @@ const SingleCatalogueScreen = ({ route }) => {
         setCurrentBooks(books);
       });
     }
-  }, [catalogue_id]);
+  }, [catalogue_id, isFocused]);
 
   const handleBookClick = (book) => {
     if (friendsUid) {
@@ -70,6 +73,7 @@ const SingleCatalogueScreen = ({ route }) => {
     }
   };
 
+
   useEffect(() => {
     if (foundBooks.length !== 0) {
       setMapArr(foundBooks);
@@ -83,10 +87,12 @@ const SingleCatalogueScreen = ({ route }) => {
     navigation.navigate("AddNewBookScreen");
   };
 
+
   return (
-    <View style={styles.homeContainer}>
-      <NavigationBar />
-      <View>
+    <View style={styles.SCcontainer}>
+        <NavigationBar />
+
+        <View style={styles.SCsearchBar}>
         <SearchBarComponent
           currentBooks={currentBooks}
           setMapArr={setMapArr}
@@ -96,11 +102,13 @@ const SingleCatalogueScreen = ({ route }) => {
           foundBooks={foundBooks}
           setFoundBooks={setFoundBooks}
         />
-      </View>
-      <View style={styles.homeContainer}>
-        {/* <Text>{JSON.stringify(catalogue_id)}</Text> */}
+        </View>
+
+        <View style={styles.SCmain}>
+        <Text style={styles.SCheaderText}>{catalogue_id}</Text>
+        
         <ScrollView
-          style={styles.scrollView}
+          style={styles.SCscrollView}
           contentContainerStyle={{ alignItems: "center" }}
         >
           {mapArr.map((book, index) => (
@@ -121,11 +129,12 @@ const SingleCatalogueScreen = ({ route }) => {
             </Pressable>
           ))}
         </ScrollView>
+
       </View>
 
       {friendsUid ? null : (
         <View style={styles.bottomContainer}>
-          <Pressable onPress={handleAddBook} style={styles.SCbutton}>
+          <Pressable onPress={handleAddBook} style={styles.bottomButton}>
             <Text style={styles.buttonText}>Add a book</Text>
           </Pressable>
         </View>

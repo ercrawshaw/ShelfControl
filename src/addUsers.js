@@ -7,7 +7,8 @@ export const addUser = (uid, username, firstname, lastname) => {
     username: username,
     firstname: firstname,
     lastname: lastname,
-    avatar_img: "",
+    avatar_img:
+      "https://png.pngitem.com/pimgs/s/22-223968_default-profile-picture-circle-hd-png-download.png",
     created: Date.now(),
     private: true,
   }).catch((error) => alert(error));
