@@ -555,6 +555,12 @@ export default styles = StyleSheet.create({
 
 
   //to stick to bottom - as shown on FriendsListScreen
+  HScontainer: {
+    flex: 1,
+  },
+  HSmainScreen: {
+    flex: 1,
+  },
   FLcontainer: {
     flex: 1,
   },

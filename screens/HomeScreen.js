@@ -47,10 +47,10 @@ const HomeScreen = () => {
     return <LoadingMessage />;
   } else {
     return (
-      <SafeAreaView>
+      <SafeAreaView style={styles.HScontainer}>
         <NavigationBar />
 
-        <View>
+        <View style={styles.HSmainScreen}>
           <ScrollView
             style={styles.scrollView}
             contentContainerStyle={{ alignItems: "center" }}
@@ -77,6 +77,7 @@ const HomeScreen = () => {
             <Text style={styles.bottomButtonText}>Add a New Catalogue</Text>
           </Pressable>
         </View>
+        
       </SafeAreaView>
     );
   }
