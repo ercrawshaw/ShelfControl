@@ -19,6 +19,7 @@ import { CurrentCatalogueContext } from "../contexts/catalogueContext";
 import { useNavigation } from "@react-navigation/native";
 import NavigationBar from "../components/Navbar";
 import styles from '../styles/styles';
+
 //import * as ImagePicker from 'expo-image-picker';
 // import ImageLibrary from "./Image-picker";
 const ManualSearch = () => {
@@ -81,6 +82,7 @@ const ManualSearch = () => {
         title: manualBookTitle,
         author: manualAuthorName,
         publication_date: manualPublishDate,
+        image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/No-Image-Placeholder.svg/832px-No-Image-Placeholder.svg.png',
       });
       setBookAdded(true);
     }
@@ -255,7 +257,7 @@ const ManualSearch = () => {
               }
             />
 
-            <Button
+            {/* <Button
               style={styles.bookFormComponent}
               icon="camera"
               mode="contained"
@@ -263,7 +265,7 @@ const ManualSearch = () => {
             >
               Add a cover
             </Button>
-            {image? <Image source={image}/>:null}
+            {image? <Image source={image}/>:null} */}
 
             <Button
               style={styles.bookFormComponent}
@@ -308,7 +310,7 @@ const ManualSearch = () => {
                 Published: {manuallyAddedBook.publication_date}
               </Text>
             </Card.Content>
-            <Card.Cover source={{ uri: "https://picsum.photos/700" }} />
+            <Card.Cover source={{ uri: manuallyAddedBook.image }} />
             <Card.Actions>
               <Button
                 icon={{
@@ -328,42 +330,4 @@ const ManualSearch = () => {
 
 export default ManualSearch;
 
-// const styles = StyleSheet.create({
-//   bookFormText: {
-//     textAlign: "center",
-//   },
-//   bookFormComponent: {
-//     margin: 10,
-//   },
-//   bookForm: {
-//     margin: 40,
-//   },
-//   bookcover: {
-//     display: "block",
-//     marginLeft: "auto",
-//     marginRight: "auto",
-//     width: "55%",
-//   },
-//   bookcard: {
-//     margin: 10,
-//     marginBottom: 50,
-//     width: "70%",
-//   },
-//   searchbar: {
-//     marginTop: 30,
-//   },
-//   container: {
-//     flex: 1,
-//     backgroundColor: "#fff",
-//     alignItems: "center",
-//     justifyContent: "flex-start",
-//     margin: 40,
-//   },
-//   input: {
-//     borderWidth: 1,
-//     borderColor: "#ccc",
-//     padding: 10,
-//     marginBottom: 20, // Increased margin between boxes
-//     width: "40%", // Shortened width
-//   },
-// });
+
