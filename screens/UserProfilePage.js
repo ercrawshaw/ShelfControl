@@ -175,34 +175,33 @@ const UserProfilePage = () => {
         <NavigationBar />
 
         <ScrollView style={styles.scrollView}>
-        
-        <View style={styles.signoutButtonContainer}>
-          <Pressable
-          onPress={handleSignOut}
-          style={styles.signoutButton}>
-          <Text style={styles.buttonOutlineText}>Sign out</Text>
-                </Pressable>
-        </View>
-
-        <View style={styles.UPContainer}>
-        <View style={styles.profileInformationContainer}>
-        <View>
-        <Image
-              source={{ uri: user.avatar_img }}
-              style={styles.profileAvatar}
-            />
-            {editable ? (
-              <Pressable
-                style={styles.editingPicButton}
-                //onPress={pickImage}
-              >
-                <Text style={styles.editingText}>Pick a profile picture</Text>
-              </Pressable>
-            ) : null}
+          <View style={styles.signoutButtonContainer}>
+            <Pressable onPress={handleSignOut} style={styles.signoutButton}>
+              <Text style={styles.buttonOutlineText}>Sign out</Text>
+            </Pressable>
           </View>
 
-            <View>
-              <View style={styles.fullNameContainer}>
+          <View style={styles.UPContainer}>
+            <View style={styles.profileInformationContainer}>
+              <View>
+                <Image
+                  source={{ uri: user.avatar_img }}
+                  style={styles.profileAvatar}
+                />
+                {editable ? (
+                  <Pressable
+                    style={styles.editingPicButton}
+                    //onPress={pickImage}
+                  >
+                    <Text style={styles.editingText}>
+                      Pick a profile picture
+                    </Text>
+                  </Pressable>
+                ) : null}
+              </View>
+
+              <View>
+                <View style={styles.fullNameContainer}>
                   <TextInput
                     style={
                       editable
@@ -235,27 +234,27 @@ const UserProfilePage = () => {
                   />
                 </View>
                 <View style={styles.UPContactInfo}>
-                <TextInput
-                  style={styles.contactText}
-                  placeholder="Username"
-                  value={user.username}
-                  // onChangeText={(text) => setUsername(text)}
-                  readOnly
-                />
-                <TextInput
-                  style={styles.contactText}
-                  placeholder="Email"
-                  editable={editable}
-                  value={user.email}
-                  onChangeText={(text) =>
-                    setUser((currentUser) => {
-                      return { ...currentUser, email: text };
-                    })
-                  }
-                  readOnly
-                />
+                  <TextInput
+                    style={styles.contactText}
+                    placeholder="Username"
+                    value={user.username}
+                    // onChangeText={(text) => setUsername(text)}
+                    readOnly
+                  />
+                  <TextInput
+                    style={styles.contactText}
+                    placeholder="Email"
+                    editable={editable}
+                    value={user.email}
+                    onChangeText={(text) =>
+                      setUser((currentUser) => {
+                        return { ...currentUser, email: text };
+                      })
+                    }
+                    readOnly
+                  />
                 </View>
-                </View>
+              </View>
             </View>
 
             <View style={styles.rowContainer}>
@@ -265,26 +264,34 @@ const UserProfilePage = () => {
             </View>
 
             <View style={styles.UPButtonContainer}>
-            
-            <View>
-              {editable ? (
-                <Pressable
-                style={[styles.UPfilledPressButtonOutline,      styles.editingButton]}
-                  onPress={handleEditSubmission}>
-                  <Text style={styles.editingButtonText}>Done!</Text>
-                </Pressable>
-              ) : (
-                <Pressable
-                style={[styles.UPfilledPressButtonOutline, styles.passwordButton]}
-                  onPress={handleEditClick}>
-                  <Text style={styles.buttonOutlineText}>Edit profile</Text>
-                </Pressable>
-              )}
+              <View>
+                {editable ? (
+                  <Pressable
+                    style={[
+                      styles.UPfilledPressButtonOutline,
+                      styles.editingButton,
+                    ]}
+                    onPress={handleEditSubmission}>
+                    <Text style={styles.editingButtonText}>Done!</Text>
+                  </Pressable>
+                ) : (
+                  <Pressable
+                    style={[
+                      styles.UPfilledPressButtonOutline,
+                      styles.passwordButton,
+                    ]}
+                    onPress={handleEditClick}>
+                    <Text style={styles.buttonOutlineText}>Edit profile</Text>
+                  </Pressable>
+                )}
               </View>
 
               <View>
                 <Pressable
-                  style={[styles.UPfilledPressButtonOutline, styles.passwordButton]}
+                  style={[
+                    styles.UPfilledPressButtonOutline,
+                    styles.passwordButton,
+                  ]}
                   onPress={handlePasswordChange}>
                   <Text style={styles.buttonOutlineText}>Change Password</Text>
                 </Pressable>
@@ -292,15 +299,16 @@ const UserProfilePage = () => {
 
               <View>
                 <Pressable
-                  style={[styles.UPfilledPressButtonOutline, styles.deleteButton]}
+                  style={[
+                    styles.UPfilledPressButtonOutline,
+                    styles.deleteButton,
+                  ]}
                   onPress={handleDelete}>
                   <Text style={styles.deleteText}>Delete profile</Text>
                 </Pressable>
               </View>
             </View>
-            
-        </View>
-        
+          </View>
         </ScrollView>
       </View>
     );

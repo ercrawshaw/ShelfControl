@@ -24,7 +24,7 @@ export default styles = StyleSheet.create({
     fontWeight: "bold",
   },
   SCsearchBar: {
-    marginTop: 10, 
+    marginTop: 10,
   },
   bigButtonContainer: {
     flexDirection: "column",
@@ -175,7 +175,7 @@ export default styles = StyleSheet.create({
   usersProfileContainer: {
     marginTop: 20,
     marginBottom: 20,
-    flexDirection: 'column',
+    flexDirection: "column",
     columnGap: 5,
   },
   usersInfoContainer: {
@@ -200,12 +200,12 @@ export default styles = StyleSheet.create({
     marginBottom: 20,
   },
   profileText: {
-    borderColor: 'grey',
+    borderColor: "grey",
     borderWidth: 1,
     padding: 10,
     width: "80%",
     height: 50,
-    alignItems: 'center',
+    alignItems: "center",
     marginTop: 60,
   },
   profileContainer: {
@@ -213,11 +213,11 @@ export default styles = StyleSheet.create({
     alignItems: "center",
     paddingHorizontal: 10,
     marginBottom: 20,
-    marginTop: 10, 
+    marginTop: 10,
   },
   PPSHeader: {
     fontSize: 25,
-    fontWeight: '400',
+    fontWeight: "400",
   },
   UPcontainer: {
     // flex: 1,
@@ -238,7 +238,7 @@ export default styles = StyleSheet.create({
     marginRight: 10,
   },
   fullNameContainer: {
-    flexDirection: 'row',
+    flexDirection: "row",
     marginTop: 40,
   },
   UPContactInfo: {
@@ -263,15 +263,16 @@ export default styles = StyleSheet.create({
     paddingBottom: 2,
   },
   rowContainer: {
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
   },
   UPButtonContainer: {
-    flexDirection: 'column',
-    marginTop: 30,
-    justifyContent: 'center',
-    alignItems: 'center',
+    flexDirection: "column",
+    marginTop: 60,
+    justifyContent: "center",
+    alignItems: "center",
+    marginBottom: 10,
   },
   UPfilledPressButtonOutline: {
     justifyContent: "center",
@@ -288,45 +289,45 @@ export default styles = StyleSheet.create({
     width: 300,
   },
   editingButton: {
-    backgroundColor:"#42273B", 
+    backgroundColor: "#42273B",
     width: 300,
   },
   editable: {
     borderWidth: 2,
-    borderBlockColor: 'black',
+    // borderBlockColor: 'black',
     margin: 3,
   },
   editingButtonText: {
     fontSize: 17,
-    fontWeight: 'bold',
-    color: 'white',
+    fontWeight: "bold",
+    color: "white",
   },
   editingPicButton: {
-    borderBlockColor: 'black',
+    // borderBlockColor: 'black',
     borderWidth: 2,
     margin: 10,
     padding: 10,
   },
   editingText: {
-    textAlign: 'center',
+    textAlign: "center",
   },
   deleteButton: {
-    backgroundColor: 'red',
+    backgroundColor: "red",
     width: 300,
   },
   deleteText: {
     fontSize: 17,
-    fontWeight: 'bold',
-    color: 'white',
+    fontWeight: "bold",
+    color: "white",
   },
   friendContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    width: '90%',
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+    width: "90%",
     marginVertical: 5,
     padding: 10,
-    backgroundColor: '#f0f0f0',
+    backgroundColor: "#f0f0f0",
     borderRadius: 10,
   },
   homeContainer: {
@@ -396,12 +397,12 @@ export default styles = StyleSheet.create({
     color: "#42273B",
     fontWeight: "500",
     fontSize: 25,
-    textAlign: 'center',
+    textAlign: "center",
   },
   profileTextInput: {
     fontSize: 30,
-    height: 70, 
-    paddingVertical: 8, 
+    height: 70,
+    paddingVertical: 8,
     paddingHorizontal: 70,
     marginTop: 80,
   },
@@ -524,10 +525,6 @@ export default styles = StyleSheet.create({
     height: 200,
     resizeMode: "cover",
   },
-  
-
-
-
 
   //to stick to bottom - as shown on FriendsListScreen
   FLcontainer: {
@@ -541,16 +538,15 @@ export default styles = StyleSheet.create({
   },
   FLfooter: {
     marginBottom: 20,
-    position: 'absolute',
+    position: "absolute",
     bottom: 0,
-    width: '100%',
-    alignItems: 'center',
+    width: "100%",
+    alignItems: "center",
   },
   FLfriendContainer: {
     marginBottom: 20,
   },
-  FLbottomButton: {
-  },
+  FLbottomButton: {},
   SCcontainer: {
     flex: 1,
   },
@@ -561,7 +557,7 @@ export default styles = StyleSheet.create({
     flex: 1,
   },
   SCheaderText: {
-    textAlign: 'center',
+    textAlign: "center",
     fontSize: 25,
     marginTop: 15,
     marginBottom: 10,
@@ -581,9 +577,9 @@ export default styles = StyleSheet.create({
     flex: 1,
   },
   signoutButtonContainer: {
-    position: 'absolute',
-    right: 30, 
-    flexDirection: 'row',
+    position: "absolute",
+    right: 30,
+    flexDirection: "row",
   },
   signoutButton: {
     borderWidth: 2,
@@ -592,7 +588,7 @@ export default styles = StyleSheet.create({
     marginTop: 5,
     marginBottom: 15,
     height: 40,
-    justifyContent: 'center',
+    justifyContent: "center",
     width: 100,
   },
   editButton: {
@@ -602,12 +598,12 @@ export default styles = StyleSheet.create({
     marginTop: 30,
     marginBottom: 30,
     height: 40,
-    justifyContent: 'center',
+    justifyContent: "center",
     right: 30,
-    position: 'absolute',
+    position: "absolute",
   },
   profileInformationContainer: {
-    flexDirection: 'row',
+    flexDirection: "row",
   },
   UPContainer: {
     marginTop: 30,
