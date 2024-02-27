@@ -171,7 +171,7 @@ export default styles = StyleSheet.create({
   usersProfileContainer: {
     marginTop: 20,
     marginBottom: 20,
-    flexDirection: 'column',
+    flexDirection: "column",
     columnGap: 5,
   },
   usersInfoContainer: {
@@ -251,13 +251,13 @@ export default styles = StyleSheet.create({
     marginBottom: 70,
   },
   friendContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    width: '90%',
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+    width: "90%",
     marginVertical: 5,
     padding: 10,
-    backgroundColor: '#f0f0f0',
+    backgroundColor: "#f0f0f0",
     borderRadius: 10,
   },
   homeContainer: {
@@ -327,7 +327,6 @@ export default styles = StyleSheet.create({
     color: "#42273B",
     fontWeight: "700",
     fontSize: 16,
-
   },
 
   NCbuttonContainer: {
@@ -449,9 +448,6 @@ export default styles = StyleSheet.create({
     resizeMode: "cover",
   },
 
-
-
-
   //to stick to bottom - as shown on FriendsListScreen
   FLcontainer: {
     flex: 1,
@@ -464,15 +460,47 @@ export default styles = StyleSheet.create({
   },
   FLfooter: {
     marginBottom: 20,
-    position: 'absolute',
+    position: "absolute",
     bottom: 0,
-    width: '100%',
-    alignItems: 'center',
+    width: "100%",
+    alignItems: "center",
   },
   FLfriendContainer: {
     marginBottom: 20,
   },
   FLbottomButton: {
+    backgroundColor: "#42273B",
+  },
+  FRButtonContainer: {
+    flexDirection: "row",
+    rowGap: 5,
+  },
 
+  FRButtonText: {
+    color: "white",
+    fontWeight: "700",
+  },
+  FRButton: {
+    backgroundColor: "#42273B",
+    paddingHorizontal: 15,
+    paddingVertical: 15,
+    borderRadius: 10,
+  },
+  FPbutton: {
+    backgroundColor: "#42273B",
+    width: "45%",
+    paddingHorizontal: 15,
+    paddingVertical: 15,
+    borderRadius: 10,
+    alignItems: "center",
+    marginTop: 40,
+    marginRight: 5,
+  },
+  FRImage: {
+    width: 50,
+    height: 50,
+    borderRadius: 25,
+    borderColor: "#42273B",
+    borderWidth: 2,
   },
 });

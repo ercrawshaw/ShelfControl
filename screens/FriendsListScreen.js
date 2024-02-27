@@ -7,6 +7,7 @@ import {
   StyleSheet,
   SafeAreaView,
   ScrollView,
+  Image,
 } from "react-native";
 import { CurrentUserContext } from "../contexts/userContext";
 import { db } from "../firebaseConfig";
@@ -25,6 +26,7 @@ import styles from "../styles/styles";
 import { getFriend } from "../src/getFriend";
 import getFriendshipStatus from "../src/getFriendshipStatus";
 import getAllFriends from "../src/getAllFriends";
+import acceptFriendship from "../src/acceptFriendship";
 
 const FriendsListScreen = () => {
   const { currentUid } = useContext(CurrentUserContext);
@@ -32,22 +34,28 @@ const FriendsListScreen = () => {
   const [friends, setFriends] = useState([]);
 
   useEffect(() => {
-    //grab the friends list -> need to return an id and a username
+    //grab the friends list -> need to return an id and a username for chat function to work
     const fetchFriends = async () => {
       try {
         const allFriendsUid = await getAllFriends(currentUid);
-        const friendsUids = allFriendsUid.docs.map((doc) => doc.data().uid2);
+        //const friendsUids = allFriendsUid.docs.map((doc) => doc.data().uid2);
+        const friendsData = allFriendsUid.docs.map((doc) => doc.data());
 
         const friendsList = await Promise.all(
-          friendsUids.map(async (friendUid) => {
+          friendsData.map(async (friendData) => {
             const results = await Promise.all([
-              getFriendshipStatus(friendUid, currentUid),
-              getFriend(friendUid),
+              //check on friend requests sent
+              getFriendshipStatus(friendData.uid2, currentUid),
+              //get the friend profile information
+              getFriend(friendData.uid2),
             ]);
+
             return {
               id: results[1].id,
               username: results[1].data().username,
-              accepted: results[0].data().accepted,
+              avatar_img: results[1].data().avatar_img,
+              friend_accepted: results[0].data().accepted,
+              own_accepted: friendData.accepted,
             };
           })
         );
@@ -100,6 +108,10 @@ const FriendsListScreen = () => {
       });
   }
 
+  function handleAcceptFriend(currentUid, friend) {
+    acceptFriendship(currentUid, friend.id);
+  }
+
   return (
     <SafeAreaView style={styles.FLcontainer}>
       <NavigationBar />
@@ -110,31 +122,51 @@ const FriendsListScreen = () => {
         >
           {friends.map((friend, index) => (
             <View key={index} style={styles.friendContainer}>
+              <Image
+                style={styles.FRImage}
+                source={{ uri: friend.avatar_img }}
+              />
               <Pressable
-                style={[styles.button, styles.buttonOutline]}
+                style={[styles.FPbutton, styles.buttonOutline]}
                 onPress={() => handleViewProfile(friend)}
               >
                 <Text style={styles.buttonCatalogueText}>
                   {friend.username}
                 </Text>
               </Pressable>
-              {friend.accepted ? (
+
+              {friend.own_accepted && friend.friend_accepted ? (
                 <Pressable
                   style={styles.chatButton}
                   onPress={() => handleChatPress(friend.id)}
                 >
                   <Text style={styles.chatButtonText}>Chat</Text>
                 </Pressable>
-              ) : (
-                <View>
-                  <Pressable>
-                    <Text>Accept</Text>
-                  </Pressable>
-                  <Pressable>
-                    <Text>Decline</Text>
+              ) : null}
+
+              {friend.own_accepted && friend.friend_accepted === false ? (
+                <View style={styles.FRButtonContainer}>
+                  <Pressable
+                    style={styles.FRButton}
+                    onPress={() => handleAcceptFriend(currentUid, friend)}
+                  >
+                    <Text style={styles.FRButtonText}>Pending</Text>
                   </Pressable>
                 </View>
-              )}
+              ) : null}
+              {friend.own_accepted === false && friend.friend_accepted ? (
+                <View style={styles.FRButtonContainer}>
+                  <Pressable
+                    style={styles.FRButton}
+                    onPress={() => handleAcceptFriend(currentUid, friend)}
+                  >
+                    <Text style={styles.FRButtonText}>Accept</Text>
+                  </Pressable>
+                  <Pressable style={styles.FRButton}>
+                    <Text style={styles.FRButtonText}>Decline</Text>
+                  </Pressable>
+                </View>
+              ) : null}
             </View>
           ))}
         </ScrollView>
