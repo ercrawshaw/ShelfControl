@@ -88,8 +88,8 @@ export default styles = StyleSheet.create({
     color: "white",
   },
   bottomContainer: {
-    marginTop: 5,
-    marginBottom: 5,
+    marginTop: 1,
+    marginBottom: 20,
     alignItems: "center",
   },
   scrollView: {
