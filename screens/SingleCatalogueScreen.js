@@ -5,6 +5,7 @@ import {
   ScrollView,
   SafeAreaView,
   Pressable,
+  LogBox,
 } from "react-native";
 import React, { useEffect, useState, useContext } from "react";
 import { CurrentUserContext } from "../contexts/userContext";
@@ -70,6 +71,7 @@ const SingleCatalogueScreen = ({ route }) => {
     }
   };
 
+
   useEffect(() => {
     if (foundBooks.length !== 0) {
       setMapArr(foundBooks);
@@ -83,10 +85,12 @@ const SingleCatalogueScreen = ({ route }) => {
     navigation.navigate("AddNewBookScreen");
   };
 
+
   return (
-    <View style={styles.homeContainer}>
-      <NavigationBar />
-      <View>
+    <View style={styles.SCcontainer}>
+        <NavigationBar />
+
+        <View style={styles.SCsearchBar}>
         <SearchBarComponent
           currentBooks={currentBooks}
           setMapArr={setMapArr}
@@ -96,11 +100,13 @@ const SingleCatalogueScreen = ({ route }) => {
           foundBooks={foundBooks}
           setFoundBooks={setFoundBooks}
         />
-      </View>
-      <View style={styles.homeContainer}>
-        {/* <Text>{JSON.stringify(catalogue_id)}</Text> */}
+        </View>
+
+        <View style={styles.SCmain}>
+        <Text style={styles.SCheaderText}>{catalogue_id}</Text>
+        
         <ScrollView
-          style={styles.scrollView}
+          style={styles.SCscrollView}
           contentContainerStyle={{ alignItems: "center" }}
         >
           {mapArr.map((book, index) => (
@@ -121,6 +127,7 @@ const SingleCatalogueScreen = ({ route }) => {
             </Pressable>
           ))}
         </ScrollView>
+
       </View>
 
       {friendsUid ? null : (

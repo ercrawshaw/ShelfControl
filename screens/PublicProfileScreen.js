@@ -57,24 +57,28 @@ const PublicProfileScreen = ({ route }) => {
       <View>
         <NavigationBar />
         <View style={styles.profileContainer}>
-          <View style={styles.profileHeader}>
+        <View style={styles.profileHeader}>
             <Image
-              style={styles.profileAvatar}
-              source={{ uri: friend.data().avatar_img }}
+            style={styles.profileAvatar}
+            source={{ uri: friend.data().avatar_img }}
             />
             <View style={styles.profileHeaderTextContainer}>
-              <Text style={styles.profileUsername}>{friend.data().username}</Text>
-              {requested ? (
+              <View>
+                <Text style={styles.profileUsername}>{friend.data().username}</Text>
+                {requested ? (
                 <View>
                   <Text style={styles.pendingText}>Friend request pending</Text>
                 </View>
-              ) : (
+                ) : (
                 <Pressable style={styles.button} onPress={handleAddFriend}>
                   <Text style={styles.buttonText}>Add Friend</Text>
                 </Pressable>
-              )}
+                )}
+              </View>
             </View>
-          </View>
+      </View>
+
+          <Text style={styles.PPSHeader}>Catalogues</Text>
 
           <View>
             <ScrollView

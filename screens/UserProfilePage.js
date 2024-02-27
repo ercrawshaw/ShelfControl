@@ -173,37 +173,42 @@ const UserProfilePage = () => {
     return (
       <View>
         <NavigationBar />
+
         <ScrollView style={styles.scrollView}>
-          <View style={styles.profileContainer}>
-            {/* {image ? (
-              <Image source={{ uri: image }} style={styles.image} />
-            ) : null} */}
-            <Image
+        
+        <View style={styles.signoutButtonContainer}>
+          <Pressable
+          onPress={handleSignOut}
+          style={styles.signoutButton}>
+          <Text style={styles.buttonOutlineText}>Sign out</Text>
+                </Pressable>
+        </View>
+
+        <View style={styles.UPContainer}>
+        <View style={styles.profileInformationContainer}>
+        <View>
+        <Image
               source={{ uri: user.avatar_img }}
               style={styles.profileAvatar}
             />
             {editable ? (
               <Pressable
-                style={[styles.button, styles.buttonOutline]}
+                style={styles.editingPicButton}
                 //onPress={pickImage}
               >
-                <Text style={styles.buttonOutlineText}>Pick a profile pic</Text>
+                <Text style={styles.editingText}>Pick a profile picture</Text>
               </Pressable>
             ) : null}
-            <View style={styles.UPtoggle}>
-              <Text style={styles.UPtoggleText}>{profileStatus}</Text>
-              <Switch value={isSwitchOn} onValueChange={onToggleSwitch} />
-            </View>
-            <KeyboardAvoidingView style={styles.UPcontainer} behavior="padding">
-              <View>
-                <View style={styles.UPfullname}>
+          </View>
+
+            <View>
+              <View style={styles.fullNameContainer}>
                   <TextInput
                     style={
                       editable
                         ? [styles.UPText, styles.editable]
                         : styles.UPText
                     }
-                    //style={styles.input}
                     editable={editable}
                     placeholder="First Name"
                     value={user.firstname}
@@ -229,16 +234,17 @@ const UserProfilePage = () => {
                     }
                   />
                 </View>
+                <View style={styles.UPContactInfo}>
                 <TextInput
+                  style={styles.contactText}
                   placeholder="Username"
                   value={user.username}
                   // onChangeText={(text) => setUsername(text)}
-                  style={styles.profileText}
                   readOnly
                 />
                 <TextInput
+                  style={styles.contactText}
                   placeholder="Email"
-                  style={styles.profileText}
                   editable={editable}
                   value={user.email}
                   onChangeText={(text) =>
@@ -248,61 +254,53 @@ const UserProfilePage = () => {
                   }
                   readOnly
                 />
-              </View>
-            </KeyboardAvoidingView>
-            {/* {userAuth && (
-            <Text
-              style={[styles.profileText, { backgroundColor: "aquamarine" }]}
-            >
-              {userAuth?.emailVerified
-                ? "Email is verified"
-                : "Email is not verified"}
-            </Text>
-          )} */}
+                </View>
+                </View>
+            </View>
 
-            <View style={styles.buttonContainer}>
+            <View style={styles.rowContainer}>
+              <Text style={styles.UPtoggleText}>{profileStatus}</Text>
+              <View style={{ width: 7 }} />
+              <Switch value={isSwitchOn} onValueChange={onToggleSwitch} />
+            </View>
+
+            <View style={styles.UPButtonContainer}>
+            
+            <View>
               {editable ? (
                 <Pressable
-                  style={[styles.UPbutton, styles.buttonOutline]}
+                style={[styles.UPfilledPressButtonOutline,      styles.editingButton]}
                   onPress={handleEditSubmission}>
-                  <Text style={styles.buttonOutlineText}>Done!</Text>
+                  <Text style={styles.editingButtonText}>Done!</Text>
                 </Pressable>
               ) : (
                 <Pressable
-                  style={[styles.UPbutton, styles.buttonOutline]}
+                style={[styles.UPfilledPressButtonOutline, styles.passwordButton]}
                   onPress={handleEditClick}>
                   <Text style={styles.buttonOutlineText}>Edit profile</Text>
                 </Pressable>
               )}
+              </View>
 
               <View>
                 <Pressable
-                  style={[styles.UPbutton, styles.buttonOutline]}
+                  style={[styles.UPfilledPressButtonOutline, styles.passwordButton]}
                   onPress={handlePasswordChange}>
                   <Text style={styles.buttonOutlineText}>Change Password</Text>
                 </Pressable>
               </View>
-              <View>
-                <Pressable
-                  onPress={handleSignOut}
-                  style={[styles.UPbutton, styles.buttonOutline]}>
-                  <Text style={styles.buttonOutlineText}>Sign out</Text>
-                </Pressable>
-              </View>
 
               <View>
                 <Pressable
-                  style={[
-                    styles.UPbutton,
-                    styles.buttonOutline,
-                    styles.deleteButton,
-                  ]}
+                  style={[styles.UPfilledPressButtonOutline, styles.deleteButton]}
                   onPress={handleDelete}>
-                  <Text style={styles.buttonOutlineText}>Delete profile</Text>
+                  <Text style={styles.deleteText}>Delete profile</Text>
                 </Pressable>
               </View>
             </View>
-          </View>
+            
+        </View>
+        
         </ScrollView>
       </View>
     );

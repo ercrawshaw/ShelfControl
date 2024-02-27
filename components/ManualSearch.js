@@ -17,6 +17,8 @@ import addBook from "../src/addBook";
 import { CurrentUserContext } from "../contexts/userContext";
 import { CurrentCatalogueContext } from "../contexts/catalogueContext";
 import { useNavigation } from "@react-navigation/native";
+import NavigationBar from "../components/Navbar";
+import styles from '../styles/styles';
 //import * as ImagePicker from 'expo-image-picker';
 // import ImageLibrary from "./Image-picker";
 const ManualSearch = () => {
@@ -134,11 +136,9 @@ const ManualSearch = () => {
   //Search Options Chosen
   if (books.length === 0 && !manualAdd) {
     return (
-      <View style={styles.searchbar}>
-        <Button icon="plus" mode="contained" onPress={handleAddClick}>
-          Add a Book
-        </Button>
-
+      <View>
+        <NavigationBar />
+      <View style={styles.MSsearchBar}>
         <Searchbar
           placeholder="Search Book Title"
           onChangeText={(bookTitle) => setBookTitle(bookTitle)}
@@ -149,26 +149,31 @@ const ManualSearch = () => {
         <Text>{error}</Text>
         <StatusBar style="auto" />
       </View>
+      
+      <Button icon="plus" mode="contained" onPress={handleAddClick}>
+          Add a Book
+        </Button>
+      
+      </View>
     );
 
     // Books shown from Google Books Api
   } else if (books.length !== 0 && !manualAdd) {
     return (
       <View style={styles.searchbar}>
-        <Button icon="plus" mode="contained" onPress={handleAddClick}>
-          Add a Book
-        </Button>
-
+        <NavigationBar />
+      <View style={styles.MSsearchBar}>
         <Searchbar
           placeholder="Search Book Title"
           onChangeText={(bookTitle) => setBookTitle(bookTitle)}
           value={bookTitle}
           onIconPress={searchBook}
         />
-
         <StatusBar style="auto" />
-        <ScrollView>
-          <View style={styles.container}>
+      </View>
+
+        <ScrollView style={styles.MSscrollContainer}>
+          <View>
             {books.map((book, i) => {
               //issue with thumbnail at times
               return (
@@ -195,7 +200,12 @@ const ManualSearch = () => {
             })}
           </View>
         </ScrollView>
-      </View>
+        <View>
+          <Pressable>
+            <Text>Back</Text>
+          </Pressable>
+        </View>
+        </View>
     );
 
     //Manually adding book information
@@ -318,42 +328,42 @@ const ManualSearch = () => {
 
 export default ManualSearch;
 
-const styles = StyleSheet.create({
-  bookFormText: {
-    textAlign: "center",
-  },
-  bookFormComponent: {
-    margin: 10,
-  },
-  bookForm: {
-    margin: 40,
-  },
-  bookcover: {
-    display: "block",
-    marginLeft: "auto",
-    marginRight: "auto",
-    width: "55%",
-  },
-  bookcard: {
-    margin: 10,
-    marginBottom: 50,
-    width: "70%",
-  },
-  searchbar: {
-    marginTop: 30,
-  },
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "flex-start",
-    margin: 40,
-  },
-  input: {
-    borderWidth: 1,
-    borderColor: "#ccc",
-    padding: 10,
-    marginBottom: 20, // Increased margin between boxes
-    width: "40%", // Shortened width
-  },
-});
+// const styles = StyleSheet.create({
+//   bookFormText: {
+//     textAlign: "center",
+//   },
+//   bookFormComponent: {
+//     margin: 10,
+//   },
+//   bookForm: {
+//     margin: 40,
+//   },
+//   bookcover: {
+//     display: "block",
+//     marginLeft: "auto",
+//     marginRight: "auto",
+//     width: "55%",
+//   },
+//   bookcard: {
+//     margin: 10,
+//     marginBottom: 50,
+//     width: "70%",
+//   },
+//   searchbar: {
+//     marginTop: 30,
+//   },
+//   container: {
+//     flex: 1,
+//     backgroundColor: "#fff",
+//     alignItems: "center",
+//     justifyContent: "flex-start",
+//     margin: 40,
+//   },
+//   input: {
+//     borderWidth: 1,
+//     borderColor: "#ccc",
+//     padding: 10,
+//     marginBottom: 20, // Increased margin between boxes
+//     width: "40%", // Shortened width
+//   },
+// });
