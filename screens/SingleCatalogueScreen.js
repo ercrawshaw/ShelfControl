@@ -51,7 +51,7 @@ const SingleCatalogueScreen = ({ route }) => {
         let books = [];
         res.forEach((doc) => {
           books.push(doc);
-        });
+        });console.log
         //console.log(books);
         setMapArr(books);
         setCurrentBooks(books);
@@ -136,9 +136,16 @@ const SingleCatalogueScreen = ({ route }) => {
                   <Text style={styles.buttonCatalogueText}>
                     {book.data().title}
                   </Text>
+
+                  {book.data().author.length === 1 ? (
                   <Text style={styles.buttonCatalogueText}>
-                    {book.data().author}
+                  {book.data().author}
                   </Text>
+                  ) : (
+                  <Text style={styles.buttonCatalogueText}>
+                  {book.data().author.join(", ")}
+                  </Text>
+                  )}
                 </Pressable>
               ))
             )}

@@ -75,7 +75,15 @@ const SingleBookScreen = ({ route }) => {
             </View>
             <View style={styles.SBinfoContainer}>
               <Text style={styles.SBtitleInfo}>{currentBook.title}</Text>
-              <Text style={styles.SBauthorInfo}>By {currentBook.author}</Text>
+              {currentBook.author.length === 1 ? (
+                  <Text style={styles.SBauthorInfo}>
+                  {currentBook.author}
+                  </Text>
+                  ) : (
+                  <Text style={styles.SBauthorInfo}>
+                  {currentBook.author.join(", ")}
+                  </Text>
+                )}
             </View>  
             
               <Text style={styles.SBsynopsisInfo}>{currentBook.description}</Text>
