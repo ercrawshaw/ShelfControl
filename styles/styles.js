@@ -155,6 +155,11 @@ export default styles = StyleSheet.create({
     fontWeight: "bold",
     marginBottom: 7,
   },
+  PPFriendStatus: {
+    borderRadius: 50,
+    backgroundColor: "#42273B",
+    padding: 10,
+  },
   pendingText: {
     fontSize: 14,
   },
@@ -171,6 +176,40 @@ export default styles = StyleSheet.create({
     color: "white",
     fontWeight: "700",
     fontSize: 16,
+  },
+  PPbutton: {
+    backgroundColor: "#42273B",
+    width: "90%",
+    paddingVertical: 15,
+    marginTop: 10,
+    borderRadius: 100,
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingHorizontal: 20,
+  },
+  PPbuttonText: {
+    color: "white",
+    fontWeight: "700",
+    fontSize: 16,
+    justifyContent: 'center',
+    textAlign: 'center',
+  },
+  PPFriendRequestButton: {
+    borderBlockColor: "#42273B",
+    borderWidth: 2,
+    width: "90%",
+    paddingVertical: 15,
+    marginTop: 10,
+    borderRadius: 100,
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingHorizontal: 20,
+  },
+  PPFriendRequestButtonText: {
+    color: "#42273B",
+    fontWeight: "700",
+    fontSize: 16,
+    justifyContent: 'center',
   },
   usersProfileContainer: {
     marginTop: 20,
@@ -285,11 +324,12 @@ export default styles = StyleSheet.create({
   },
   passwordButton: {
     borderBlockColor: "#42273B",
-    borderWidth: 1,
+    borderWidth: 2,
     width: 300,
   },
   editingButton: {
     backgroundColor: "#42273B",
+    borderWidth: 2,
     width: 300,
   },
   editable: {
@@ -298,9 +338,11 @@ export default styles = StyleSheet.create({
     margin: 3,
   },
   editingButtonText: {
-    fontSize: 17,
-    fontWeight: "bold",
     color: "white",
+    fontWeight: "700",
+    fontSize: 16,
+    padding: 5,
+    textAlign: "center",
   },
   editingPicButton: {
     // borderBlockColor: 'black',
@@ -593,9 +635,7 @@ export default styles = StyleSheet.create({
   },
   FRButtonContainer: {
     flexDirection: "row",
-    rowGap: 5,
   },
-
   FRButtonText: {
     color: "white",
     fontWeight: "700",
@@ -605,6 +645,14 @@ export default styles = StyleSheet.create({
     paddingHorizontal: 15,
     paddingVertical: 15,
     borderRadius: 10,
+  },
+  FRdeclineButton: {
+    paddingVertical: 15,
+    borderRadius: 10,
+  },
+  FRdeclineButtonText: {
+    color: "#42273B",
+    fontWeight: "700",
   },
   FPbutton: {
     backgroundColor: "#42273B",
