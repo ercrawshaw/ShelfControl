@@ -443,6 +443,7 @@ export default styles = StyleSheet.create({
     color: "#42273B",
     fontWeight: "700",
     fontSize: 16,
+    textAlign: 'center',
   },
   buttonFriendText: {
     color: "#42273B",
@@ -522,6 +523,7 @@ export default styles = StyleSheet.create({
   SBauthorInfo: {
     fontWeight: "500",
     fontSize: 18,
+    textAlign: 'center',
   },
   SBsynopsisInfo: {
     marginHorizontal: 25,
