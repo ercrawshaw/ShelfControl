@@ -9,6 +9,7 @@ import {
 import React, { useContext, useState, useEffect } from "react";
 import addFriend from "../src/addFriend";
 import cancelFriendRequest from "../src/cancelFriendRequest";
+import getAllFriends from "../src/getAllFriends";
 import { getAllCatalogues } from "../src/getAllCatalogues";
 import { CurrentUserContext } from "../contexts/userContext";
 import { useNavigation } from "@react-navigation/native";
@@ -59,19 +60,29 @@ const PublicProfileScreen = ({ route }) => {
   };
 
   useEffect(() => {
+    console.log(isPending);
     if (friendshipData) {
       setFriendData(friendshipData)
+
     }else{
       setFriendData({
         own_accepted: false,
         friend_accepted: false,
+      });
+      getAllFriends(currentUid)
+      .then((res) => {
+        res.forEach((doc) => {
+          if (doc.id === friend.id) {
+            setIsPending(true)
+            setButtonMessage("Pending")
+          }
+        })
       })
     }
 
     getAllCatalogues(friend.id).then((res) => {
       let catalogues = [];
       res.forEach((doc) => {
-        console.log(doc.id);
         catalogues.push(doc.id);
       });
       setPageLoading(false);
@@ -79,7 +90,6 @@ const PublicProfileScreen = ({ route }) => {
     });
   }, []);
 
-  console.log(friendData);
 
   //if add button click change to non editable and display "friend request sent"
   
