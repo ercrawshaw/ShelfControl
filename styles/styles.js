@@ -151,7 +151,7 @@ export default styles = StyleSheet.create({
     marginTop: 20,
   },
   profileUsername: {
-    fontSize: 35,
+    fontSize: 30,
     fontWeight: "bold",
     marginBottom: 7,
   },
@@ -326,9 +326,15 @@ export default styles = StyleSheet.create({
     justifyContent: "space-between",
     width: "90%",
     marginVertical: 5,
-    padding: 10,
-    backgroundColor: "#f0f0f0",
-    borderRadius: 10,
+    padding: 7,
+  },
+  innerFriendContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    padding: 7,
+  },
+  chatButtonIcon: {
+  
   },
   homeContainer: {
     flex: 1,
@@ -392,6 +398,11 @@ export default styles = StyleSheet.create({
     color: "#42273B",
     fontWeight: "700",
     fontSize: 16,
+  },
+  buttonFriendText: {
+    color: "#42273B",
+    fontWeight: "700",
+    fontSize: 19,
   },
   NCbuttonText: {
     color: "#42273B",
@@ -606,11 +617,13 @@ export default styles = StyleSheet.create({
     marginRight: 5,
   },
   FRImage: {
+    width: 80,
+    height: 80,
+    borderRadius: 40,
+  },
+  chatImage: {
     width: 50,
     height: 50,
-    borderRadius: 25,
-    borderColor: "#42273B",
-    borderWidth: 2,
   },
   SCcontainer: {
     flex: 1,
