@@ -15,10 +15,14 @@ import { getUser } from "../src/getUser";
 import { useFocusEffect } from "@react-navigation/native";
 import updateUser from "../src/updateUser";
 import deleteSingleUser from "../src/deleteUser";
-import { getStorage, ref, uploadBytes } from "firebase/storage";
+import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { useNavigation } from "@react-navigation/native";
 import LoadingMessage from "../components/LoadingMessage";
 import NavigationBar from "../components/Navbar";
+import { storage } from "../firebaseConfig";
+import { doc } from "firebase/firestore";
+import { db } from "../firebaseConfig";
+import { updateDoc } from "firebase/firestore";
 
 import {
   getAuth,
@@ -26,8 +30,7 @@ import {
   onAuthStateChanged,
   sendPasswordResetEmail,
 } from "firebase/auth";
-//import ImageLibrary from "../components/Image-picker";
-//import * as ImagePicker from 'expo-image-picker';
+import * as ImagePicker from 'expo-image-picker';
 
 import styles from "../styles/styles";
 
@@ -46,6 +49,7 @@ const UserProfilePage = () => {
   const [image, setImage] = useState(null);
   const [status, requestPermission] = useState(null);
   const [pageLoading, setPageLoading] = useState(true);
+  const [imageUri, setImageUri] = useState(null);
 
   // useEffect(() => {
   //   (async () => {
@@ -57,6 +61,56 @@ const UserProfilePage = () => {
   const [userAuth, setUserAuth] = useState(null);
   const [profileStatus, setProfileStatus] = useState("Private profile");
   const [isSwitchOn, setIsSwitchOn] = React.useState(true);
+
+  useEffect(() => {
+    (async () => {
+      if (Platform.OS !== 'web') {
+        const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
+        if (status !== 'granted') {
+          alert('Sorry, we need camera roll permissions to make this work!');
+        }
+      }
+    })();
+  }, []);
+  
+  const pickImage = async () => {
+    let result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.Images,
+      allowsEditing: true,
+      aspect: [4, 3],
+      quality: 1,
+    });
+  
+    if (!result.cancelled) {
+      const uri = result.assets[0].uri;
+      setImageUri(uri); // Optimistically update the UI to show the new image
+      try {
+        await uploadImage(uri);
+        // The image has been uploaded successfully, the UI is already showing the new image
+      } catch (error) {
+        // Handle the error: revert the UI change if necessary, show an error message, etc.
+        console.error("Failed to upload the image:", error);
+        alert("Failed to upload image.");
+        setImageUri(null); // Optionally revert the UI change
+      }
+    }
+  };
+  
+  const uploadImage = async (uri) => {
+    const response = await fetch(uri);
+    const blob = await response.blob();
+    const fileRef = ref(storage, `images/${currentUid}/profilePicture.jpg`);
+    await uploadBytes(fileRef, blob);
+  
+    const url = await getDownloadURL(fileRef);
+  
+    const userRef = doc(db, 'users', currentUid);
+    await updateDoc(userRef, {
+      avatar_img: url,
+    });
+  
+    alert("Profile picture uploaded successfully!");
+  };
 
   const profilePicRef = ref(
     getStorage(),
@@ -187,14 +241,14 @@ const UserProfilePage = () => {
           <View style={styles.UPContainer}>
             <View style={styles.profileInformationContainer}>
               <View>
-                <Image
-                  source={{ uri: user.avatar_img }}
-                  style={styles.profileAvatar}
-                />
+              <Image
+              source={{ uri: imageUri || user.avatar_img }}
+              style={styles.profileAvatar}
+            />
                 {editable ? (
                   <Pressable
                     style={styles.editingPicButton}
-                    //onPress={pickImage}
+                    onPress={pickImage}
                   >
                     <Text style={styles.editingText}>
                       Pick a profile picture
