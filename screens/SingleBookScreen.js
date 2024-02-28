@@ -35,11 +35,11 @@ const SingleBookScreen = ({ route }) => {
       setCurrentBook({
         title: book_data.title,
         author: book_data.author,
-        description: "no",
+        description: "No information available",
         image:
           "https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/No-Image-Placeholder.svg/832px-No-Image-Placeholder.svg.png",
       });
-      
+      setPageLoading(false);
     }
   }, [currentIsbn]);
 
