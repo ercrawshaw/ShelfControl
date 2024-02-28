@@ -217,6 +217,9 @@ export default styles = StyleSheet.create({
     flexDirection: "column",
     columnGap: 5,
   },
+  userProfileItem: {
+    marginBottom: 20,
+  },
   usersInfoContainer: {
     flexDirection: "row",
     alignItems: "center",

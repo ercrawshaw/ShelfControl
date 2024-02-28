@@ -50,7 +50,7 @@ const PublicUsersScreen = () => {
         <View style={styles.usersProfileContainer}>
           {currentPublicUsers.map((friend, index) => {
             return (
-              <View key={index}>
+              <View key={index} style={styles.userProfileItem}>
                 <View style={styles.usersInfoContainer}>
                   <Image
                     style={styles.profileAvatar}
