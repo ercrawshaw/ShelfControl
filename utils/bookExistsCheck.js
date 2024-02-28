@@ -16,8 +16,10 @@ const bookExistsCheckFunc = (uid, catalogueName, title) => {
   const books = query(colRef, where("title", "==", title));
   return getDocs(books).then((snapShot) => {
     if (!snapShot.empty) {
-      alert("Book already exists");
-      return Promise.reject({ message: "Book already exists" });
+      alert("Book already exists, Please try another book");
+      return Promise.reject({
+        message: "Book already exists, Please try another book",
+      });
     }
   });
 };
