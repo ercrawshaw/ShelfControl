@@ -22,18 +22,18 @@ const HomeScreen = () => {
   const [currentCatalogues, setCurrentCatalogues] = useState([]);
   const [pageLoading, setPageLoading] = useState(true);
   const { currentUid } = useContext(CurrentUserContext);
-  const isFocused = useIsFocused()
+  const isFocused = useIsFocused();
 
   useEffect(() => {
-    if(isFocused){
-    getAllCatalogues(currentUid).then((res) => {
-      let catalogues = [];
-      res.forEach((doc) => {
-        catalogues.push(doc.id);
+    if (isFocused) {
+      getAllCatalogues(currentUid).then((res) => {
+        let catalogues = [];
+        res.forEach((doc) => {
+          catalogues.push(doc.id);
+        });
+        setPageLoading(false);
+        setCurrentCatalogues(catalogues);
       });
-      setPageLoading(false);
-      setCurrentCatalogues(catalogues);
-    });
     }
   }, [isFocused]);
 
@@ -59,21 +59,28 @@ const HomeScreen = () => {
             style={styles.scrollView}
             contentContainerStyle={{ alignItems: "center" }}
           >
-            {currentCatalogues.map((catalogue, index) => (
-              <Pressable
-                style={[
-                  styles.filledPressButton,
-                  styles.filledPressButtonOutline,
-                ]}
-                // catalogue={catalogue}
-                key={index}
-                onPress={() => {
-                  handleCatalogueClick(catalogue);
-                }}
-              >
-                <Text style={styles.filledPressButtonText}>{catalogue}</Text>
-              </Pressable>
-            ))}
+            {currentCatalogues.length === 0 ? (
+              <Text style={styles.emptyListMsg}>
+                Start adding a catalogue by clicking on the add catalogue button
+                below!
+              </Text>
+            ) : (
+              currentCatalogues.map((catalogue, index) => (
+                <Pressable
+                  style={[
+                    styles.filledPressButton,
+                    styles.filledPressButtonOutline,
+                  ]}
+                  // catalogue={catalogue}
+                  key={index}
+                  onPress={() => {
+                    handleCatalogueClick(catalogue);
+                  }}
+                >
+                  <Text style={styles.filledPressButtonText}>{catalogue}</Text>
+                </Pressable>
+              ))
+            )}
           </ScrollView>
         </View>
         <View style={styles.bottomContainer}>
@@ -81,7 +88,6 @@ const HomeScreen = () => {
             <Text style={styles.bottomButtonText}>Add a New Catalogue</Text>
           </Pressable>
         </View>
-        
       </SafeAreaView>
     );
   }

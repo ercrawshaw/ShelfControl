@@ -32,7 +32,7 @@ const SingleCatalogueScreen = ({ route }) => {
   const [searchQuery, setSearchQuery] = useState("");
   const [foundBooks, setFoundBooks] = useState([]);
   const [mapArr, setMapArr] = useState([]);
-  const isFocused = useIsFocused()
+  const isFocused = useIsFocused();
   //   const catalogue = useNavigationParam("catalogue_id");
 
   useEffect(() => {
@@ -44,7 +44,7 @@ const SingleCatalogueScreen = ({ route }) => {
         });
         setMapArr(books);
         setCurrentBooks(books);
-        setPageLoading(false)
+        setPageLoading(false);
       });
     } else {
       getAllBooks(currentUid, catalogue_id).then((res) => {
@@ -55,7 +55,7 @@ const SingleCatalogueScreen = ({ route }) => {
         //console.log(books);
         setMapArr(books);
         setCurrentBooks(books);
-        setPageLoading(false)
+        setPageLoading(false);
       });
     }
   }, [catalogue_id, isFocused]);
@@ -77,7 +77,6 @@ const SingleCatalogueScreen = ({ route }) => {
     }
   };
 
-
   useEffect(() => {
     if (foundBooks.length !== 0) {
       setMapArr(foundBooks);
@@ -92,64 +91,70 @@ const SingleCatalogueScreen = ({ route }) => {
   };
 
   if (pageLoading) {
-    return <LoadingMessage />
-  }else{
+    return <LoadingMessage />;
+  } else {
     return (
-    <View style={styles.SCcontainer}>
+      <View style={styles.SCcontainer}>
         <NavigationBar />
 
-        <View style={styles.SCsearchBar}>
-        <SearchBarComponent
-          currentBooks={currentBooks}
-          setMapArr={setMapArr}
-          mapArr={mapArr}
-          searchQuery={searchQuery}
-          setSearchQuery={setSearchQuery}
-          foundBooks={foundBooks}
-          setFoundBooks={setFoundBooks}
-        />
-        </View>
+        {mapArr.length === 0 ? null : (
+          <View style={styles.SCsearchBar}>
+            <SearchBarComponent
+              currentBooks={currentBooks}
+              setMapArr={setMapArr}
+              mapArr={mapArr}
+              searchQuery={searchQuery}
+              setSearchQuery={setSearchQuery}
+              foundBooks={foundBooks}
+              setFoundBooks={setFoundBooks}
+            />
+          </View>
+        )}
 
         <View style={styles.SCmain}>
-        <Text style={styles.SCheaderText}>{catalogue_id}</Text>
-        
-        <ScrollView
-          style={styles.SCscrollView}
-          contentContainerStyle={{ alignItems: "center" }}
-        >
-          {mapArr.map((book, index) => (
-            <Pressable
-              style={[styles.SCbutton, styles.buttonOutline]}
-              // book={book}
-              key={index}
-              onPress={() => {
-                handleBookClick(book);
-              }}
-            >
-              <Text style={styles.buttonCatalogueText}>
-                {book.data().title}
-              </Text>
-              <Text style={styles.buttonCatalogueText}>
-                {book.data().author}
-              </Text>
-            </Pressable>
-          ))}
-        </ScrollView>
+          <Text style={styles.SCheaderText}>{catalogue_id}</Text>
 
-      </View>
-
-      {friendsUid ? null : (
-        <View style={styles.bottomContainer}>
-          <Pressable onPress={handleAddBook} style={styles.bottomButton}>
-            <Text style={styles.buttonText}>Add a book</Text>
-          </Pressable>
+          <ScrollView
+            style={styles.SCscrollView}
+            contentContainerStyle={{ alignItems: "center" }}
+          >
+            {mapArr.length === 0 ? (
+              <Text style={styles.emptyListMsg}>
+                Start adding books to your catalogue by clicking on the add a
+                book button below!
+              </Text>
+            ) : (
+              mapArr.map((book, index) => (
+                <Pressable
+                  style={[styles.SCbutton, styles.buttonOutline]}
+                  // book={book}
+                  key={index}
+                  onPress={() => {
+                    handleBookClick(book);
+                  }}
+                >
+                  <Text style={styles.buttonCatalogueText}>
+                    {book.data().title}
+                  </Text>
+                  <Text style={styles.buttonCatalogueText}>
+                    {book.data().author}
+                  </Text>
+                </Pressable>
+              ))
+            )}
+          </ScrollView>
         </View>
-      )}
-    </View>
-  );
-  }
 
-  
+        {friendsUid ? null : (
+          <View style={styles.bottomContainer}>
+            <Pressable onPress={handleAddBook} style={styles.bottomButton}>
+              <Text style={styles.buttonText}>Add a book</Text>
+            </Pressable>
+          </View>
+        )}
+      </View>
+    );
+  }
 };
 
 export default SingleCatalogueScreen;
