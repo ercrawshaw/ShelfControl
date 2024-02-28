@@ -32,9 +32,13 @@ const addFriend = (uid1, uid2) => {
       accepted: true,
       created: Date.now(),
     }),
-  ]).then(() => {
-    console.log("Success");
-  });
+  ])
+  .then(() => {
+    alert("Friend request sent")
+  })
+  .catch((err) => {
+    alert("Friend request could not be sent at this time, please try again later")
+  })
 };
 
 export default addFriend;

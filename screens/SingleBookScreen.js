@@ -22,11 +22,13 @@ const SingleBookScreen = ({ route }) => {
   useEffect(() => {
     if (currentIsbn) {
       fetchBook(currentIsbn).then((result) => {
+        const fallbackImageUrl = "https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/No-Image-Placeholder.svg/832px-No-Image-Placeholder.svg.png";
+        const imageUrl = result.items[0].volumeInfo.imageLinks?.thumbnail || fallbackImageUrl;
         setCurrentBook({
           title: result.items[0].volumeInfo.title,
           author: result.items[0].volumeInfo.authors,
           description: result.items[0].volumeInfo.description,
-          image: result.items[0].volumeInfo.imageLinks.thumbnail,
+          image: imageUrl,
         });
         setPageLoading(false);
       });
@@ -35,11 +37,11 @@ const SingleBookScreen = ({ route }) => {
       setCurrentBook({
         title: book_data.title,
         author: book_data.author,
-        description: "no",
+        description: "No information available",
         image:
           "https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/No-Image-Placeholder.svg/832px-No-Image-Placeholder.svg.png",
       });
-      
+      setPageLoading(false);
     }
   }, [currentIsbn]);
 
@@ -75,7 +77,15 @@ const SingleBookScreen = ({ route }) => {
             </View>
             <View style={styles.SBinfoContainer}>
               <Text style={styles.SBtitleInfo}>{currentBook.title}</Text>
-              <Text style={styles.SBauthorInfo}>By {currentBook.author}</Text>
+              {currentBook.author.length === 1 ? (
+                  <Text style={styles.SBauthorInfo}>
+                  {currentBook.author}
+                  </Text>
+                  ) : (
+                  <Text style={styles.SBauthorInfo}>
+                  {currentBook.author.join(", ")}
+                  </Text>
+                )}
             </View>  
             
               <Text style={styles.SBsynopsisInfo}>{currentBook.description}</Text>

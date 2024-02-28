@@ -81,7 +81,7 @@ const ManualSearch = () => {
       setInfoNeeded("");
       setMannuallyAddedBook({
         title: manualBookTitle,
-        author: manualAuthorName,
+        author: [manualAuthorName],
         publication_date: manualPublishDate,
         image:
           "https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/No-Image-Placeholder.svg/832px-No-Image-Placeholder.svg.png",
@@ -126,7 +126,8 @@ const ManualSearch = () => {
         });
       })
       .catch((error) => {
-        alert(error.message);
+        navigation.navigate("ManualSearch");
+        // alert(error.message);
       });
   }
 
@@ -149,7 +150,8 @@ const ManualSearch = () => {
           });
       })
       .catch((error) => {
-        alert(error.message);
+        navigation.navigate("ManualSearch");
+        // alert(error.message);
       });
   }
 
@@ -167,8 +169,12 @@ const ManualSearch = () => {
             onChangeText={(bookTitle) => setBookTitle(bookTitle)}
             value={bookTitle}
             onIconPress={searchBook}
-            onSubmitEditing={() => searchBook()}
+
+
             style={styles.MSsearchBar}
+
+            onSubmitEditing={searchBook}
+
           />
           <Text>{alert}</Text>
           <Text>{error}</Text>
@@ -205,6 +211,8 @@ const ManualSearch = () => {
           <View>
             {books.map((book, i) => {
               //issue with thumbnail at times
+              const fallbackImageUrl = "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/No_image_available.svg/600px-No_image_available.svg.png";
+              const thumbnailUrl = book.volumeInfo.imageLinks ? book.volumeInfo.imageLinks.thumbnail : fallbackImageUrl;
               return (
                 <Card key={i} style={styles.bookcard}>
                   <Card.Title
@@ -213,7 +221,7 @@ const ManualSearch = () => {
                   />
                   <Card.Cover
                     style={styles.bookcover}
-                    source={{ uri: book.volumeInfo.imageLinks.thumbnail }}
+                    source={{ uri: thumbnailUrl }}
                   />
                   <Card.Actions>
                     <Button

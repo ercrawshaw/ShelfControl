@@ -64,8 +64,7 @@ const BarcodeScanner = () => {
       publication_date: bookData[0].volumeInfo.publishedDate,
       isbn: bookData[0].volumeInfo.industryIdentifiers[0].identifier,
     };
-
-    addBook(currentUid, currentCatalogue, bookInfo);
+    // addBook(currentUid, currentCatalogue, bookInfo);
     setScanned(false);
     setBookData(null);
     setIsbn(null);
@@ -78,6 +77,7 @@ const BarcodeScanner = () => {
       publication_date: bookData[0].volumeInfo.publishedDate,
       isbn: bookData[0].volumeInfo.industryIdentifiers[0].identifier,
     };
+
     bookExistsCheckFunc(currentUid, currentCatalogue, bookInfo.title)
       .then(() => {
         addBook(currentUid, currentCatalogue, bookInfo);
@@ -89,6 +89,7 @@ const BarcodeScanner = () => {
         });
       })
       .catch((error) => {
+        navigation.navigate("Scanner");
         alert(error.message);
       });
   };
@@ -175,7 +176,8 @@ const BarcodeScanner = () => {
               style={styles.scannerButton}
               onPress={handleReturnToCatalogue}
             >
-              <Text style={styles.scannerButtonText}>Return to Catalogue</Text>
+              <Text style={styles.scannerButtonText}>Add & Return to Catalogue</Text>
+
             </Pressable>
           </View>
         )}
