@@ -18,7 +18,7 @@ import LoadingMessage from "../components/LoadingMessage";
 const PublicProfileScreen = ({ route }) => {
   const navigation = useNavigation();
   const { currentUid } = useContext(CurrentUserContext);
-  const { friend } = route.params;
+  const { friend, friendshipData } = route.params;
   const [requested, isRequested] = useState(false);
   const [currentCatalogues, setCurrentCatalogues] = useState([]);
   const [pageLoading, setPageLoading] = useState(true);
@@ -27,7 +27,7 @@ const PublicProfileScreen = ({ route }) => {
     //creating friendship document for both user
     addFriend(currentUid, friend.id);
     isRequested(true);
-  }
+  };
 
   const handleCatalogueClick = (catalogue) => {
     navigation.navigate("SingleCatalogueScreen", {
@@ -37,6 +37,7 @@ const PublicProfileScreen = ({ route }) => {
   };
 
   useEffect(() => {
+    console.log(friendshipData, "<<<< friendship data");
     getAllCatalogues(friend.id).then((res) => {
       let catalogues = [];
       res.forEach((doc) => {
@@ -48,7 +49,7 @@ const PublicProfileScreen = ({ route }) => {
   }, []);
 
   //if add button click change to non editable and display "friend request sent"
-  console.log(friend);
+  
 
   if (pageLoading) {
     return <LoadingMessage />;
@@ -65,7 +66,34 @@ const PublicProfileScreen = ({ route }) => {
             <View style={styles.profileHeaderTextContainer}>
               <View>
                 <Text style={styles.profileUsername}>{friend.data().username}</Text>
-                {requested ? (
+
+                {friendshipData.own_accepted && friendshipData.friend_accepted ? (
+                  <View style={styles.FRButtonContainer}>
+                  <Text style={[styles.buttonText, styles.button ]}>Friend</Text>
+                  </View>
+              ) : null}
+
+              {friendshipData.own_accepted && friendshipData.friend_accepted === false ? (
+                <View style={styles.FRButtonContainer}>
+                    <Text style={[styles.buttonText, styles.button ]}>Pending</Text>
+                </View>
+              ) : null}
+              
+              {friendshipData.own_accepted === false && friendshipData.friend_accepted ? (
+                <View style={styles.FRButtonContainer}>  
+                  <Text style={styles.buttonText}>Friend Request Pending</Text>
+                </View>
+              ) : null}
+
+              {friendshipData.hasOwnProperty('own_accepted') === false && friendshipData.hasOwnProperty('friend_accepted') === false ?   
+              <View>
+              <Pressable style={styles.button} onPress={handleAddFriend}>
+                  <Text style={styles.buttonText}>Add Friend</Text>
+              </Pressable>
+              </View> : null
+              }
+
+                {/* {requested ? (
                 <View>
                   <Text style={styles.pendingText}>Friend request pending</Text>
                 </View>
@@ -73,7 +101,7 @@ const PublicProfileScreen = ({ route }) => {
                 <Pressable style={styles.button} onPress={handleAddFriend}>
                   <Text style={styles.buttonText}>Add Friend</Text>
                 </Pressable>
-                )}
+                )} */}
               </View>
             </View>
       </View>

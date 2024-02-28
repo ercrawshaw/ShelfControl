@@ -50,7 +50,7 @@ const FriendsListScreen = () => {
               //get the friend profile information
               getFriend(friendData.uid2),
             ]);
-
+            console.log(results[0].data());
             return {
               id: results[1].id,
               username: results[1].data().username,
@@ -102,7 +102,7 @@ const FriendsListScreen = () => {
   function handleViewProfile(friend) {
     getFriend(friend.id)
       .then((res) => {
-        navigation.navigate("PublicProfile", { friend: res });
+        navigation.navigate("PublicProfile", { friend: res, friendshipData: friend });
       })
       .catch((err) => {
         console.log("friend not found");
@@ -123,13 +123,7 @@ const FriendsListScreen = () => {
 
   function handleDeleteFriend(currentUid, friend) {
     declineFriendship(currentUid, friend.id)
-      .then(() => {
-        console.log("Successfully declined friendship!");
-      })
-      .catch((err) => {
-        console.log("Cannot decline friend requests at this time");
-      });
-  }
+  };
 
   return (
     <SafeAreaView style={styles.FLcontainer}>
@@ -141,26 +135,34 @@ const FriendsListScreen = () => {
         >
           {friends.map((friend, index) => (
             <View key={index} style={styles.friendContainer}>
-              <Image
-                style={styles.FRImage}
-                source={{ uri: friend.avatar_img }}
-              />
+              <View style={styles.innerFriendContainer}>
               <Pressable
-                style={[styles.FPbutton, styles.buttonOutline]}
                 onPress={() => handleViewProfile(friend)}
               >
-                <Text style={styles.buttonCatalogueText}>
-                  {friend.username}
-                </Text>
+                <Image
+                style={styles.FRImage}
+                source={{ uri: friend.avatar_img }}
+              /> 
+              
               </Pressable>
+              
+              <Text style={[styles.buttonFriendText, { marginLeft: 10 }]}>
+                  {friend.username}
+              </Text>
+              </View>
+
+              
 
               {friend.own_accepted && friend.friend_accepted ? (
                 <Pressable
-                  style={styles.chatButton}
-                  onPress={() => handleChatPress(friend.id)}
-                >
-                  <Text style={styles.chatButtonText}>Chat</Text>
-                </Pressable>
+                style={styles.chatButton}
+                onPress={() => handleChatPress(friend.id)}
+              >
+                <Image 
+                  style={styles.chatImage}
+                  source={{ uri:'https://static.thenounproject.com/png/780099-200.png' }}
+                />
+              </Pressable>
               ) : null}
 
               {friend.own_accepted && friend.friend_accepted === false ? (
