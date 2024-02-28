@@ -530,6 +530,7 @@ export default styles = StyleSheet.create({
     marginBottom: 100,
     lineHeight: 25,
     fontSize: 15,
+    textAlign: 'center',
   },
   detailsContainer: {
     alignItems: "center",

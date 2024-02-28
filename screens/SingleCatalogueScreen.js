@@ -68,7 +68,8 @@ const SingleCatalogueScreen = ({ route }) => {
         book_id: book.id,
         friendsUid: friendsUid,
       });
-    } else {
+    } else{
+      //console.log(book.data());
       navigation.navigate("SingleBookScreen", {
         catalogue_id: catalogue_id,
         book_data: book.data(),
