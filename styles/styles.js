@@ -289,7 +289,7 @@ export default styles = StyleSheet.create({
   UPbutton: {
     paddingVertical: 10,
     paddingHorizontal: 20,
-    borderRadius: 5,
+    borderRadius: 20,
     width: 250,
   },
   UPtoggle: {
