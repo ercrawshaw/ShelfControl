@@ -13,6 +13,7 @@ import { useNavigation } from "@react-navigation/native";
 import NavigationBar from "../components/Navbar";
 import styles from "../styles/styles";
 import LoadingMessage from "../components/LoadingMessage";
+import moment from "moment";
 
 const PublicUsersScreen = () => {
   //currentPublicUsers also shows person currently logged in, want to remove them
@@ -26,11 +27,12 @@ const PublicUsersScreen = () => {
       let publicUsers = [];
       res.forEach((doc) => {
         console.log(doc.data().username);
+        console.log(moment(Date(doc.data().created)).format("YYYY"));
         if (doc.id !== currentUid) {
           publicUsers.push(doc);
         }
       });
-      
+
       setCurrentPublicUsers(publicUsers);
       setPageLoading(false);
     });
@@ -46,8 +48,13 @@ const PublicUsersScreen = () => {
     return (
       <View>
         <NavigationBar />
-        <ScrollView>
-        <View style={styles.usersProfileContainer}>
+        <View>
+          <Text style={styles.PUHeader}>
+            Find other book lovers, become friends, and chat!
+          </Text>
+        </View>
+        {/* <View style={styles.usersProfileContainer}> */}
+        <ScrollView style={styles.PUScrollView}>
           {currentPublicUsers.map((friend, index) => {
             return (
               <View key={index}>
@@ -60,8 +67,12 @@ const PublicUsersScreen = () => {
                     <Text style={styles.userUsername}>
                       {friend.data().username}
                     </Text>
+                    <Text>
+                      Shelfer since{" "}
+                      {moment(Date(friend.data().created)).format("YYYY")}
+                    </Text>
                     <Pressable
-                      style={styles.button}
+                      style={styles.buttonViewProfile}
                       onPress={() => handleViewProfile(friend)}
                     >
                       <Text style={styles.buttonText}>View Profile</Text>
@@ -71,8 +82,8 @@ const PublicUsersScreen = () => {
               </View>
             );
           })}
-        </View>
         </ScrollView>
+        {/* </View> */}
       </View>
     );
   }

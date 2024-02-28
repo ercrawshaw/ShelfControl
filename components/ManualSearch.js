@@ -118,7 +118,7 @@ const ManualSearch = () => {
       .then(() => {
         addBook(currentUid, currentCatalogue, manuallyAddedBook).then(() => {
           // navigation.navigate("ManualSearch");
-          setManualAdd(true);
+          setManualAdd(false);
           setManualBookTitle("");
           setManualAuthorName("");
           setManualPublishDate("");
@@ -158,21 +158,30 @@ const ManualSearch = () => {
     return (
       <View>
         <NavigationBar />
-        <View style={styles.MSsearchBar}>
+        <View style={styles.MSsearchBarContainer}>
+          <Text style={styles.MSText}>
+            Either search for a book title using a keyword
+          </Text>
           <Searchbar
             placeholder="Search Book Title"
             onChangeText={(bookTitle) => setBookTitle(bookTitle)}
             value={bookTitle}
             onIconPress={searchBook}
+            onSubmitEditing={() => searchBook()}
+            style={styles.MSsearchBar}
           />
           <Text>{alert}</Text>
           <Text>{error}</Text>
           <StatusBar style="auto" />
         </View>
-
-        <Button icon="plus" mode="contained" onPress={handleAddClick}>
-          Add a Book
-        </Button>
+        <Text style={styles.MSText}>Or enter the book details manually</Text>
+        <Pressable
+          style={styles.MSButton}
+          mode="contained"
+          onPress={handleAddClick}
+        >
+          <Text style={styles.MSButtonText}>Enter book details</Text>
+        </Pressable>
       </View>
     );
 
@@ -186,6 +195,7 @@ const ManualSearch = () => {
             placeholder="Search Book Title"
             onChangeText={(bookTitle) => setBookTitle(bookTitle)}
             value={bookTitle}
+            onSubmitEditing={() => searchBook()}
             onIconPress={searchBook}
           />
           <StatusBar style="auto" />
@@ -209,7 +219,8 @@ const ManualSearch = () => {
                     <Button
                       onPress={() => {
                         handleSubmitSearchedBook(book);
-                      }}>
+                      }}
+                    >
                       Add Book
                     </Button>
                   </Card.Actions>
@@ -231,21 +242,21 @@ const ManualSearch = () => {
     //Manually adding form
     if (!bookAdded) {
       return (
-        <View style={styles.searchbar}>
-          <Button icon="plus" mode="contained" onPress={handleAddClick}>
+        <View style={styles.MSFormContainer}>
+          {/* <Button icon="plus" mode="contained" onPress={handleAddClick}>
             Add a Book
-          </Button>
+          </Button> */}
 
-          <Searchbar
+          {/* <Searchbar
             placeholder="Search Book Title"
             onChangeText={(bookTitle) => setBookTitle(bookTitle)}
             value={bookTitle}
             onIconPress={searchBook}
-          />
+          /> */}
 
           <View style={styles.bookForm}>
             <Text style={styles.bookFormText} variant="headlineLarge">
-              Add your book details
+              Enter book details
             </Text>
             <TextInput
               style={styles.bookFormComponent}
@@ -283,16 +294,17 @@ const ManualSearch = () => {
             </Button>
             {image? <Image source={image}/>:null} */}
 
-            <Button
-              style={styles.bookFormComponent}
+            <Pressable
+              style={styles.bookFormButton}
               icon={{
                 uri: "https://www.iconpacks.net/icons/2/free-opened-book-icon-3163-thumb.png",
               }}
               mode="contained"
               onPress={handleManualBookAdd}
-              title="Check Book Details">
-              Check Details
-            </Button>
+              title="Check Book Details"
+            >
+              <Text style={styles.bookFormButtonText}>Check Details</Text>
+            </Pressable>
 
             <Text style={styles.bookFormText}>{infoNeeded}</Text>
             <Button title="Check Book Details!" onPress={handleManualBookAdd} />
@@ -303,8 +315,8 @@ const ManualSearch = () => {
       //Book information displayed for check before adding
     } else {
       return (
-        <View style={styles.searchbar}>
-          <Button icon="plus" mode="contained" onPress={handleAddClick}>
+        <View style={styles.MSFormContainer}>
+          {/* <Button icon="plus" mode="contained" onPress={handleAddClick}>
             Add a Book
           </Button>
 
@@ -313,7 +325,7 @@ const ManualSearch = () => {
             onChangeText={(bookTitle) => setBookTitle(bookTitle)}
             value={bookTitle}
             onIconPress={searchBook}
-          />
+          /> */}
 
           <Card>
             <Card.Content>
@@ -333,8 +345,18 @@ const ManualSearch = () => {
                 }}
                 onPress={handleCancelClick}
               />
-              <Button onPress={handleEditClick}>Edit Book</Button>
-              <Button onPress={handleSubmitManualBook}>Add Book</Button>
+              <Button
+                style={styles.bookFormButtonCheck}
+                onPress={handleEditClick}
+              >
+                Edit Book
+              </Button>
+              <Button
+                style={styles.bookFormButtonCheck}
+                onPress={handleSubmitManualBook}
+              >
+                Add Book
+              </Button>
             </Card.Actions>
           </Card>
         </View>

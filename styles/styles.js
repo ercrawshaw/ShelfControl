@@ -1,4 +1,8 @@
-import { StyleSheet } from "react-native";
+import { Platform, StyleSheet, Dimensions } from "react-native";
+const screenWidth = Dimensions.get("window").width;
+const screenHeight = Dimensions.get("window").height;
+const maxWidth = screenWidth * 0.9;
+const maxHeight = screenHeight * 0.6;
 
 export default styles = StyleSheet.create({
   navbar: {
@@ -26,6 +30,7 @@ export default styles = StyleSheet.create({
   SCsearchBar: {
     marginTop: 10,
   },
+
   bigButtonContainer: {
     flexDirection: "column",
     justifyContent: "flex",
@@ -138,9 +143,9 @@ export default styles = StyleSheet.create({
     marginBottom: 20,
   },
   profileAvatar: {
-    width: 150,
-    height: 150,
-    borderRadius: 100,
+    width: 120,
+    height: 120,
+    borderRadius: 80,
     marginRight: 10,
     marginLeft: 5,
     // borderColor: "#42273B",
@@ -158,6 +163,16 @@ export default styles = StyleSheet.create({
   pendingText: {
     fontSize: 14,
   },
+  buttonViewProfile: {
+    backgroundColor: "#42273B",
+    width: "90%",
+    paddingHorizontal: 15,
+    paddingVertical: 15,
+    borderRadius: 10,
+    alignItems: "center",
+    marginTop: 10,
+  },
+
   button: {
     backgroundColor: "#42273B",
     width: "90%",
@@ -172,18 +187,39 @@ export default styles = StyleSheet.create({
     fontWeight: "700",
     fontSize: 16,
   },
+  PUHeader: {
+    marginTop: 20,
+    textAlign: "center",
+    fontWeight: "700",
+    fontSize: 20,
+    marginLeft: 10,
+    marginRight: 10,
+  },
+  PUScrollView: {
+    marginBottom: 140,
+  },
+
   usersProfileContainer: {
     marginTop: 20,
     marginBottom: 20,
     flexDirection: "column",
     columnGap: 5,
+    flex: 1,
   },
   usersInfoContainer: {
     flexDirection: "row",
     alignItems: "center",
+    width: "95%",
+    borderBottomWidth: 3,
+    borderColor: "#42273B",
+    marginLeft: "auto",
+    marginRight: "auto",
+    marginBottom: 5,
+    marginTop: 10,
+    paddingBottom: 15,
   },
   userUsername: {
-    fontSize: 25,
+    fontSize: 20,
     fontWeight: "bold",
   },
   loadingContainer: {
@@ -232,20 +268,68 @@ export default styles = StyleSheet.create({
     borderColor: "#ccc",
   },
   UPText: {
-    fontSize: 30,
-    fontWeight: "bold",
-    color: "#42273B",
-    marginRight: 10,
+    ...Platform.select({
+      ios: {
+        fontSize: 30,
+        fontWeight: "bold",
+        color: "#42273B",
+        marginRight: 10,
+      },
+      android: {
+        fontSize: 30,
+        fontWeight: "bold",
+        color: "#42273B",
+        marginRight: -65,
+      },
+    }),
   },
   fullNameContainer: {
-    flexDirection: "row",
-    marginTop: 40,
+    ...Platform.select({
+      ios: {
+        flexDirection: "row",
+        marginTop: 40,
+      },
+      android: {
+        flexDirection: "row",
+        marginTop: 40,
+        justifyContent: "flex-start",
+      },
+    }),
+  },
+  LNInput: {
+    ...Platform.select({
+      android: {
+        marginLeft: 15,
+      },
+    }),
+  },
+  FNInput: {
+    ...Platform.select({
+      android: {},
+    }),
   },
   UPContactInfo: {
-    marginTop: 10,
+    ...Platform.select({
+      ios: {
+        marginTop: 10,
+      },
+      android: {
+        marginTop: 10,
+        color: "#42273B",
+      },
+    }),
   },
   contactText: {
-    fontSize: 15,
+    ...Platform.select({
+      ios: {
+        fontSize: 15,
+      },
+      android: {
+        fontSize: 15,
+        color: "#42273B",
+        fontWeight: "600",
+      },
+    }),
   },
   UPbutton: {
     paddingVertical: 10,
@@ -293,9 +377,67 @@ export default styles = StyleSheet.create({
     width: 300,
   },
   editable: {
-    borderWidth: 2,
-    // borderBlockColor: 'black',
-    margin: 3,
+    ...Platform.select({
+      ios: {
+        borderWidth: 2,
+        // borderBlockColor: 'black',
+        margin: 3,
+      },
+      android: {
+        borderWidth: 2,
+        margin: 3,
+        padding: 5,
+        width: "55%",
+      },
+    }),
+  },
+  fullNameContainerEditable: {
+    ...Platform.select({
+      ios: {
+        borderWidth: 2,
+        // borderBlockColor: 'black',
+        margin: 3,
+      },
+      android: {
+        marginTop: 40,
+        flexDirection: "column",
+        justifyContent: "flex-start",
+        width: "70",
+        flexWrap: "wrap",
+      },
+    }),
+  },
+  editableFN: {
+    ...Platform.select({
+      ios: {
+        borderWidth: 2,
+        margin: 3,
+      },
+      android: {
+        marginRight: 10,
+        paddingHorizontal: 5,
+        borderWidth: 2,
+        borderColor: "#42273B",
+        width: "70%",
+      },
+    }),
+  },
+  editableLN: {
+    ...Platform.select({
+      ios: {
+        borderWidth: 2,
+        margin: 3,
+      },
+      android: {
+        marginTop: 10,
+        marginRight: 0,
+        paddingRight: 0,
+        paddingLeft: 5,
+        borderWidth: 2,
+        borderColor: "#42273B",
+        width: "70%",
+      },
+    }),
   },
   editingButtonText: {
     fontSize: 17,
@@ -329,13 +471,11 @@ export default styles = StyleSheet.create({
     padding: 7,
   },
   innerFriendContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
     padding: 7,
   },
-  chatButtonIcon: {
-  
-  },
+  chatButtonIcon: {},
   homeContainer: {
     flex: 1,
     justifyContent: "center",
@@ -644,12 +784,73 @@ export default styles = StyleSheet.create({
   SCsearchBar: {
     marginTop: 10,
   },
-  MSsearchBar: {
+  MSsearchBarContainer: {
     marginTop: 10,
   },
+  MSsearchBar: {
+    width: "90%",
+    marginLeft: "auto",
+    marginRight: "auto",
+  },
+  MSButton: {
+    width: "90%",
+    marginLeft: "auto",
+    marginRight: "auto",
+    height: 50,
+    backgroundColor: "#42273B",
+    paddingHorizontal: 15,
+    paddingVertical: 15,
+    borderRadius: 10,
+    alignItems: "center",
+    marginBottom: 15,
+  },
+  MSButtonText: {
+    color: "white",
+    fontWeight: "700",
+    fontSize: 16,
+  },
+  MSFormContainer: {
+    width: "90%",
+    marginLeft: "auto",
+    marginRight: "auto",
+    marginTop: 20,
+  },
+
   MSscrollContainer: {
     marginTop: 10,
   },
+  MSText: {
+    color: "#42273B",
+    fontSize: 16,
+    marginLeft: 10,
+    marginBottom: 10,
+  },
+  bookFormComponent: {
+    color: "#42273B",
+  },
+  bookFormButton: {
+    width: "90%",
+    marginLeft: "auto",
+    marginRight: "auto",
+    height: 50,
+    backgroundColor: "#42273B",
+    paddingHorizontal: 15,
+    paddingVertical: 15,
+    borderRadius: 10,
+    alignItems: "center",
+    marginBottom: 15,
+    marginTop: 10,
+  },
+  bookFormButtonText: {
+    color: "white",
+    fontWeight: "700",
+    fontSize: 16,
+  },
+
+  bookFormButtonCheck: {
+    backgroundColor: "#42273B",
+  },
+
   bookcard: {
     margin: 10,
     flex: 1,
@@ -690,5 +891,97 @@ export default styles = StyleSheet.create({
     textAlign: "center",
     width: "70%",
     fontWeight: "600",
+  },
+  scannerContainer: {
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "center",
+    gap: 10,
+  },
+  scannerBookcard: {
+    margin: 10,
+    marginBottom: 50,
+    width: "80%",
+  },
+  scannerBookcardTitle: {
+    color: "#42273B",
+    fontWeight: "700",
+    fontSize: 25,
+  },
+  scannerBookcardText: {
+    color: "#42273B",
+    fontWeight: "700",
+    fontSize: 16,
+  },
+  scannerBookcardImage: {
+    // width: 50,
+  },
+  scannerCamera: {
+    flex: 1,
+    width: "100%",
+    aspectRatio: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    maxWidth,
+    maxHeight,
+    overflow: "hidden",
+  },
+  scannerCrosshair: {
+    color: "white",
+    textAlign: "center",
+    fontSize: 110,
+  },
+  scannerInputContainer: {
+    width: "80%",
+  },
+  buttonBackScanner: {
+    backgroundColor: "#42273B",
+    width: "90%",
+    paddingHorizontal: 15,
+    paddingVertical: 15,
+    borderRadius: 10,
+    alignItems: "center",
+    marginTop: 60,
+  },
+  scannerInput: {
+    backgroundColor: "white",
+    paddingHorizontal: 15,
+    paddingVertical: 10,
+    borderRadius: 10,
+    marginTop: 5,
+  },
+  scannerButtonContainer: {
+    width: "80%",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  scannerButton: {
+    backgroundColor: "#42273B",
+    width: "100%",
+    paddingHorizontal: 15,
+    paddingVertical: 15,
+    borderRadius: 10,
+    alignItems: "center",
+    marginBottom: 15,
+  },
+  scannerButtonOutline: {
+    backgroundColor: "white",
+    marginTop: 5,
+    borderColor: "#42273B",
+    borderWidth: 2,
+  },
+  scannerButtonText: {
+    color: "white",
+    fontWeight: "700",
+    fontSize: 16,
+  },
+  scannerButtonOutlineText: {
+    color: "#42273B",
+    fontWeight: "700",
+    fontSize: 16,
+  },
+  scannerCameraContainer: {
+    flexDirection: "column",
+    alignItems: "center",
   },
 });

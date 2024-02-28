@@ -79,7 +79,7 @@ const UserProfilePage = () => {
   useFocusEffect(
     React.useCallback(() => {
       getUser(currentUid, setUser);
-      setPageLoading(false)
+      setPageLoading(false);
     }, [currentUid])
   );
 
@@ -171,8 +171,8 @@ const UserProfilePage = () => {
   //if statement to wait until currentUid has updated before calling getUser again
   //and rendering the page
   if (pageLoading) {
-    return <LoadingMessage />
-  }else if (user) {
+    return <LoadingMessage />;
+  } else if (user) {
     return (
       <View>
         <NavigationBar />
@@ -204,12 +204,18 @@ const UserProfilePage = () => {
               </View>
 
               <View>
-                <View style={styles.fullNameContainer}>
+                <View
+                  style={
+                    editable
+                      ? [styles.fullNameContainerEditable]
+                      : styles.fullNameContainer
+                  }
+                >
                   <TextInput
                     style={
                       editable
-                        ? [styles.UPText, styles.editable]
-                        : styles.UPText
+                        ? [styles.UPText, styles.editableFN]
+                        : [styles.UPText, styles.FNInput]
                     }
                     editable={editable}
                     placeholder="First Name"
@@ -231,8 +237,8 @@ const UserProfilePage = () => {
                     }
                     style={
                       editable
-                        ? [styles.UPText, styles.editable]
-                        : styles.UPText
+                        ? [styles.UPText, styles.editableLN]
+                        : [styles.UPText, styles.LNInput]
                     }
                   />
                 </View>
@@ -274,7 +280,8 @@ const UserProfilePage = () => {
                       styles.UPfilledPressButtonOutline,
                       styles.editingButton,
                     ]}
-                    onPress={handleEditSubmission}>
+                    onPress={handleEditSubmission}
+                  >
                     <Text style={styles.editingButtonText}>Done!</Text>
                   </Pressable>
                 ) : (
@@ -283,7 +290,8 @@ const UserProfilePage = () => {
                       styles.UPfilledPressButtonOutline,
                       styles.passwordButton,
                     ]}
-                    onPress={handleEditClick}>
+                    onPress={handleEditClick}
+                  >
                     <Text style={styles.buttonOutlineText}>Edit profile</Text>
                   </Pressable>
                 )}
@@ -295,7 +303,8 @@ const UserProfilePage = () => {
                     styles.UPfilledPressButtonOutline,
                     styles.passwordButton,
                   ]}
-                  onPress={handlePasswordChange}>
+                  onPress={handlePasswordChange}
+                >
                   <Text style={styles.buttonOutlineText}>Change Password</Text>
                 </Pressable>
               </View>
@@ -306,7 +315,8 @@ const UserProfilePage = () => {
                     styles.UPfilledPressButtonOutline,
                     styles.deleteButton,
                   ]}
-                  onPress={handleDelete}>
+                  onPress={handleDelete}
+                >
                   <Text style={styles.deleteText}>Delete profile</Text>
                 </Pressable>
               </View>
