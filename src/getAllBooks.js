@@ -12,7 +12,6 @@ import { db } from "../firebaseConfig";
 import { getAuth } from "firebase/auth";
 
 export const getAllBooks = (uid, catalogue_id) => {
-  console.log("here");
   return getDocs(
     query(collection(db, "users", uid, "catalogues", catalogue_id, "Books"))
   );
@@ -37,8 +36,6 @@ export const getAllBooks = (uid, catalogue_id) => {
   //   res[1].forEach((doc) => {
   //     manualBooksInfo.push(doc.data());
   //   });
-  //   console.log(scannedBooksISBN);
-  //   console.log(manualBooksInfo);
   //   return scannedBooksISBN;
   // });
 };

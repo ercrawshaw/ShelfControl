@@ -31,7 +31,7 @@ export default function AddNewBookScreen() {
           setManBookData(items);
         })
         .catch((err) => {
-          console.log(err);
+          console.error(err);
         });
     }
   }, [manIsbn]);

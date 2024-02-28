@@ -141,16 +141,9 @@ const UserProfilePage = () => {
   // useEffect(() => {
   //   onAuthStateChanged(auth, (userCred) => {
   //     if (userCred) {
-  //       console.log(userCred.email, "user is logged in");
-  //       // console.log(
-  //       //   userCred.email,
-  //       //   userCred.emailVerified,
-  //       //   "Has email been confirmed"
-  //       // );
   //       const { email, emailVerified } = userCred;
   //       setUserAuth({ email, emailVerified });
   //     } else {
-  //       console.log(userAuth.email, "user is logged out");
   //     }
   //   });
   // }, []);
@@ -166,7 +159,6 @@ const UserProfilePage = () => {
 
   const handleEditSubmission = () => {
     editable ? isEditable(false) : isEditable(true);
-    console.log(currentUid);
     updateUser(currentUid, user).then(() => {
       alert("your profile has been updated");
     });

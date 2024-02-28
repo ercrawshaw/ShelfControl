@@ -7,7 +7,6 @@ import { db } from "../firebaseConfig";
 const deleteSingleUser = (uid, user) => {
   return deleteDoc(doc(db, "users", uid)).then(() => {
     deleteUser(getAuth().currentUser).then(() => {
-      console.log("Success");
     });
   });
 };
