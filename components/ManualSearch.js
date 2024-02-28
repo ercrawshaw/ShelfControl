@@ -126,7 +126,8 @@ const ManualSearch = () => {
         });
       })
       .catch((error) => {
-        alert(error.message);
+        navigation.navigate("ManualSearch");
+        // alert(error.message);
       });
   }
 
@@ -149,7 +150,8 @@ const ManualSearch = () => {
           });
       })
       .catch((error) => {
-        alert(error.message);
+        navigation.navigate("ManualSearch");
+        // alert(error.message);
       });
   }
 
