@@ -18,6 +18,7 @@ import addBook from "../src/addBook";
 import * as MediaLibrary from "expo-media-library";
 import { bookExistsCheckFunc } from "../utils/bookExistsCheck";
 import styles from "../styles/styles";
+import { Audio } from "expo-av";
 
 const BarcodeScanner = () => {
   const navigation = useNavigation();
@@ -29,6 +30,7 @@ const BarcodeScanner = () => {
   const { currentCatalogue, setCurrentCatalogue } = useContext(
     CurrentCatalogueContext
   );
+  const [sound, setSound] = useState();
 
   useEffect(() => {
     (async () => {
@@ -51,6 +53,26 @@ const BarcodeScanner = () => {
     }
   }, [isbn]);
 
+  async function playSound() {
+    console.log("Loading Sound");
+    const { sound } = await Audio.Sound.createAsync(
+      require("../assets/sounds/scanner_beep.wav")
+    );
+    setSound(sound);
+
+    console.log("Playing Sound");
+    await sound.playAsync();
+  }
+
+  useEffect(() => {
+    return sound
+      ? () => {
+          console.log("Unloading Sound");
+          sound.unloadAsync();
+        }
+      : undefined;
+  }, [sound]);
+
   const scannerSwitch = () => {
     setScanned(false);
     setBookData(null);
@@ -64,7 +86,7 @@ const BarcodeScanner = () => {
       publication_date: bookData[0].volumeInfo.publishedDate,
       isbn: bookData[0].volumeInfo.industryIdentifiers[0].identifier,
     };
-    // addBook(currentUid, currentCatalogue, bookInfo);
+    addBook(currentUid, currentCatalogue, bookInfo);
     setScanned(false);
     setBookData(null);
     setIsbn(null);
@@ -134,6 +156,7 @@ const BarcodeScanner = () => {
               onBarcodeScanned={(bookDetails) => {
                 setIsbn(bookDetails.data);
                 setScanned(true);
+                playSound();
               }}
               style={styles.scannerCamera}
             >
@@ -176,8 +199,9 @@ const BarcodeScanner = () => {
               style={styles.scannerButton}
               onPress={handleReturnToCatalogue}
             >
-              <Text style={styles.scannerButtonText}>Add & Return to Catalogue</Text>
-
+              <Text style={styles.scannerButtonText}>
+                Add & Return to Catalogue
+              </Text>
             </Pressable>
           </View>
         )}
