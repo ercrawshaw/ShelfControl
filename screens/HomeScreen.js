@@ -37,7 +37,6 @@ const HomeScreen = () => {
     }
   }, [isFocused]);
 
-  //console.log(auth.currentUser.providerData);
 
   const handleAddCatalogue = () => {
     navigation.navigate("NewCatalogueScreen");

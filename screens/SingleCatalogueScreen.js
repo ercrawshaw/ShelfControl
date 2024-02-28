@@ -51,8 +51,7 @@ const SingleCatalogueScreen = ({ route }) => {
         let books = [];
         res.forEach((doc) => {
           books.push(doc);
-        });console.log
-        //console.log(books);
+        });
         setMapArr(books);
         setCurrentBooks(books);
         setPageLoading(false);
@@ -69,7 +68,6 @@ const SingleCatalogueScreen = ({ route }) => {
         friendsUid: friendsUid,
       });
     } else{
-      //console.log(book.data());
       navigation.navigate("SingleBookScreen", {
         catalogue_id: catalogue_id,
         book_data: book.data(),

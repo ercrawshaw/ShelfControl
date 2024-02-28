@@ -50,7 +50,6 @@ const FriendsListScreen = () => {
               //get the friend profile information
               getFriend(friendData.uid2),
             ]);
-            console.log(results[0].data());
             return {
               id: results[1].id,
               username: results[1].data().username,
@@ -62,7 +61,7 @@ const FriendsListScreen = () => {
         );
         setFriends(friendsList);
       } catch (error) {
-        console.log(error);
+        console.error(error);
       }
     };
     fetchFriends();
@@ -105,7 +104,7 @@ const FriendsListScreen = () => {
         navigation.navigate("PublicProfile", { friend: res, friendshipData: friend });
       })
       .catch((err) => {
-        console.log("friend not found");
+        console.error("friend not found");
       });
   }
 
@@ -113,9 +112,8 @@ const FriendsListScreen = () => {
     const fetchFriend = async () => {
       try {
         const singleFriend = await acceptFriendship(currentUid, friend.id);
-        console.log(singleFriend.data());
       } catch (err) {
-        console.log(err);
+        console.error(err);
       }
     };
     fetchFriend();

@@ -71,7 +71,7 @@ const PublicProfileScreen = ({ route }) => {
     getAllCatalogues(friend.id).then((res) => {
       let catalogues = [];
       res.forEach((doc) => {
-        console.log(doc.id);
+
         catalogues.push(doc.id);
       });
       setPageLoading(false);
@@ -79,7 +79,7 @@ const PublicProfileScreen = ({ route }) => {
     });
   }, []);
 
-  console.log(friendData);
+
 
   //if add button click change to non editable and display "friend request sent"
   

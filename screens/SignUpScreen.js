@@ -71,7 +71,6 @@ const SignUpScreen = () => {
           createUserWithEmailAndPassword(auth, email, password)
             .then((userCredentials) => {
               const user = userCredentials.user;
-              // console.log("Signed in with:", user.email);
               setCurrentUid(userCredentials.user.uid);
               addUser(userCredentials.user.uid, username, firstname, lastname);
 

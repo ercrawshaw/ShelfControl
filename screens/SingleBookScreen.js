@@ -33,7 +33,6 @@ const SingleBookScreen = ({ route }) => {
         setPageLoading(false);
       });
     } else {
-      console.log("hello");
       setCurrentBook({
         title: book_data.title,
         author: book_data.author,

@@ -54,7 +54,6 @@ const OldFriendsListScreen = () => {
               const userRef = doc(db, "users", uid);
               const userSnap = await getDoc(userRef);
               if (userSnap.exists()) {
-                console.log(userSnap.data());
                 return {
                   id: userSnap.id,
                   username: userSnap.data().username,
@@ -70,9 +69,7 @@ const OldFriendsListScreen = () => {
           friendsList.forEach((friend) => {
             getFriendshipStatus(friend.id, currentUid).then((res) => {
               const status = res.data().accepted;
-              console.log(friend, "<<<here friend");
               const updatedFriend = { ...friend, accepted: status };
-              console.log(updatedFriend, "<<<here updated friend");
               setUpdatedFriendsList((currentUpdatedFriendsList) => {
                 [...currentUpdatedFriendsList, updatedFriend];
               });
@@ -128,7 +125,7 @@ const OldFriendsListScreen = () => {
         navigation.navigate("PublicProfile", { friend: res });
       })
       .catch((err) => {
-        console.log("friend not found");
+        console.error("friend not found");
       });
   }
 
