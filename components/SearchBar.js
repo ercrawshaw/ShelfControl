@@ -33,7 +33,7 @@ const SearchBarComponent = ({currentBooks, setMapArr, mapArr, searchQuery, setSe
             onChangeText={(searchQuery) => setSearchQuery(searchQuery)}
             value={searchQuery}
             onIconPress={(searched)=> setSearched(searchQuery)}
-            
+            onSubmitEditing={() => setSearched(true)}
         />
         </View>
     );
