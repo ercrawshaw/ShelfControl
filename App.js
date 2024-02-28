@@ -19,6 +19,13 @@ import PublicUsersScreen from "./screens/PublicUsersScreen";
 import PublicProfileScreen from "./screens/PublicProfileScreen";
 import FriendsListScreen from "./screens/FriendsListScreen";
 import ChatScreen from "./screens/ChatScreen";
+import { LogBox } from "react-native";
+
+//Ignore log notification by message:
+LogBox.ignoreLogs(["new NativeEventEmitter"]);
+
+// Ignore all log notifications:
+// LogBox.ignoreAllLogs();
 
 const Stack = createNativeStackNavigator();
 
