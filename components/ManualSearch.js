@@ -166,6 +166,7 @@ const ManualSearch = () => {
             onChangeText={(bookTitle) => setBookTitle(bookTitle)}
             value={bookTitle}
             onIconPress={searchBook}
+            onSubmitEditing={searchBook}
           />
           <Text>{alert}</Text>
           <Text>{error}</Text>
@@ -197,6 +198,8 @@ const ManualSearch = () => {
           <View>
             {books.map((book, i) => {
               //issue with thumbnail at times
+              const fallbackImageUrl = "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/No_image_available.svg/600px-No_image_available.svg.png";
+              const thumbnailUrl = book.volumeInfo.imageLinks ? book.volumeInfo.imageLinks.thumbnail : fallbackImageUrl;
               return (
                 <Card key={i} style={styles.bookcard}>
                   <Card.Title
@@ -205,7 +208,7 @@ const ManualSearch = () => {
                   />
                   <Card.Cover
                     style={styles.bookcover}
-                    source={{ uri: book.volumeInfo.imageLinks.thumbnail }}
+                    source={{ uri: thumbnailUrl }}
                   />
                   <Card.Actions>
                     <Button
