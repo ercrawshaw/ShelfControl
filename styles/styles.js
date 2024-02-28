@@ -686,4 +686,9 @@ export default styles = StyleSheet.create({
   UPContainer: {
     marginTop: 30,
   },
+  emptyListMsg: {
+    textAlign: "center",
+    width: "70%",
+    fontWeight: "600",
+  },
 });
