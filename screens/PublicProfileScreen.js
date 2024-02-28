@@ -68,27 +68,30 @@ const PublicProfileScreen = ({ route }) => {
                 <Text style={styles.profileUsername}>{friend.data().username}</Text>
 
                 {friendshipData.own_accepted && friendshipData.friend_accepted ? (
-                  <View style={styles.FRButtonContainer}>
-                  <Text style={[styles.buttonText, styles.button ]}>Friend</Text>
+                  <View style={styles.PPbutton}>
+                  <Text style={styles.PPbuttonText}>Friend</Text>
                   </View>
               ) : null}
 
               {friendshipData.own_accepted && friendshipData.friend_accepted === false ? (
-                <View style={styles.FRButtonContainer}>
-                    <Text style={[styles.buttonText, styles.button ]}>Pending</Text>
-                </View>
+                  <View style={styles.PPbutton}>
+                  <Text style={styles.PPbuttonText}>Pending</Text>
+                  </View>
               ) : null}
               
               {friendshipData.own_accepted === false && friendshipData.friend_accepted ? (
-                <View style={styles.FRButtonContainer}>  
-                  <Text style={styles.buttonText}>Friend Request Pending</Text>
+                <View style={styles.PPbutton}>  
+                <Text style={styles.PPbuttonText}>Friend Request Pending</Text>
                 </View>
               ) : null}
 
               {friendshipData.hasOwnProperty('own_accepted') === false && friendshipData.hasOwnProperty('friend_accepted') === false ?   
               <View>
-              <Pressable style={styles.button} onPress={handleAddFriend}>
-                  <Text style={styles.buttonText}>Add Friend</Text>
+              <Pressable 
+              style={styles.PPFriendRequestButton} 
+              onPress={handleAddFriend}
+              >
+              <Text style={styles.buttonText}>Add Friend</Text>
               </Pressable>
               </View> : null
               }

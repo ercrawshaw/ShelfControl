@@ -183,9 +183,10 @@ const FriendsListScreen = () => {
                   >
                     <Text style={styles.FRButtonText}>Accept</Text>
                   </Pressable>
-                  <Pressable style={styles.FRButton}>
+                  <View style={{ width: 5 }}/>
+                  <Pressable style={styles.FRdeclineButton}>
                     <Text
-                      style={styles.FRButtonText}
+                      style={styles.FRdeclineButtonText}
                       onPress={() => handleDeleteFriend(currentUid, friend)}
                     >
                       Decline
