@@ -79,17 +79,26 @@ const BarcodeScanner = () => {
   };
 
   const handleScanAnotherBook = () => {
-    //console.log(bookData[0]);
     const bookInfo = {
       author: bookData[0].volumeInfo.authors,
       title: bookData[0].volumeInfo.title,
       publication_date: bookData[0].volumeInfo.publishedDate,
       isbn: bookData[0].volumeInfo.industryIdentifiers[0].identifier,
     };
-    addBook(currentUid, currentCatalogue, bookInfo);
-    setScanned(false);
-    setBookData(null);
-    setIsbn(null);
+
+    bookExistsCheckFunc(currentUid, currentCatalogue, bookInfo.title)
+      .then(() => {
+        addBook(currentUid, currentCatalogue, bookInfo);
+        setScanned(false);
+        setBookData(null);
+        setIsbn(null);
+      })
+      .catch((error) => {
+        setBookData(null);
+        setIsbn(null);
+        setScanned(false);
+      });
+
   };
 
   const handleReturnToCatalogue = () => {
@@ -111,8 +120,9 @@ const BarcodeScanner = () => {
         });
       })
       .catch((error) => {
-        navigation.navigate("Scanner");
-        alert(error.message);
+        setBookData(null);
+        setIsbn(null);
+        setScanned(false);
       });
   };
 
@@ -158,8 +168,7 @@ const BarcodeScanner = () => {
                 setScanned(true);
                 playSound();
               }}
-              style={styles.scannerCamera}
-            >
+              style={styles.scannerCamera}>
               <TouchableOpacity>
                 <Text style={styles.scannerCrosshair}>[ ]</Text>
               </TouchableOpacity>
@@ -168,8 +177,7 @@ const BarcodeScanner = () => {
               style={styles.buttonBackScanner}
               onPress={() => {
                 navigation.goBack();
-              }}
-            >
+              }}>
               <Text style={styles.scannerButtonText}>Go Back</Text>
             </Pressable>
           </View>
@@ -183,8 +191,7 @@ const BarcodeScanner = () => {
           </Pressable> */}
             <Pressable
               style={styles.scannerButton}
-              onPress={handleScanAnotherBook}
-            >
+              onPress={handleScanAnotherBook}>
               <Text style={styles.scannerButtonText}>Scan another book</Text>
             </Pressable>
             {/* <Pressable
@@ -197,8 +204,10 @@ const BarcodeScanner = () => {
           </Pressable> */}
             <Pressable
               style={styles.scannerButton}
+
               onPress={handleReturnToCatalogue}
             >
+
               <Text style={styles.scannerButtonText}>
                 Add & Return to Catalogue
               </Text>

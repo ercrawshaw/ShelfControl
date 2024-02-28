@@ -151,7 +151,6 @@ const ManualSearch = () => {
       })
       .catch((error) => {
         navigation.navigate("ManualSearch");
-        // alert(error.message);
       });
   }
 
@@ -169,12 +168,8 @@ const ManualSearch = () => {
             onChangeText={(bookTitle) => setBookTitle(bookTitle)}
             value={bookTitle}
             onIconPress={searchBook}
-
-
             style={styles.MSsearchBar}
-
             onSubmitEditing={searchBook}
-
           />
           <Text>{alert}</Text>
           <Text>{error}</Text>
@@ -184,8 +179,7 @@ const ManualSearch = () => {
         <Pressable
           style={styles.MSButton}
           mode="contained"
-          onPress={handleAddClick}
-        >
+          onPress={handleAddClick}>
           <Text style={styles.MSButtonText}>Enter book details</Text>
         </Pressable>
       </View>
@@ -211,8 +205,11 @@ const ManualSearch = () => {
           <View>
             {books.map((book, i) => {
               //issue with thumbnail at times
-              const fallbackImageUrl = "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/No_image_available.svg/600px-No_image_available.svg.png";
-              const thumbnailUrl = book.volumeInfo.imageLinks ? book.volumeInfo.imageLinks.thumbnail : fallbackImageUrl;
+              const fallbackImageUrl =
+                "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/No_image_available.svg/600px-No_image_available.svg.png";
+              const thumbnailUrl = book.volumeInfo.imageLinks
+                ? book.volumeInfo.imageLinks.thumbnail
+                : fallbackImageUrl;
               return (
                 <Card key={i} style={styles.bookcard}>
                   <Card.Title
@@ -227,8 +224,7 @@ const ManualSearch = () => {
                     <Button
                       onPress={() => {
                         handleSubmitSearchedBook(book);
-                      }}
-                    >
+                      }}>
                       Add Book
                     </Button>
                   </Card.Actions>
@@ -309,8 +305,7 @@ const ManualSearch = () => {
               }}
               mode="contained"
               onPress={handleManualBookAdd}
-              title="Check Book Details"
-            >
+              title="Check Book Details">
               <Text style={styles.bookFormButtonText}>Check Details</Text>
             </Pressable>
 
@@ -355,14 +350,12 @@ const ManualSearch = () => {
               />
               <Button
                 style={styles.bookFormButtonCheck}
-                onPress={handleEditClick}
-              >
+                onPress={handleEditClick}>
                 Edit Book
               </Button>
               <Button
                 style={styles.bookFormButtonCheck}
-                onPress={handleSubmitManualBook}
-              >
+                onPress={handleSubmitManualBook}>
                 Add Book
               </Button>
             </Card.Actions>
