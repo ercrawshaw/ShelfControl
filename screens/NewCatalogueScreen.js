@@ -12,6 +12,7 @@ import { addCatalogue } from "../src/addCatalogue";
 import { useNavigation } from "@react-navigation/native";
 import styles from "../styles/styles";
 import NavigationBar from "../components/Navbar";
+import { catalogueExistsCheckFunc } from "../utils/catalogueExistsCheck";
 
 const NewCatalogueScreen = () => {
   const [catalogueName, setCatalogueName] = useState("");
@@ -19,9 +20,16 @@ const NewCatalogueScreen = () => {
   const navigation = useNavigation();
 
   const handleCatalogueAdd = () => {
-    addCatalogue(currentUid, catalogueName).then(() => {
-      navigation.navigate("HomeScreen");
-    });
+    catalogueExistsCheckFunc(currentUid, catalogueName)
+      .then(() => {
+        addCatalogue(currentUid, catalogueName).then(() => {
+          navigation.navigate("HomeScreen");
+        });
+      })
+      .catch((error) => {
+        console.log(error);
+        navigation.navigate("NewCatalogueScreen");
+      });
   };
 
   return (
@@ -41,8 +49,7 @@ const NewCatalogueScreen = () => {
           <View>
             <Pressable
               style={[styles.UPbutton, styles.buttonOutline]}
-              onPress={handleCatalogueAdd}
-            >
+              onPress={handleCatalogueAdd}>
               <Text style={styles.NCbuttonText}>Submit</Text>
             </Pressable>
           </View>
