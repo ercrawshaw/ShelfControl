@@ -201,7 +201,7 @@ const ManualSearch = () => {
           <StatusBar style="auto" />
         </View>
 
-        <ScrollView style={styles.MSscrollContainer}>
+        <ScrollView style={styles.MSscrollContainer} contentContainerStyle={{ paddingBottom: 120 }}>
           <View>
             {books.map((book, i) => {
               //issue with thumbnail at times
