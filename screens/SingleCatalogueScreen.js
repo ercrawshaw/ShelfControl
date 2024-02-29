@@ -14,10 +14,11 @@ import NavigationBar from "../components/Navbar";
 import { getAllBooks } from "../src/getAllBooks";
 import LoadingMessage from "../components/LoadingMessage";
 import { CurrentCatalogueContext } from "../contexts/catalogueContext";
-
+import { deleteBook } from '../src/deleteBook';
 import styles from "../styles/styles";
 import SearchBarComponent from "../components/SearchBar";
 import { useIsFocused } from "@react-navigation/native";
+import { Alert } from "react-native";
 
 const SingleCatalogueScreen = ({ route }) => {
   const navigation = useNavigation();
@@ -76,6 +77,7 @@ const SingleCatalogueScreen = ({ route }) => {
     }
   };
 
+  
   useEffect(() => {
     if (foundBooks.length !== 0) {
       setMapArr(foundBooks);
@@ -88,6 +90,44 @@ const SingleCatalogueScreen = ({ route }) => {
     setCurrentCatalogue(catalogue_id);
     navigation.navigate("AddNewBookScreen");
   };
+
+  const handleDeleteBook = async (bookId) => {
+    // Only allow deletion if viewing own catalogue
+    if (friendsUid) {
+      console.error("Cannot delete books from a friend's catalogue.");
+      return; // Or show some user-friendly message/alert
+    }
+  
+    // Show confirmation dialog before proceeding with deletion
+    Alert.alert(
+      "Delete Book",
+      "Are you sure you want to delete this book?",
+      [
+        {
+          text: "Cancel",
+          style: "cancel",
+          onPress: () => console.log("Book deletion cancelled"),
+        },
+        { 
+          text: "Yes", 
+          onPress: async () => {
+            try {
+              await deleteBook(bookId, currentUid, catalogue_id);
+              // Update the UI to reflect the deletion
+              const updatedBooks = currentBooks.filter(book => book.id !== bookId);
+              setCurrentBooks(updatedBooks);
+              setMapArr(updatedBooks);
+              console.log("Book successfully deleted!");
+            } catch (error) {
+              console.error("Error deleting book: ", error);
+            }
+          }
+        }
+      ],
+      { cancelable: false }
+    );
+  };
+
 
   if (pageLoading) {
     return <LoadingMessage />;
@@ -131,6 +171,7 @@ const SingleCatalogueScreen = ({ route }) => {
                   onPress={() => {
                     handleBookClick(book);
                   }}
+                  onLongPress={() => handleDeleteBook(book.id)} 
                 >
                   <Text style={styles.buttonCatalogueText}>
                     {book.data().title}
