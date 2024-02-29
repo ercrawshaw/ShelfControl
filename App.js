@@ -39,7 +39,7 @@ export default function App() {
         value={{ currentCatalogue, setCurrentCatalogue }}
       >
         <NavigationContainer>
-          <Stack.Navigator initialRouteName="Login">
+          <Stack.Navigator initialRouteName="Login" screenOptions={{contentStyle: {backgroundColor: '#42273B'}}}>
             <Stack.Screen
               options={{ headerShown: false }}
               name="Login"

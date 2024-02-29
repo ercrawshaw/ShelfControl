@@ -188,57 +188,54 @@ const ManualSearch = () => {
     // Books shown from Google Books Api
   } else if (books.length !== 0 && !manualAdd) {
     return (
-      <View style={styles.searchbar}>
-        <NavigationBar />
-        <View style={styles.MSsearchBar}>
-          <Searchbar
-            placeholder="Search Book Title"
-            onChangeText={(bookTitle) => setBookTitle(bookTitle)}
-            value={bookTitle}
-            onSubmitEditing={() => searchBook()}
-            onIconPress={searchBook}
-          />
-          <StatusBar style="auto" />
-        </View>
+      <View style={{ flex: 1 }}>
+  <NavigationBar />
+  <View style={styles.MSsearchBar}>
+    <Searchbar
+      placeholder="Search Book Title"
+      onChangeText={(bookTitle) => setBookTitle(bookTitle)}
+      value={bookTitle}
+      onSubmitEditing={() => searchBook()}
+      onIconPress={searchBook}
+    />
+    <StatusBar style="auto" />
+  </View>
 
-        <ScrollView style={styles.MSscrollContainer}>
-          <View>
-            {books.map((book, i) => {
-              //issue with thumbnail at times
-              const fallbackImageUrl =
-                "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/No_image_available.svg/600px-No_image_available.svg.png";
-              const thumbnailUrl = book.volumeInfo.imageLinks
-                ? book.volumeInfo.imageLinks.thumbnail
-                : fallbackImageUrl;
-              return (
-                <Card key={i} style={styles.bookcard}>
-                  <Card.Title
-                    title={book.volumeInfo.title}
-                    subtitle={book.volumeInfo.authors}
-                  />
-                  <Card.Cover
-                    style={styles.bookcover}
-                    source={{ uri: thumbnailUrl }}
-                  />
-                  <Card.Actions>
-                    <Button
-                      onPress={() => {
-                        handleSubmitSearchedBook(book);
-                      }}>
-                      Add Book
-                    </Button>
-                  </Card.Actions>
-                </Card>
-              );
-            })}
-          </View>
-        </ScrollView>
-        <View>
-          <Pressable>
-            <Text>Back</Text>
-          </Pressable>
-        </View>
-      </View>
+  <ScrollView style={styles.MSscrollContainer}>
+    <View>
+      {books.map((book, i) => {
+        //issue with thumbnail at times
+        const fallbackImageUrl =
+          "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/No_image_available.svg/600px-No_image_available.svg.png";
+        const thumbnailUrl = book.volumeInfo.imageLinks
+          ? book.volumeInfo.imageLinks.thumbnail
+          : fallbackImageUrl;
+        return (
+          <Card key={i} style={styles.bookcard}>
+            <Card.Title
+              title={book.volumeInfo.title}
+              subtitle={book.volumeInfo.authors}
+            />
+            <Card.Cover
+              style={styles.bookcover}
+              source={{ uri: thumbnailUrl }}
+            />
+            <Card.Actions>
+              <Button
+                onPress={() => {
+                  handleSubmitSearchedBook(book);
+                }}>
+                Add Book
+              </Button>
+            </Card.Actions>
+          </Card>
+        );
+      })}
+    </View>
+  </ScrollView>
+  <View style={styles.MSfooter}>
+  </View>
+</View>
     );
 
     //Manually adding book information
@@ -246,6 +243,9 @@ const ManualSearch = () => {
     //Manually adding form
     if (!bookAdded) {
       return (
+        <View>
+          <NavigationBar />
+        
         <View style={styles.MSFormContainer}>
           {/* <Button icon="plus" mode="contained" onPress={handleAddClick}>
             Add a Book
@@ -313,11 +313,14 @@ const ManualSearch = () => {
             <Button title="Check Book Details!" onPress={handleManualBookAdd} />
           </View>
         </View>
+        </View>
       );
 
       //Book information displayed for check before adding
     } else {
       return (
+        <View>
+          <NavigationBar />
         <View style={styles.MSFormContainer}>
           {/* <Button icon="plus" mode="contained" onPress={handleAddClick}>
             Add a Book
@@ -360,6 +363,7 @@ const ManualSearch = () => {
               </Button>
             </Card.Actions>
           </Card>
+        </View>
         </View>
       );
     }

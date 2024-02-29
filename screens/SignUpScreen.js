@@ -96,6 +96,7 @@ const SignUpScreen = () => {
       .catch((error) => alert(error.message));
   };
 
+
   return (
     <KeyboardAvoidingView style={styles.SUcontainer} behavior="padding">
       <View style={styles.inputContainer}>
@@ -103,38 +104,38 @@ const SignUpScreen = () => {
           placeholder="First Name"
           value={firstname}
           onChangeText={(text) => setFirstName(text)}
-          style={styles.input}
+          style={styles.SUtextinput}
         />
         <TextInput
           placeholder="Last Name"
           value={lastname}
           onChangeText={(text) => setLastName(text)}
-          style={styles.input}
+          style={styles.SUtextinput}
         />
         <TextInput
           placeholder="Username"
           value={username}
           onChangeText={(text) => setUsername(text)}
-          style={styles.input}
+          style={styles.SUtextinput}
         />
         <TextInput
           placeholder="Email"
           value={email}
           onChangeText={(text) => setEmail(text)}
-          style={styles.input}
+          style={styles.SUtextinput}
         />
         <TextInput
           placeholder="Password"
           value={password}
           onChangeText={(text) => setPassword(text)}
-          style={styles.input}
+          style={styles.SUtextinput}
           secureTextEntry
         />
         <TextInput
           placeholder="Confirm Password"
           value={confirmPassword}
           onChangeText={(text) => setConfirmPassword(text)}
-          style={styles.input}
+          style={styles.SUtextinput}
           secureTextEntry
         />
       </View>
@@ -142,8 +143,15 @@ const SignUpScreen = () => {
       <View style={styles.buttonContainer}>
         <Pressable
           onPress={handleSignUp}
-          style={[styles.UPbutton, styles.buttonOutline]}>
-          <Text style={styles.buttonOutlineText}>Sign up</Text>
+          style={styles.button}>
+          <Text style={styles.buttonText}>Sign up</Text>
+        </Pressable>
+        <View style={{ margin: 3 }} />
+        <Pressable
+          style={[styles.button, styles.buttonOutline]}
+          onPress={() => {navigation.navigate("Login")}}
+        >
+          <Text style={styles.buttonOutlineText}>Back to Login</Text>
         </Pressable>
       </View>
     </KeyboardAvoidingView>
