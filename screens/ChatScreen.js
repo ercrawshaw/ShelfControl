@@ -4,6 +4,7 @@ import { db } from '../firebaseConfig';
 import { collection, addDoc, query, orderBy, onSnapshot, serverTimestamp } from 'firebase/firestore';
 import { useRoute } from '@react-navigation/native';
 import { CurrentUserContext } from '../contexts/userContext';
+import NavigationBar from "../components/Navbar";
 
 const ChatScreen = () => {
   const [messages, setMessages] = useState([]);
@@ -35,6 +36,7 @@ const ChatScreen = () => {
   return (
     
     <View style={styles.container}> 
+    <NavigationBar />
       <FlatList
         data={messages}
         keyExtractor={item => item.id}
@@ -73,7 +75,7 @@ const ChatScreen = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingTop: 30,
+    paddingTop: 20,
   },
   keyboardAvoidingContainer: {
     position: 'absolute',
