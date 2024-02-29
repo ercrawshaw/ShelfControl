@@ -187,6 +187,7 @@ const FriendsListScreen = () => {
                     {friend.username}
                   </Text>
                 </View>
+              ) : null}
 
                 {friend.own_accepted && friend.friend_accepted ? (
                   <Pressable
