@@ -6,6 +6,7 @@ import {
   Image,
   ScrollView,
   Pressable,
+  Alert,
 } from "react-native";
 import React from "react";
 import { useState, useContext } from "react";
@@ -118,6 +119,7 @@ const ManualSearch = () => {
       .then(() => {
         addBook(currentUid, currentCatalogue, manuallyAddedBook).then(() => {
           // navigation.navigate("ManualSearch");
+          Alert.alert("Book has been added to your catalogue", "");
           setManualAdd(false);
           setManualBookTitle("");
           setManualAuthorName("");
@@ -143,6 +145,7 @@ const ManualSearch = () => {
       .then(() => {
         addBook(currentUid, currentCatalogue, bookInfo)
           .then(() => {
+            Alert.alert("Book has been added to your catalogue", "");
             console.log("success");
           })
           .catch((error) => {
