@@ -165,24 +165,24 @@ const SingleCatalogueScreen = ({ route }) => {
             ) : (
               mapArr.map((book, index) => (
                 <Pressable
-                  style={[styles.SCbutton, styles.buttonOutline]}
-                  // book={book}
+                  style={styles.SCbutton}
+                  book={book}
                   key={index}
                   onPress={() => {
                     handleBookClick(book);
                   }}
                   onLongPress={() => handleDeleteBook(book.id)} 
                 >
-                  <Text style={styles.buttonCatalogueText}>
+                  <Text style={styles.buttonCatalogueTextTitle}>
                     {book.data().title}
                   </Text>
 
                   {book.data().author.length === 1 ? (
-                  <Text style={styles.buttonCatalogueText}>
+                  <Text style={styles.buttonCatalogueTextAuthor}>
                   {book.data().author}
                   </Text>
                   ) : (
-                  <Text style={styles.buttonCatalogueText}>
+                  <Text style={styles.buttonCatalogueTextAuthor}>
                   {book.data().author.join(", ")}
                   </Text>
                   )}

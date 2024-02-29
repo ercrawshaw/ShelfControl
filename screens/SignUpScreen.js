@@ -143,12 +143,12 @@ const SignUpScreen = () => {
       <View style={styles.buttonContainer}>
         <Pressable
           onPress={handleSignUp}
-          style={styles.button}>
+          style={styles.button}
+        >
           <Text style={styles.buttonText}>Sign up</Text>
         </Pressable>
-        <View style={{ margin: 3 }} />
         <Pressable
-          style={[styles.button, styles.buttonOutline]}
+          style={styles.buttonOutline}
           onPress={() => {navigation.navigate("Login")}}
         >
           <Text style={styles.buttonOutlineText}>Back to Login</Text>

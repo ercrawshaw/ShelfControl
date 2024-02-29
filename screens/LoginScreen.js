@@ -101,19 +101,15 @@ const LoginScreen = () => {
       </View>
 
       <View style={styles.buttonContainer}>
-        <Pressable onPress={handleLogin} style={styles.button}>
+        <Pressable 
+        onPress={handleLogin} 
+        style={styles.button}
+        >
           <Text style={styles.buttonText}>Login</Text>
         </Pressable>
-
-        {/* <Pressable
-          onPress={handleSignUp}
-          style={[styles.button, styles.buttonOutline]}
-        >
-          <Text style={styles.buttonOutlineText}>Sign up</Text>
-        </Pressable> */}
         <Pressable
           onPress={handleSignUpClick}
-          style={[styles.button, styles.buttonOutline]}
+          style={styles.buttonOutline}
         >
           <Text style={styles.buttonOutlineText}>Sign up</Text>
         </Pressable>
