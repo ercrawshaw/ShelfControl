@@ -9,18 +9,19 @@ import {
 import { db } from "../firebaseConfig";
 
 const catalogueExistsCheckFunc = (uid, catalogueName) => {
+  const colRef = collection(db, "users", uid, "catalogues");
 
+  const catalogues = query(colRef);
 
-  const colRef = collection(db, "users", uid, "catalogues", "catalogues");
-
-  const catalogues = query(colRef, where("name", "==", catalogueName));
   return getDocs(catalogues).then((snapShot) => {
-    if (!snapShot.empty) {
-      alert("catalogue already exists, Please try another catalogue");
-      return Promise.reject({
-        message: "catalogue already exists, Please try another catalogue",
-      });
-    }
+    snapShot.forEach((doc) => {
+      if (doc.id == catalogueName) {
+        alert("Catalogue already exists, Please use another name");
+        return Promise.reject({
+          message: "Catalogue already exists, Please use another name",
+        });
+      }
+    });
   });
 };
 
