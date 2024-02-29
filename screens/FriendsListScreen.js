@@ -68,7 +68,6 @@ const FriendsListScreen = () => {
       }
     };
     fetchFriends();
-    
   }, [currentUid]);
 
   const handleChatPress = async (friendId) => {
@@ -105,7 +104,10 @@ const FriendsListScreen = () => {
   function handleViewProfile(friend) {
     getFriend(friend.id)
       .then((res) => {
-        navigation.navigate("PublicProfile", { friend: res, friendshipData: friend });
+        navigation.navigate("PublicProfile", {
+          friend: res,
+          friendshipData: friend,
+        });
       })
       .catch((err) => {
         console.error("friend not found");
@@ -124,15 +126,15 @@ const FriendsListScreen = () => {
   }
 
   function handleDeleteFriend(currentUid, friend) {
-    declineFriendship(currentUid, friend.id)
-  };
+    declineFriendship(currentUid, friend.id);
+  }
 
   if (pageLoading) {
     return <LoadingMessage />
   }else{
 
   return (
-    <SafeAreaView style={styles.FLcontainer}>
+    <SafeAreaView style={[styles.FLcontainer, styles.containerAndroid]}>
       <NavigationBar />
       <View style={styles.FLmainScreen}>
         <ScrollView
@@ -180,45 +182,73 @@ const FriendsListScreen = () => {
                   >
                     <Text style={styles.FRButtonText}>Pending</Text>
                   </Pressable>
-                </View>
-              ) : null}
-              {friend.own_accepted === false && friend.friend_accepted ? (
-                <View style={styles.FRButtonContainer}>
-                  <Pressable
-                    style={styles.FRButton}
-                    onPress={() => handleAcceptFriend(currentUid, friend)}
-                  >
-                    <Text style={styles.FRButtonText}>Accept</Text>
-                  </Pressable>
-                  <View style={{ width: 5 }}/>
-                  <Pressable style={styles.FRdeclineButton}>
-                    <Text
-                      style={styles.FRdeclineButtonText}
-                      onPress={() => handleDeleteFriend(currentUid, friend)}
-                    >
-                      Decline
-                    </Text>
-                  </Pressable>
-                </View>
-              ) : null}
-            </View>
-          ))}
-        </ScrollView>
 
-        <View style={styles.FLfooter}>
-          <Pressable
-            style={[styles.bottomButton, styles.bottomButtonOutline]}
-            onPress={() => {
-              navigation.navigate("PublicUsersScreen");
-            }}
-          >
-            <Text style={styles.bottomButtonText}>Find Friends</Text>
-          </Pressable>
+                  <Text style={[styles.buttonFriendText, { marginLeft: 10 }]}>
+                    {friend.username}
+                  </Text>
+                </View>
+
+                {friend.own_accepted && friend.friend_accepted ? (
+                  <Pressable
+                    style={styles.chatButton}
+                    onPress={() => handleChatPress(friend.id)}
+                  >
+                    <Image
+                      style={styles.chatImage}
+                      //source={{ uri:'../assets.chaticon.png' }}
+                      source={require("../assets/chat-icon.png")}
+                      //source={require('/Users/ellecrawshaw/northcoders/ShelfControl/assets/chat-icon.png')}
+                    />
+                  </Pressable>
+                ) : null}
+
+                {friend.own_accepted && friend.friend_accepted === false ? (
+                  <View style={styles.FRButtonContainer}>
+                    <Pressable
+                      style={styles.FRButton}
+                      onPress={() => handleAcceptFriend(currentUid, friend)}
+                    >
+                      <Text style={styles.FRButtonText}>Pending</Text>
+                    </Pressable>
+                  </View>
+                ) : null}
+                {friend.own_accepted === false && friend.friend_accepted ? (
+                  <View style={styles.FRButtonContainer}>
+                    <Pressable
+                      style={styles.FRButton}
+                      onPress={() => handleAcceptFriend(currentUid, friend)}
+                    >
+                      <Text style={styles.FRButtonText}>Accept</Text>
+                    </Pressable>
+                    <View style={{ width: 5 }} />
+                    <Pressable style={styles.FRdeclineButton}>
+                      <Text
+                        style={styles.FRdeclineButtonText}
+                        onPress={() => handleDeleteFriend(currentUid, friend)}
+                      >
+                        Decline
+                      </Text>
+                    </Pressable>
+                  </View>
+                ) : null}
+              </View>
+            ))}
+          </ScrollView>
+
+          <View style={styles.FLfooter}>
+            <Pressable
+              style={[styles.bottomButton, styles.bottomButtonOutline]}
+              onPress={() => {
+                navigation.navigate("PublicUsersScreen");
+              }}
+            >
+              <Text style={styles.bottomButtonText}>Find Friends</Text>
+            </Pressable>
+          </View>
         </View>
-      </View>
-    </SafeAreaView>
-  );
-}
+      </SafeAreaView>
+    );
+  }
 };
 
 export default FriendsListScreen;

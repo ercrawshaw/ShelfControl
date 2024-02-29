@@ -4,9 +4,9 @@ const screenHeight = Dimensions.get("window").height;
 const maxWidth = screenWidth * 0.9;
 const maxHeight = screenHeight * 0.6;
 
-const purple = '#42273B';
-const pink = '#D7A9B7';
-const blue = '#A6B5CB';
+const purple = "#42273B";
+const pink = "#D7A9B7";
+const blue = "#A6B5CB";
 
 export default styles = StyleSheet.create({
   navbar: {
@@ -31,6 +31,21 @@ export default styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: "bold",
   },
+
+  navbarBackButton: {
+    flexDirection: "row",
+    // justifyContent: "space-around",
+    alignItems: "flex-start",
+    backgroundColor: pink,
+    height: 70,
+    elevation: 3,
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.2,
+    shadowRadius: 2,
+    paddingTop: 13,
+  },
+
   SCsearchBar: {
     marginTop: 10,
   },
@@ -268,8 +283,8 @@ export default styles = StyleSheet.create({
   },
   userShelfer: {
     fontSize: 14,
-    fontWeight: '400',
-    fontStyle: 'italic',
+    fontWeight: "400",
+    fontStyle: "italic",
     color: pink,
   },
   loadingContainer: {
@@ -340,7 +355,6 @@ export default styles = StyleSheet.create({
       ios: {
         flexDirection: "row",
         marginTop: 46,
-
       },
       android: {
         flexDirection: "row",
@@ -416,16 +430,6 @@ export default styles = StyleSheet.create({
   },
   UPfilledPressButtonOutline: {
     ...Platform.select({
-    ios:{
-    justifyContent: "center",
-    alignItems: "center",
-    paddingVertical: 10,
-    paddingHorizontal: 10,
-    borderRadius: 20,
-    marginBottom: 10,
-    minWidth: 150,
-    borderColor: pink,
-    }, 
     android:{justifyContent: "center",
     alignItems: "center",
     paddingVertical: 10,
@@ -464,10 +468,10 @@ export default styles = StyleSheet.create({
   fullNameContainerEditable: {
     ...Platform.select({
       ios: {
-        borderWidth:1,
+        borderWidth: 1,
         marginTop: 40,
         borderColor: pink,
-        flexDirection: 'row',
+        flexDirection: "row",
       },
       android: {
         marginTop: 40,
@@ -659,7 +663,7 @@ export default styles = StyleSheet.create({
     fontSize: 25,
     textAlign: "center",
   },
-  
+
   profileTextInput: {
     ...Platform.select({
       ios: {
@@ -668,7 +672,7 @@ export default styles = StyleSheet.create({
         paddingVertical: 8,
         paddingHorizontal: 70,
         marginTop: 80,
-        backgroundColor: 'white',
+        backgroundColor: "white",
         borderRadius: 20,
       },
       android: {
@@ -678,7 +682,7 @@ export default styles = StyleSheet.create({
         paddingHorizontal: 70,
         marginTop: 80,
         width: "90%",
-        backgroundColor: 'white',
+        backgroundColor: "white",
         borderRadius: 20,
       },
     }),
@@ -757,7 +761,14 @@ export default styles = StyleSheet.create({
     marginTop: 40,
   },
   navBarPosition: {
-    marginTop: 20,
+    ...Platform.select({
+      ios: {
+        marginTop: 20,
+      },
+      android: {
+        marginTop: 30,
+      },
+    }),
   },
   SUcontainer: {
     flex: 1,
@@ -765,7 +776,7 @@ export default styles = StyleSheet.create({
     alignItems: "center",
   },
   SUtextinput: {
-    backgroundColor: 'lightgrey',
+    backgroundColor: "lightgrey",
     margin: 5,
     padding: 15,
   },
@@ -921,6 +932,7 @@ export default styles = StyleSheet.create({
   SCsearchBar: {
     marginTop: 10,
   },
+
   MSsearchBarContainer: {
     marginTop: 10,
   },
@@ -932,6 +944,7 @@ export default styles = StyleSheet.create({
   },
   MSButton: {
     width: "90%",
+    marginTop: 20,
     marginLeft: "auto",
     marginRight: "auto",
     height: 50,
@@ -957,8 +970,8 @@ export default styles = StyleSheet.create({
     marginTop: 10,
   },
   MSfooter: {
-    position: 'absolute',
-    flex:1, 
+    position: "absolute",
+    flex: 1,
   },
   MSText: {
     color: pink,
@@ -966,7 +979,7 @@ export default styles = StyleSheet.create({
     marginLeft: 10,
     marginBottom: 5,
     marginTop: 5,
-    textAlign: 'center',
+    textAlign: "center",
   },
   bookForm: {
     marginTop: 10,
@@ -976,7 +989,7 @@ export default styles = StyleSheet.create({
   },
   bookFormText: {
     color: pink,
-    textAlign: 'center',
+    textAlign: "center",
     marginVertical: 10,
   },
   bookFormButton: {
@@ -1042,14 +1055,21 @@ export default styles = StyleSheet.create({
     textAlign: "center",
     fontWeight: "500",
     color: pink,
-    fontStyle: 'italic',
+    fontStyle: "italic",
   },
   scannerContainer: {
+    flex: 1,
+    // alignItems: "center",
+    // justifyContent: "center",
+    // gap: 10,
+  },
+  cameraContainer: {
     flex: 1,
     alignItems: "center",
     justifyContent: "center",
     gap: 10,
   },
+
   scannerBookcard: {
     margin: 10,
     marginBottom: 50,
@@ -1079,9 +1099,9 @@ export default styles = StyleSheet.create({
     overflow: "hidden",
   },
   scannerCrosshair: {
-    color: purple,
+    color: "white",
     textAlign: "center",
-    fontSize: 110,
+    fontSize: 140,
   },
   scannerInputContainer: {
     width: "80%",
@@ -1135,5 +1155,13 @@ export default styles = StyleSheet.create({
   scannerCameraContainer: {
     flexDirection: "column",
     alignItems: "center",
+  },
+  //android specific style for the nav bar and back button
+  containerAndroid: {
+    ...Platform.select({
+      android: {
+        paddingTop: 30,
+      },
+    }),
   },
 });

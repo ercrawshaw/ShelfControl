@@ -17,13 +17,13 @@ const SingleBookScreen = ({ route }) => {
   const [currentIsbn, setCurrentIsbn] = useState(null);
   const [pageLoading, setPageLoading] = useState(true);
 
-
-
   useEffect(() => {
     if (currentIsbn) {
       fetchBook(currentIsbn).then((result) => {
-        const fallbackImageUrl = "https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/No-Image-Placeholder.svg/832px-No-Image-Placeholder.svg.png";
-        const imageUrl = result.items[0].volumeInfo.imageLinks?.thumbnail || fallbackImageUrl;
+        const fallbackImageUrl =
+          "https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/No-Image-Placeholder.svg/832px-No-Image-Placeholder.svg.png";
+        const imageUrl =
+          result.items[0].volumeInfo.imageLinks?.thumbnail || fallbackImageUrl;
         setCurrentBook({
           title: result.items[0].volumeInfo.title,
           author: result.items[0].volumeInfo.authors,
@@ -65,9 +65,10 @@ const SingleBookScreen = ({ route }) => {
   } else {
     return (
       <View style={styles.navBarPosition}>
-        <NavigationBar />
+        {/* <NavigationBar /> */}
+        <BackNav />
         <ScrollView>
-        <View>
+          <View>
             <View style={styles.SBimageContainer}>
               <Image
                 source={{ uri: currentBook.image }}
@@ -77,18 +78,15 @@ const SingleBookScreen = ({ route }) => {
             <View style={styles.SBinfoContainer}>
               <Text style={styles.SBtitleInfo}>{currentBook.title}</Text>
               {currentBook.author.length === 1 ? (
-                  <Text style={styles.SBauthorInfo}>
-                  {currentBook.author}
-                  </Text>
-                  ) : (
-                  <Text style={styles.SBauthorInfo}>
+                <Text style={styles.SBauthorInfo}>{currentBook.author}</Text>
+              ) : (
+                <Text style={styles.SBauthorInfo}>
                   {currentBook.author.join(", ")}
-                  </Text>
-                )}
-            </View>  
-            
-              <Text style={styles.SBsynopsisInfo}>{currentBook.description}</Text>
-            
+                </Text>
+              )}
+            </View>
+
+            <Text style={styles.SBsynopsisInfo}>{currentBook.description}</Text>
           </View>
         </ScrollView>
       </View>
@@ -97,5 +95,3 @@ const SingleBookScreen = ({ route }) => {
 };
 
 export default SingleBookScreen;
-
-

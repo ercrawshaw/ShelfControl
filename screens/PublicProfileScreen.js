@@ -15,6 +15,7 @@ import { useNavigation } from "@react-navigation/native";
 import styles from "../styles/styles";
 import NavigationBar from "../components/Navbar";
 import LoadingMessage from "../components/LoadingMessage";
+import BackNav from "../components/BackNav";
 
 const PublicProfileScreen = ({ route }) => {
   const navigation = useNavigation();
@@ -68,15 +69,12 @@ const PublicProfileScreen = ({ route }) => {
     getAllCatalogues(friend.id).then((res) => {
       let catalogues = [];
       res.forEach((doc) => {
-
         catalogues.push(doc.id);
       });
       setPageLoading(false);
       setCurrentCatalogues(catalogues);
     });
   }, []);
-
-
 
   //if add button click change to non editable and display "friend request sent"
 
@@ -85,7 +83,8 @@ const PublicProfileScreen = ({ route }) => {
   } else {
     return (
       <View style={styles.navBarPosition}>
-        <NavigationBar />
+        {/* <NavigationBar /> */}
+        <BackNav />
         <View style={styles.profileContainer}>
           <View style={styles.profileHeader}>
             <Image

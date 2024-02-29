@@ -40,26 +40,31 @@ const HomeScreen = () => {
   }, [isFocused]);
 
   const handleDeleteCatalogue = async (catalogueName) => {
-    console.log(`Attempting to delete catalogue: ${catalogueName} for user: ${currentUid}`);
+    console.log(
+      `Attempting to delete catalogue: ${catalogueName} for user: ${currentUid}`
+    );
     Alert.alert(
       "Delete Catalogue",
       "Are you sure you want to delete this catalogue?",
       [
         {
           text: "Cancel",
-          style: "cancel"
+          style: "cancel",
         },
-        { 
-          text: "Yes", onPress: async () => {
+        {
+          text: "Yes",
+          onPress: async () => {
             try {
               await deleteCatalogue(catalogueName, currentUid);
-              const updatedCatalogues = currentCatalogues.filter(c => c !== catalogueName);
+              const updatedCatalogues = currentCatalogues.filter(
+                (c) => c !== catalogueName
+              );
               setCurrentCatalogues(updatedCatalogues);
             } catch (error) {
               console.error("Failed to delete catalogue:", error);
             }
-          }
-        }
+          },
+        },
       ],
       { cancelable: true }
     );
@@ -77,7 +82,7 @@ const HomeScreen = () => {
     return <LoadingMessage />;
   } else {
     return (
-      <SafeAreaView style={styles.HScontainer}>
+      <SafeAreaView style={[styles.HScontainer, styles.containerAndroid]}>
         <NavigationBar />
 
         <View style={styles.HSmainScreen}>
