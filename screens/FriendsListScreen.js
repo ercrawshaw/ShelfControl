@@ -167,7 +167,7 @@ const FriendsListScreen = () => {
                 <Image 
                   style={styles.chatImage}
                   //source={{ uri:'../assets.chaticon.png' }}
-                  source={require('/Users/ellecrawshaw/northcoders/ShelfControl/assets/chat-icon.png')}
+                  source={require('../assets/chat-icon.png')}
                 />
               </Pressable>
               ) : null}
