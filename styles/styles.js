@@ -193,21 +193,6 @@ export default styles = StyleSheet.create({
     alignItems: "center",
     marginTop: 10,
   },
-
-  button: {
-    backgroundColor: pink,
-    width: "90%",
-    paddingHorizontal: 15,
-    paddingVertical: 15,
-    borderRadius: 10,
-    alignItems: "center",
-    marginTop: 40,
-  },
-  buttonText: {
-    color: purple,
-    fontWeight: "700",
-    fontSize: 16,
-  },
   PUHeader: {
     marginTop: 20,
     textAlign: "center",
@@ -447,7 +432,9 @@ export default styles = StyleSheet.create({
     paddingHorizontal: 10,
     borderRadius: 20,
     marginBottom: 10,
-    minWidth: 150,}})
+    minWidth: 150,
+    borderColor: pink,
+  }})
   },
   passwordButton: {
     borderBlockColor: pink,
@@ -615,11 +602,38 @@ export default styles = StyleSheet.create({
     alignItems: "center",
     marginBottom: 15,
   },
+  button: {
+    backgroundColor: pink,
+    borderWidth: 2,
+    borderColor: pink,
+    width: "90%",
+    paddingHorizontal: 15,
+    paddingVertical: 15,
+    borderRadius: 10,
+    alignItems: "center",
+    marginTop: 20,
+  },
   buttonOutline: {
-    backgroundColor: purple,
-    marginTop: 5,
     borderColor: pink,
     borderWidth: 2,
+    width: "90%",
+    paddingHorizontal: 15,
+    paddingVertical: 15,
+    borderRadius: 10,
+    alignItems: "center",
+    marginTop: 10,
+  },
+  buttonText: {
+    color: purple,
+    fontWeight: "700",
+    fontSize: 16,
+    textAlign: "center",
+  },
+  buttonOutlineText: {
+    color: pink,
+    fontWeight: "700",
+    fontSize: 16,
+    textAlign: "center",
   },
   buttonCatalogueText: {
     color: pink,
@@ -668,7 +682,6 @@ export default styles = StyleSheet.create({
     alignItems: "center",
     marginTop: 40,
   },
-
   SCbutton: {
     backgroundColor: pink,
     width: "90%",
@@ -678,14 +691,6 @@ export default styles = StyleSheet.create({
     alignItems: "center",
     marginTop: 10,
     marginBottom: 10,
-  },
-
-  buttonOutlineText: {
-    color: pink,
-    fontWeight: "700",
-    fontSize: 16,
-    padding: 5,
-    textAlign: "center",
   },
   image: {
     width: 300,
