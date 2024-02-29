@@ -7,30 +7,29 @@
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
     "splash": {
-      "image": "./assets/splash.png",
-      "resizeMode": "contain",
-      "backgroundColor": "#ffffff",
+      // "image": "./assets/splash.png",
+      // "resizeMode": "contain",
+      // "backgroundColor": "#ffffff",
       "plugins": [
-        ["expo-media-library",
-        {
-          "photosPermission": "Allow $(PRODUCT_NAME) to access your photos.",
-          "savePhotosPermission": "Allow $(PRODUCT_NAME) to save photos.",
-          "isAccessMediaLocationEnabled": true
-        },
+        [
+          "expo-media-library",
+          {
+            "photosPermission": "Allow $(PRODUCT_NAME) to access your photos.",
+            "savePhotosPermission": "Allow $(PRODUCT_NAME) to save photos.",
+            "isAccessMediaLocationEnabled": true
+          },
           "expo-camera",
           {
             "cameraPermission": "Allow $(PRODUCT_NAME) to access your camera."
           },
           "expo-image-picker",
-        {
-          "photosPermission": "$(PRODUCT_NAME) accesses your photos to let you share them with your friends."
-        }
+          {
+            "photosPermission": "$(PRODUCT_NAME) accesses your photos to let you share them with your friends."
+          }
         ]
       ]
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true,
       "splash": {
@@ -38,20 +37,21 @@
         "resizeMode": "contain",
         "backgroundColor": "#ffffff",
         "plugins": [
-          ["expo-media-library",
-          {
-            "photosPermission": "Allow $(PRODUCT_NAME) to access your photos.",
-            "savePhotosPermission": "Allow $(PRODUCT_NAME) to save photos.",
-            "isAccessMediaLocationEnabled": true
-          },
+          [
+            "expo-media-library",
+            {
+              "photosPermission": "Allow $(PRODUCT_NAME) to access your photos.",
+              "savePhotosPermission": "Allow $(PRODUCT_NAME) to save photos.",
+              "isAccessMediaLocationEnabled": true
+            },
             "expo-camera",
             {
               "cameraPermission": "Allow $(PRODUCT_NAME) to access your camera."
             },
             "expo-image-picker",
-          {
-            "photosPermission": "$(PRODUCT_NAME) accesses your photos to let you share them with your friends."
-          }
+            {
+              "photosPermission": "$(PRODUCT_NAME) accesses your photos to let you share them with your friends."
+            }
           ]
         ]
       }

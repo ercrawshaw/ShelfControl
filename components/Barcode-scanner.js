@@ -76,6 +76,7 @@ const BarcodeScanner = () => {
   const scannerSwitch = () => {
     setScanned(false);
     setBookData(null);
+    setIsbn(null);
   };
 
   const handleScanAnotherBook = () => {
@@ -98,7 +99,6 @@ const BarcodeScanner = () => {
         setIsbn(null);
         setScanned(false);
       });
-
   };
 
   const handleReturnToCatalogue = () => {
@@ -164,11 +164,13 @@ const BarcodeScanner = () => {
                 barCodeTypes: ["ean13"],
               }}
               onBarcodeScanned={(bookDetails) => {
+                console.log(bookDetails.data);
                 setIsbn(bookDetails.data);
                 setScanned(true);
                 playSound();
               }}
-              style={styles.scannerCamera}>
+              style={styles.scannerCamera}
+            >
               <TouchableOpacity>
                 <Text style={styles.scannerCrosshair}>[ ]</Text>
               </TouchableOpacity>
@@ -177,7 +179,8 @@ const BarcodeScanner = () => {
               style={styles.buttonBackScanner}
               onPress={() => {
                 navigation.goBack();
-              }}>
+              }}
+            >
               <Text style={styles.scannerButtonText}>Go Back</Text>
             </Pressable>
           </View>
@@ -191,7 +194,8 @@ const BarcodeScanner = () => {
           </Pressable> */}
             <Pressable
               style={styles.scannerButton}
-              onPress={handleScanAnotherBook}>
+              onPress={handleScanAnotherBook}
+            >
               <Text style={styles.scannerButtonText}>Scan another book</Text>
             </Pressable>
             {/* <Pressable
@@ -204,10 +208,8 @@ const BarcodeScanner = () => {
           </Pressable> */}
             <Pressable
               style={styles.scannerButton}
-
               onPress={handleReturnToCatalogue}
             >
-
               <Text style={styles.scannerButtonText}>
                 Add & Return to Catalogue
               </Text>
