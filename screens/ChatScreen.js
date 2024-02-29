@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { View, TextInput, Pressable, FlatList, Text, StyleSheet } from 'react-native';
+import { View, TextInput, Pressable, FlatList, Text, StyleSheet, KeyboardAvoidingView } from 'react-native';
 import { db } from '../firebaseConfig';
 import { collection, addDoc, query, orderBy, onSnapshot, serverTimestamp } from 'firebase/firestore';
 import { useRoute } from '@react-navigation/native';
@@ -33,7 +33,8 @@ const ChatScreen = () => {
   };
 
   return (
-    <View style={styles.container}>
+    
+    <View style={styles.container}> 
       <FlatList
         data={messages}
         keyExtractor={item => item.id}
@@ -50,6 +51,8 @@ const ChatScreen = () => {
           </View>
         )}
       />
+      {/* <View style={styles.keyboardAvoidingContainer}>  */}
+      <KeyboardAvoidingView behavior='padding' style={styles.keyboardInnerContainer}>
       <View style={styles.inputContainer}>
         <TextInput
           style={styles.input}
@@ -61,6 +64,8 @@ const ChatScreen = () => {
           <Text style={styles.sendButtonText}>Send</Text>
         </Pressable>
       </View>
+      </KeyboardAvoidingView>
+      {/* </View> */}
     </View>
   );
 };
@@ -69,6 +74,19 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     paddingTop: 30,
+  },
+  keyboardAvoidingContainer: {
+    position: 'absolute',
+    bottom: 5,
+    left: 0,
+    right: 0,
+  },
+  keyboardInnerContainer: {
+    flex: 1,
+    position: 'absolute',
+    bottom: 5,
+    left: 0,
+    right: 0,
   },
   message: {
     margin: 10,
@@ -92,7 +110,8 @@ const styles = StyleSheet.create({
   inputContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    padding: 10,
+    paddingHorizontal: 16,
+    paddingBottom: 16,
     backgroundColor: '#f0f0f0',
   },
   input: {
@@ -101,9 +120,10 @@ const styles = StyleSheet.create({
     borderColor: '#42273B',
     borderWidth: 1,
     borderRadius: 20,
-    padding: 10,
+    paddingHorizontal: 12,
+    paddingVertical: 8,
+    marginRight: 8,
     backgroundColor: 'white', 
-    marginRight: 10,
   },
   sendButton: {
     backgroundColor: '#42273B',
