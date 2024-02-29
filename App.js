@@ -50,7 +50,7 @@ export default function App() {
           {isLoading ? (
             <SplashScreen />
           ) : (
-            <Stack.Navigator initialRouteName="Login">
+            <Stack.Navigator initialRouteName="Login" screenOptions={{contentStyle: {backgroundColor: '#42273B'}}}>
               <Stack.Screen
                 options={{ headerShown: false }}
                 name="SplashScreen"

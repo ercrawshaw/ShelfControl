@@ -158,7 +158,8 @@ const FriendsListScreen = () => {
               >
                 <Image 
                   style={styles.chatImage}
-                  source={{ uri:'https://static.thenounproject.com/png/780099-200.png' }}
+                  //source={{ uri:'../assets.chaticon.png' }}
+                  source={require('/Users/ellecrawshaw/northcoders/ShelfControl/assets/chat-icon.png')}
                 />
               </Pressable>
               ) : null}

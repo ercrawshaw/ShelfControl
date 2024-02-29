@@ -188,19 +188,21 @@ const ManualSearch = () => {
     // Books shown from Google Books Api
   } else if (books.length !== 0 && !manualAdd) {
     return (
-      <View style={styles.searchbar}>
-        <NavigationBar />
-        <View style={styles.MSsearchBar}>
-          <Searchbar
-            placeholder="Search Book Title"
-            onChangeText={(bookTitle) => setBookTitle(bookTitle)}
-            value={bookTitle}
-            onSubmitEditing={() => searchBook()}
-            onIconPress={searchBook}
-          />
-          <StatusBar style="auto" />
-        </View>
+      <View style={{ flex: 1 }}>
+  <NavigationBar />
+  <View style={styles.MSsearchBar}>
+    <Searchbar
+      placeholder="Search Book Title"
+      onChangeText={(bookTitle) => setBookTitle(bookTitle)}
+      value={bookTitle}
+      onSubmitEditing={() => searchBook()}
+      onIconPress={searchBook}
+    />
+    <StatusBar style="auto" />
+  </View>
 
+
+ 
         <ScrollView style={styles.MSscrollContainer} contentContainerStyle={{ paddingBottom: 120 }}>
           <View>
             {books.map((book, i) => {
@@ -246,6 +248,9 @@ const ManualSearch = () => {
     //Manually adding form
     if (!bookAdded) {
       return (
+        <View>
+          <NavigationBar />
+        
         <View style={styles.MSFormContainer}>
           {/* <Button icon="plus" mode="contained" onPress={handleAddClick}>
             Add a Book
@@ -313,11 +318,14 @@ const ManualSearch = () => {
             <Button title="Check Book Details!" onPress={handleManualBookAdd} />
           </View>
         </View>
+        </View>
       );
 
       //Book information displayed for check before adding
     } else {
       return (
+        <View>
+          <NavigationBar />
         <View style={styles.MSFormContainer}>
           {/* <Button icon="plus" mode="contained" onPress={handleAddClick}>
             Add a Book
@@ -360,6 +368,7 @@ const ManualSearch = () => {
               </Button>
             </Card.Actions>
           </Card>
+        </View>
         </View>
       );
     }

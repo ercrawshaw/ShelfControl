@@ -78,7 +78,7 @@ const PublicUsersScreen = () => {
                     <Text style={styles.userUsername}>
                       {friend.data().username}
                     </Text>
-                    <Text>
+                    <Text style={styles.userShelfer}>
                       Shelfer since{" "}
                       {moment(Date(friend.data().created)).format("YYYY")}
                     </Text>

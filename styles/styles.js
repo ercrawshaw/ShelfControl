@@ -4,12 +4,16 @@ const screenHeight = Dimensions.get("window").height;
 const maxWidth = screenWidth * 0.9;
 const maxHeight = screenHeight * 0.6;
 
+const purple = '#42273B';
+const pink = '#D7A9B7';
+const blue = '#A6B5CB';
+
 export default styles = StyleSheet.create({
   navbar: {
     flexDirection: "row",
     justifyContent: "space-around",
     alignItems: "center",
-    backgroundColor: "#42273B",
+    backgroundColor: pink,
     height: 70,
     elevation: 3,
     shadowColor: "#000",
@@ -23,7 +27,7 @@ export default styles = StyleSheet.create({
     borderRadius: 5,
   },
   navButtonText: {
-    color: "#fff",
+    color: purple,
     fontSize: 16,
     fontWeight: "bold",
   },
@@ -40,7 +44,7 @@ export default styles = StyleSheet.create({
   },
   bigButton: {
     margin: 10,
-    backgroundColor: "#42273B",
+    backgroundColor: pink,
     paddingVertical: 45,
     paddingHorizontal: 25,
     borderRadius: 30,
@@ -51,7 +55,7 @@ export default styles = StyleSheet.create({
     shadowRadius: 2,
   },
   bigButtonText: {
-    color: "#fff",
+    color: purple,
     fontSize: 16,
     fontWeight: "bold",
     textAlign: "center",
@@ -67,12 +71,12 @@ export default styles = StyleSheet.create({
   },
   filledPressButtonOutline: {
     borderWidth: 2,
-    borderColor: "#42273B",
+    borderColor: pink,
   },
   filledPressButtonText: {
     fontSize: 16,
     fontWeight: "bold",
-    color: "black",
+    color: pink,
   },
   bottomButton: {
     marginTop: "5%",
@@ -81,16 +85,16 @@ export default styles = StyleSheet.create({
     paddingHorizontal: 14,
     borderRadius: 20,
     minWidth: 350,
-    backgroundColor: "#42273B",
+    backgroundColor: pink,
   },
   bottomButtonOutline: {
     borderWidth: 2,
-    borderColor: "#42273B",
+    borderColor: pink,
   },
   bottomButtonText: {
     fontSize: 16,
     fontWeight: "bold",
-    color: "white",
+    color: purple,
   },
   bottomContainer: {
     marginTop: 1,
@@ -114,7 +118,7 @@ export default styles = StyleSheet.create({
     borderRadius: 10,
     marginBottom: 10,
     fontSize: 16,
-    color: "#333",
+    backgroundColor: "lightgrey",
   },
   buttonContainer: {
     width: "60%",
@@ -148,7 +152,7 @@ export default styles = StyleSheet.create({
     borderRadius: 80,
     marginRight: 10,
     marginLeft: 5,
-    // borderColor: "#42273B",
+    // borderColor: pink,
     // borderWidth: 3,
   },
   profileHeaderTextContainer: {
@@ -159,17 +163,18 @@ export default styles = StyleSheet.create({
     fontSize: 30,
     fontWeight: "bold",
     marginBottom: 7,
+    color: pink,
   },
   PPFriendStatus: {
     borderRadius: 50,
-    backgroundColor: "#42273B",
+    backgroundColor: pink,
     padding: 10,
   },
   pendingText: {
     fontSize: 14,
   },
   buttonViewProfile: {
-    backgroundColor: "#42273B",
+    backgroundColor: pink,
     width: "90%",
     paddingHorizontal: 15,
     paddingVertical: 15,
@@ -179,7 +184,7 @@ export default styles = StyleSheet.create({
   },
 
   button: {
-    backgroundColor: "#42273B",
+    backgroundColor: pink,
     width: "90%",
     paddingHorizontal: 15,
     paddingVertical: 15,
@@ -188,7 +193,7 @@ export default styles = StyleSheet.create({
     marginTop: 40,
   },
   buttonText: {
-    color: "white",
+    color: purple,
     fontWeight: "700",
     fontSize: 16,
   },
@@ -199,12 +204,13 @@ export default styles = StyleSheet.create({
     fontSize: 20,
     marginLeft: 10,
     marginRight: 10,
+    color: pink,
   },
   PUScrollView: {
     marginBottom: 140,
   },
   PPbutton: {
-    backgroundColor: "#42273B",
+    backgroundColor: pink,
     width: "90%",
     paddingVertical: 15,
     marginTop: 10,
@@ -214,14 +220,14 @@ export default styles = StyleSheet.create({
     paddingHorizontal: 20,
   },
   PPbuttonText: {
-    color: "white",
+    color: purple,
     fontWeight: "700",
     fontSize: 16,
     justifyContent: "center",
     textAlign: "center",
   },
   PPFriendRequestButton: {
-    borderBlockColor: "#42273B",
+    borderBlockColor: pink,
     borderWidth: 2,
     width: "90%",
     paddingVertical: 15,
@@ -232,7 +238,7 @@ export default styles = StyleSheet.create({
     paddingHorizontal: 20,
   },
   PPFriendRequestButtonText: {
-    color: "#42273B",
+    color: pink,
     fontWeight: "700",
     fontSize: 16,
     justifyContent: "center",
@@ -252,7 +258,7 @@ export default styles = StyleSheet.create({
     alignItems: "center",
     width: "95%",
     borderBottomWidth: 3,
-    borderColor: "#42273B",
+    borderColor: pink,
     marginLeft: "auto",
     marginRight: "auto",
     marginBottom: 5,
@@ -262,6 +268,13 @@ export default styles = StyleSheet.create({
   userUsername: {
     fontSize: 20,
     fontWeight: "bold",
+    color: pink,
+  },
+  userShelfer: {
+    fontSize: 14,
+    fontWeight: '400',
+    fontStyle: 'italic',
+    color: pink,
   },
   loadingContainer: {
     flex: 1,
@@ -295,6 +308,7 @@ export default styles = StyleSheet.create({
   PPSHeader: {
     fontSize: 25,
     fontWeight: "400",
+    color: pink,
   },
   UPcontainer: {
     // flex: 1,
@@ -303,7 +317,7 @@ export default styles = StyleSheet.create({
     width: "90%",
     flexDirection: "column",
     padding: 10,
-    backgroundColor: "#fff",
+    backgroundColor: purple,
     borderRadius: 5,
     borderWidth: 1,
     borderColor: "#ccc",
@@ -313,13 +327,13 @@ export default styles = StyleSheet.create({
       ios: {
         fontSize: 30,
         fontWeight: "bold",
-        color: "#42273B",
+        color: pink,
         marginRight: 10,
       },
       android: {
         fontSize: 30,
         fontWeight: "bold",
-        color: "#42273B",
+        color: pink,
         marginRight: -65,
       },
     }),
@@ -356,7 +370,7 @@ export default styles = StyleSheet.create({
       },
       android: {
         marginTop: 10,
-        color: "#42273B",
+        color: pink,
       },
     }),
   },
@@ -364,10 +378,11 @@ export default styles = StyleSheet.create({
     ...Platform.select({
       ios: {
         fontSize: 15,
+        color: pink,
       },
       android: {
         fontSize: 15,
-        color: "#42273B",
+        color: pink,
         fontWeight: "600",
       },
     }),
@@ -386,6 +401,7 @@ export default styles = StyleSheet.create({
   UPtoggleText: {
     fontWeight: "700",
     paddingBottom: 2,
+    color: pink,
   },
   rowContainer: {
     flexDirection: "row",
@@ -400,6 +416,8 @@ export default styles = StyleSheet.create({
     marginBottom: 10,
   },
   UPfilledPressButtonOutline: {
+    ...Platform.select({
+    ios:{
     justifyContent: "center",
     alignItems: "center",
     paddingVertical: 10,
@@ -407,14 +425,22 @@ export default styles = StyleSheet.create({
     borderRadius: 20,
     marginBottom: 10,
     minWidth: 150,
+    }, 
+    android:{justifyContent: "center",
+    alignItems: "center",
+    paddingVertical: 10,
+    paddingHorizontal: 10,
+    borderRadius: 20,
+    marginBottom: 10,
+    minWidth: 150,}})
   },
   passwordButton: {
-    borderBlockColor: "#42273B",
+    borderBlockColor: pink,
     borderWidth: 2,
     width: 300,
   },
   editingButton: {
-    backgroundColor: "#42273B",
+    backgroundColor: pink,
     borderWidth: 2,
     width: 300,
   },
@@ -459,7 +485,7 @@ export default styles = StyleSheet.create({
         marginRight: 10,
         paddingHorizontal: 5,
         borderWidth: 2,
-        borderColor: "#42273B",
+        borderColor: pink,
         width: "70%",
       },
     }),
@@ -476,13 +502,13 @@ export default styles = StyleSheet.create({
         paddingRight: 0,
         paddingLeft: 5,
         borderWidth: 2,
-        borderColor: "#42273B",
+        borderColor: pink,
         width: "70%",
       },
     }),
   },
   editingButtonText: {
-    color: "white",
+    color: purple,
     fontWeight: "700",
     fontSize: 16,
     padding: 5,
@@ -498,13 +524,13 @@ export default styles = StyleSheet.create({
     textAlign: "center",
   },
   deleteButton: {
-    backgroundColor: "red",
+    backgroundColor: blue,
     width: 300,
   },
   deleteText: {
     fontSize: 17,
     fontWeight: "bold",
-    color: "white",
+    color: purple,
   },
   friendContainer: {
     flexDirection: "row",
@@ -535,7 +561,7 @@ export default styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "#42273B",
+    backgroundColor: pink,
   },
   SBcontainer: {
     flex: 1,
@@ -556,7 +582,7 @@ export default styles = StyleSheet.create({
   },
 
   logButton: {
-    backgroundColor: "#42273B",
+    backgroundColor: pink,
     width: "100%",
     paddingHorizontal: 15,
     paddingVertical: 15,
@@ -564,7 +590,7 @@ export default styles = StyleSheet.create({
     alignItems: "center",
   },
   ANbutton: {
-    backgroundColor: "#42273B",
+    backgroundColor: pink,
     width: "100%",
     paddingHorizontal: 15,
     paddingVertical: 15,
@@ -573,28 +599,29 @@ export default styles = StyleSheet.create({
     marginBottom: 15,
   },
   buttonOutline: {
-    backgroundColor: "white",
+    backgroundColor: purple,
     marginTop: 5,
-    borderColor: "#42273B",
+    borderColor: pink,
     borderWidth: 2,
   },
   buttonCatalogueText: {
-    color: "#42273B",
+    color: pink,
     fontWeight: "700",
     fontSize: 16,
     textAlign: "center",
   },
   buttonFriendText: {
-    color: "#42273B",
+    color: pink,
     fontWeight: "700",
     fontSize: 19,
   },
   NCbuttonText: {
-    color: "#42273B",
+    color: pink,
     fontWeight: "500",
     fontSize: 25,
     textAlign: "center",
   },
+  
   profileTextInput: {
     ...Platform.select({
       ios: {
@@ -603,6 +630,8 @@ export default styles = StyleSheet.create({
         paddingVertical: 8,
         paddingHorizontal: 70,
         marginTop: 80,
+        backgroundColor: 'white',
+        borderRadius: 20,
       },
       android: {
         fontSize: 30,
@@ -611,6 +640,8 @@ export default styles = StyleSheet.create({
         paddingHorizontal: 70,
         marginTop: 80,
         width: "90%",
+        backgroundColor: 'white',
+        borderRadius: 20,
       },
     }),
   },
@@ -622,7 +653,7 @@ export default styles = StyleSheet.create({
   },
 
   SCbutton: {
-    backgroundColor: "#42273B",
+    backgroundColor: pink,
     width: "90%",
     paddingHorizontal: 15,
     paddingVertical: 15,
@@ -633,7 +664,7 @@ export default styles = StyleSheet.create({
   },
 
   buttonOutlineText: {
-    color: "#42273B",
+    color: pink,
     fontWeight: "700",
     fontSize: 16,
     padding: 5,
@@ -670,11 +701,13 @@ export default styles = StyleSheet.create({
   SBtitleInfo: {
     fontWeight: "bold",
     fontSize: 25,
+    color: pink,
   },
   SBauthorInfo: {
     fontWeight: "500",
     fontSize: 18,
     textAlign: "center",
+    color: pink,
   },
   SBsynopsisInfo: {
     marginHorizontal: 25,
@@ -682,6 +715,7 @@ export default styles = StyleSheet.create({
     lineHeight: 25,
     fontSize: 15,
     textAlign: "center",
+    color: pink,
   },
   detailsContainer: {
     alignItems: "center",
@@ -698,11 +732,16 @@ export default styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
   },
+  SUtextinput: {
+    backgroundColor: 'lightgrey',
+    margin: 5,
+    padding: 15,
+  },
   inputContainer: {
     width: "80%",
   },
   input: {
-    backgroundColor: "white",
+    backgroundColor: purple,
     paddingHorizontal: 15,
     paddingVertical: 10,
     borderRadius: 10,
@@ -788,17 +827,17 @@ export default styles = StyleSheet.create({
     marginBottom: 20,
   },
   FLbottomButton: {
-    backgroundColor: "#42273B",
+    backgroundColor: pink,
   },
   FRButtonContainer: {
     flexDirection: "row",
   },
   FRButtonText: {
-    color: "white",
+    color: purple,
     fontWeight: "700",
   },
   FRButton: {
-    backgroundColor: "#42273B",
+    backgroundColor: pink,
     paddingHorizontal: 15,
     paddingVertical: 15,
     borderRadius: 10,
@@ -808,11 +847,11 @@ export default styles = StyleSheet.create({
     borderRadius: 10,
   },
   FRdeclineButtonText: {
-    color: "#42273B",
+    color: pink,
     fontWeight: "700",
   },
   FPbutton: {
-    backgroundColor: "#42273B",
+    backgroundColor: pink,
     width: "45%",
     paddingHorizontal: 15,
     paddingVertical: 15,
@@ -845,6 +884,7 @@ export default styles = StyleSheet.create({
     marginTop: 15,
     marginBottom: 10,
     fontWeight: "800",
+    color: pink,
   },
   SCsearchBar: {
     marginTop: 10,
@@ -856,13 +896,14 @@ export default styles = StyleSheet.create({
     width: "90%",
     marginLeft: "auto",
     marginRight: "auto",
+    marginTop: 20,
   },
   MSButton: {
     width: "90%",
     marginLeft: "auto",
     marginRight: "auto",
     height: 50,
-    backgroundColor: "#42273B",
+    backgroundColor: pink,
     paddingHorizontal: 15,
     paddingVertical: 15,
     borderRadius: 10,
@@ -870,7 +911,7 @@ export default styles = StyleSheet.create({
     marginBottom: 15,
   },
   MSButtonText: {
-    color: "white",
+    color: purple,
     fontWeight: "700",
     fontSize: 16,
   },
@@ -878,27 +919,38 @@ export default styles = StyleSheet.create({
     width: "90%",
     marginLeft: "auto",
     marginRight: "auto",
-    marginTop: 20,
+    marginTop: 60,
   },
-
   MSscrollContainer: {
     marginTop: 10,
   },
+  MSfooter: {
+    position: 'absolute',
+    flex:1, 
+  },
   MSText: {
-    color: "#42273B",
+    color: pink,
     fontSize: 16,
     marginLeft: 10,
     marginBottom: 10,
   },
+  bookForm: {
+    marginTop: 10,
+  },
   bookFormComponent: {
-    color: "#42273B",
+    color: pink,
+  },
+  bookFormText: {
+    color: pink,
+    textAlign: 'center',
+    marginVertical: 10,
   },
   bookFormButton: {
     width: "90%",
     marginLeft: "auto",
     marginRight: "auto",
     height: 50,
-    backgroundColor: "#42273B",
+    backgroundColor: pink,
     paddingHorizontal: 15,
     paddingVertical: 15,
     borderRadius: 10,
@@ -907,13 +959,13 @@ export default styles = StyleSheet.create({
     marginTop: 10,
   },
   bookFormButtonText: {
-    color: "white",
+    color: purple,
     fontWeight: "700",
     fontSize: 16,
   },
 
   bookFormButtonCheck: {
-    backgroundColor: "#42273B",
+    backgroundColor: pink,
   },
 
   bookcard: {
@@ -927,7 +979,7 @@ export default styles = StyleSheet.create({
   },
   signoutButton: {
     borderWidth: 2,
-    borderBlockColor: "#42273B",
+    borderBlockColor: pink,
     borderRadius: 20,
     marginTop: 5,
     marginBottom: 15,
@@ -937,7 +989,7 @@ export default styles = StyleSheet.create({
   },
   editButton: {
     borderWidth: 2,
-    borderBlockColor: "#42273B",
+    borderBlockColor: pink,
     borderRadius: 20,
     marginTop: 30,
     marginBottom: 30,
@@ -954,8 +1006,10 @@ export default styles = StyleSheet.create({
   },
   emptyListMsg: {
     textAlign: "center",
-    width: "70%",
-    fontWeight: "600",
+    width: "80%",
+    fontWeight: "500",
+    color: pink,
+    fontStyle: 'italic',
   },
   scannerContainer: {
     flex: 1,
@@ -969,12 +1023,12 @@ export default styles = StyleSheet.create({
     width: "80%",
   },
   scannerBookcardTitle: {
-    color: "#42273B",
+    color: pink,
     fontWeight: "700",
     fontSize: 25,
   },
   scannerBookcardText: {
-    color: "#42273B",
+    color: pink,
     fontWeight: "700",
     fontSize: 16,
   },
@@ -992,7 +1046,7 @@ export default styles = StyleSheet.create({
     overflow: "hidden",
   },
   scannerCrosshair: {
-    color: "white",
+    color: purple,
     textAlign: "center",
     fontSize: 110,
   },
@@ -1000,7 +1054,7 @@ export default styles = StyleSheet.create({
     width: "80%",
   },
   buttonBackScanner: {
-    backgroundColor: "#42273B",
+    backgroundColor: pink,
     width: "90%",
     paddingHorizontal: 15,
     paddingVertical: 15,
@@ -1009,7 +1063,7 @@ export default styles = StyleSheet.create({
     marginTop: 60,
   },
   scannerInput: {
-    backgroundColor: "white",
+    backgroundColor: purple,
     paddingHorizontal: 15,
     paddingVertical: 10,
     borderRadius: 10,
@@ -1021,7 +1075,7 @@ export default styles = StyleSheet.create({
     alignItems: "center",
   },
   scannerButton: {
-    backgroundColor: "#42273B",
+    backgroundColor: pink,
     width: "100%",
     paddingHorizontal: 15,
     paddingVertical: 15,
@@ -1030,18 +1084,18 @@ export default styles = StyleSheet.create({
     marginBottom: 15,
   },
   scannerButtonOutline: {
-    backgroundColor: "white",
+    backgroundColor: purple,
     marginTop: 5,
-    borderColor: "#42273B",
+    borderColor: pink,
     borderWidth: 2,
   },
   scannerButtonText: {
-    color: "white",
+    color: purple,
     fontWeight: "700",
     fontSize: 16,
   },
   scannerButtonOutlineText: {
-    color: "#42273B",
+    color: pink,
     fontWeight: "700",
     fontSize: 16,
   },
