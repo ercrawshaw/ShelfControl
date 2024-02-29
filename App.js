@@ -50,36 +50,66 @@ export default function App() {
               name="SignUpScreen"
               component={SignUpScreen}
             />
-            <Stack.Screen name="HomeScreen" component={HomeScreen} />
             <Stack.Screen
+              options={{ headerShown: false }}
+              name="HomeScreen"
+              component={HomeScreen}
+            />
+            <Stack.Screen
+              options={{ headerShown: false }}
               name="PublicUsersScreen"
               component={PublicUsersScreen}
             />
             <Stack.Screen
+              options={{ headerShown: false }}
               name="PublicProfile"
               component={PublicProfileScreen}
             />
-            <Stack.Screen name="UserProfilePage" component={UserProfilePage} />
             <Stack.Screen
+              options={{ headerShown: false }}
+              name="UserProfilePage"
+              component={UserProfilePage}
+            />
+            <Stack.Screen
+              options={{ headerShown: false }}
               name="NewCatalogueScreen"
               component={NewCatalogueScreen}
             />
             <Stack.Screen
+              options={{ headerShown: false }}
               name="SingleCatalogueScreen"
               component={SingleCatalogueScreen}
             />
             <Stack.Screen
+              options={{ headerShown: false }}
               name="SingleBookScreen"
               component={SingleBookScreen}
             />
-            <Stack.Screen name="ManualSearch" component={ManualSearch} />
             <Stack.Screen
+              options={{ headerShown: false }}
+              name="ManualSearch"
+              component={ManualSearch}
+            />
+            <Stack.Screen
+              options={{ headerShown: false }}
               name="AddNewBookScreen"
               component={AddNewBookScreen}
             />
-            <Stack.Screen name="Scanner" component={BarcodeScanner} />
-            <Stack.Screen name="FriendsList" component={FriendsListScreen} />
-            <Stack.Screen name="ChatScreen" component={ChatScreen} />
+            <Stack.Screen
+              options={{ headerShown: false }}
+              name="Scanner"
+              component={BarcodeScanner}
+            />
+            <Stack.Screen
+              options={{ headerShown: false }}
+              name="FriendsList"
+              component={FriendsListScreen}
+            />
+            <Stack.Screen
+              options={{ headerShown: false }}
+              name="ChatScreen"
+              component={ChatScreen}
+            />
           </Stack.Navigator>
         </NavigationContainer>
       </CurrentCatalogueContext.Provider>
