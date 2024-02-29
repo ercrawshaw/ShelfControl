@@ -133,7 +133,7 @@ const SingleCatalogueScreen = ({ route }) => {
     return <LoadingMessage />;
   } else {
     return (
-      <View style={styles.SCcontainer}>
+      <View style={[styles.SCcontainer, styles.navBarPosition]}>
         <NavigationBar />
 
         {mapArr.length === 0 ? null : (

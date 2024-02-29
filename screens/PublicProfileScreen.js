@@ -84,7 +84,7 @@ const PublicProfileScreen = ({ route }) => {
     return <LoadingMessage />;
   } else {
     return (
-      <View>
+      <View style={styles.navBarPosition}>
         <NavigationBar />
         <View style={styles.profileContainer}>
           <View style={styles.profileHeader}>
