@@ -27,12 +27,14 @@ import { getFriend } from "../src/getFriend";
 import getFriendshipStatus from "../src/getFriendshipStatus";
 import getAllFriends from "../src/getAllFriends";
 import acceptFriendship from "../src/acceptFriendship";
+import LoadingMessage from "../components/LoadingMessage";
 import declineFriendship from "../src/declineFriendship";
 
 const FriendsListScreen = () => {
   const { currentUid } = useContext(CurrentUserContext);
   const navigation = useNavigation();
   const [friends, setFriends] = useState([]);
+  const [pageLoading, setPageLoading] = useState(true);
 
   useEffect(() => {
     //grab the friends list -> need to return an id and a username for chat function to work
@@ -60,11 +62,13 @@ const FriendsListScreen = () => {
           })
         );
         setFriends(friendsList);
+        setPageLoading(false);
       } catch (error) {
         console.error(error);
       }
     };
     fetchFriends();
+    
   }, [currentUid]);
 
   const handleChatPress = async (friendId) => {
@@ -122,6 +126,10 @@ const FriendsListScreen = () => {
   function handleDeleteFriend(currentUid, friend) {
     declineFriendship(currentUid, friend.id)
   };
+
+  if (pageLoading) {
+    return <LoadingMessage />
+  }else{
 
   return (
     <SafeAreaView style={styles.FLcontainer}>
@@ -210,6 +218,7 @@ const FriendsListScreen = () => {
       </View>
     </SafeAreaView>
   );
+}
 };
 
 export default FriendsListScreen;

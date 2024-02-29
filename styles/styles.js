@@ -296,6 +296,7 @@ export default styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: "bold",
     marginBottom: 20,
+    color: pink,
   },
   activityIndicatorView: {
     marginBottom: 20,

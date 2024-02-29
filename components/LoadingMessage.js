@@ -11,7 +11,7 @@ export default function LoadingMessage() {
           <Text style={styles.loadingText}>Page Loading</Text>
         </View>
         <View style={styles.activityIndicatorView}>
-          <ActivityIndicator size="large" color='#42273B' />
+          <ActivityIndicator size="large" color='#D7A9B7' />
         </View>
       </View>
     )
