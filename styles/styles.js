@@ -952,7 +952,9 @@ export default styles = StyleSheet.create({
     color: pink,
     fontSize: 16,
     marginLeft: 10,
-    marginBottom: 10,
+    marginBottom: 5,
+    marginTop: 5,
+    textAlign: 'center',
   },
   bookForm: {
     marginTop: 10,
