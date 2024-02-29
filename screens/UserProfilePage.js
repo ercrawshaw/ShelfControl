@@ -220,7 +220,7 @@ const UserProfilePage = () => {
     return <LoadingMessage />;
   } else if (user) {
     return (
-      <View>
+      <View style={styles.navBarPosition}>
         <NavigationBar />
 
         <ScrollView style={styles.scrollView}>
@@ -321,7 +321,7 @@ const UserProfilePage = () => {
 
             <View style={styles.rowContainer}>
               <Text style={styles.UPtoggleText}>{profileStatus}</Text>
-              <View style={{ width: 7 }} />
+              <View style={{ width: 9 }} />
               <Switch value={isSwitchOn} onValueChange={onToggleSwitch} />
             </View>
 

@@ -64,7 +64,7 @@ const SingleBookScreen = ({ route }) => {
     return <LoadingMessage />;
   } else {
     return (
-      <View>
+      <View style={styles.navBarPosition}>
         <NavigationBar />
         <ScrollView>
         <View>

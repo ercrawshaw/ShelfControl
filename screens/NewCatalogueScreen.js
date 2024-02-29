@@ -33,7 +33,7 @@ const NewCatalogueScreen = () => {
   };
 
   return (
-    <View>
+    <View style={styles.navBarPosition}>
       <NavigationBar />
 
       <KeyboardAvoidingView>

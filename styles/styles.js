@@ -147,13 +147,24 @@ export default styles = StyleSheet.create({
     marginBottom: 20,
   },
   profileAvatar: {
-    width: 120,
-    height: 120,
-    borderRadius: 80,
-    marginRight: 10,
-    marginLeft: 5,
-    // borderColor: pink,
-    // borderWidth: 3,
+    ...Platform.select({
+      ios: {
+        width: 150,
+        height: 150,
+        borderRadius: 80,
+        marginRight: 10,
+        marginLeft: 10,
+        marginTop: 10,
+      },
+      android: {
+        width: 120,
+        height: 120,
+        borderRadius: 80,
+        marginRight: 10,
+        marginLeft: 5,
+        marginTop: 10,
+      },
+    }),
   },
   profileHeaderTextContainer: {
     flex: 1,
@@ -342,7 +353,8 @@ export default styles = StyleSheet.create({
     ...Platform.select({
       ios: {
         flexDirection: "row",
-        marginTop: 40,
+        marginTop: 46,
+
       },
       android: {
         flexDirection: "row",
@@ -404,6 +416,7 @@ export default styles = StyleSheet.create({
     color: pink,
   },
   rowContainer: {
+    marginTop: 13,
     flexDirection: "row",
     justifyContent: "center",
     alignItems: "center",
@@ -425,6 +438,7 @@ export default styles = StyleSheet.create({
     borderRadius: 20,
     marginBottom: 10,
     minWidth: 150,
+    borderColor: pink,
     }, 
     android:{justifyContent: "center",
     alignItems: "center",
@@ -462,9 +476,10 @@ export default styles = StyleSheet.create({
   fullNameContainerEditable: {
     ...Platform.select({
       ios: {
-        borderWidth: 2,
-        // borderBlockColor: 'black',
-        margin: 3,
+        borderWidth:1,
+        marginTop: 40,
+        borderColor: pink,
+        flexDirection: 'row',
       },
       android: {
         marginTop: 40,
@@ -478,7 +493,7 @@ export default styles = StyleSheet.create({
   editableFN: {
     ...Platform.select({
       ios: {
-        borderWidth: 2,
+        //borderWidth: 2,
         margin: 3,
       },
       android: {
@@ -493,7 +508,6 @@ export default styles = StyleSheet.create({
   editableLN: {
     ...Platform.select({
       ios: {
-        borderWidth: 2,
         margin: 3,
       },
       android: {
@@ -516,12 +530,14 @@ export default styles = StyleSheet.create({
   },
   editingPicButton: {
     // borderBlockColor: 'black',
-    borderWidth: 2,
+    borderWidth: 1,
     margin: 10,
     padding: 10,
+    borderColor: pink,
   },
   editingText: {
     textAlign: "center",
+    color: pink,
   },
   deleteButton: {
     backgroundColor: blue,
@@ -726,6 +742,9 @@ export default styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     marginTop: 40,
+  },
+  navBarPosition: {
+    marginTop: 20,
   },
   SUcontainer: {
     flex: 1,
@@ -979,7 +998,7 @@ export default styles = StyleSheet.create({
   },
   signoutButton: {
     borderWidth: 2,
-    borderBlockColor: pink,
+    borderColor: pink,
     borderRadius: 20,
     marginTop: 5,
     marginBottom: 15,
@@ -1006,7 +1025,6 @@ export default styles = StyleSheet.create({
   },
   emptyListMsg: {
     textAlign: "center",
-    width: "80%",
     fontWeight: "500",
     color: pink,
     fontStyle: 'italic',
