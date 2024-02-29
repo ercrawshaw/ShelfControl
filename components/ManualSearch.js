@@ -144,6 +144,7 @@ const ManualSearch = () => {
         addBook(currentUid, currentCatalogue, bookInfo)
           .then(() => {
             console.log("success");
+            navigation.navigate("AddNewBookScreen");
           })
           .catch((error) => {
             alert(error.message);
