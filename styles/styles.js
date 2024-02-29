@@ -635,10 +635,17 @@ export default styles = StyleSheet.create({
     fontSize: 16,
     textAlign: "center",
   },
-  buttonCatalogueText: {
+  buttonCatalogueTextTitle: {
     color: pink,
     fontWeight: "700",
-    fontSize: 16,
+    fontSize: 19,
+    textAlign: "center",
+  },
+  buttonCatalogueTextAuthor: {
+    color: pink,
+    fontWeight: "400",
+    fontStyle: 'italic',
+    fontSize: 14,
     textAlign: "center",
   },
   buttonFriendText: {
@@ -683,14 +690,14 @@ export default styles = StyleSheet.create({
     marginTop: 40,
   },
   SCbutton: {
-    backgroundColor: pink,
+    borderColor: pink,
+    borderWidth: 2,
     width: "90%",
     paddingHorizontal: 15,
     paddingVertical: 15,
     borderRadius: 10,
     alignItems: "center",
-    marginTop: 10,
-    marginBottom: 10,
+    marginTop: 20,
   },
   image: {
     width: 300,
