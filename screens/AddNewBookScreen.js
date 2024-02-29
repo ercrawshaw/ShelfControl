@@ -42,7 +42,7 @@ export default function AddNewBookScreen() {
 
       return (
 
-    <View style={styles.ADcontainer}>
+    <View style={[styles.ADcontainer, styles.navBarPosition]}>
       
       <NavigationBar/>
 

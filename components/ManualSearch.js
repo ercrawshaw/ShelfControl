@@ -144,6 +144,7 @@ const ManualSearch = () => {
         addBook(currentUid, currentCatalogue, bookInfo)
           .then(() => {
             console.log("success");
+            navigation.navigate("AddNewBookScreen");
           })
           .catch((error) => {
             alert(error.message);
@@ -157,7 +158,7 @@ const ManualSearch = () => {
   //Search Options Chosen
   if (books.length === 0 && !manualAdd) {
     return (
-      <View>
+      <View style={styles.navBarPosition}> 
         <NavigationBar />
         <View style={styles.MSsearchBarContainer}>
           <Text style={styles.MSText}>
@@ -188,7 +189,7 @@ const ManualSearch = () => {
     // Books shown from Google Books Api
   } else if (books.length !== 0 && !manualAdd) {
     return (
-      <View style={{ flex: 1 }}>
+      <View style={[{ flex: 1 }, styles.navBarPosition]}>
   <NavigationBar />
   <View style={styles.MSsearchBar}>
     <Searchbar
@@ -248,7 +249,7 @@ const ManualSearch = () => {
     //Manually adding form
     if (!bookAdded) {
       return (
-        <View>
+        <View style={styles.navBarPosition}>
           <NavigationBar />
         
         <View style={styles.MSFormContainer}>
@@ -324,7 +325,7 @@ const ManualSearch = () => {
       //Book information displayed for check before adding
     } else {
       return (
-        <View>
+        <View style={styles.navBarPosition}>
           <NavigationBar />
         <View style={styles.MSFormContainer}>
           {/* <Button icon="plus" mode="contained" onPress={handleAddClick}>
