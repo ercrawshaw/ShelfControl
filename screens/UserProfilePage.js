@@ -289,12 +289,19 @@ const UserProfilePage = () => {
                   />
                 </View>
                 <View style={styles.UPContactInfo}>
-                  <TextInput
-                    style={styles.contactText}
+                <TextInput
                     placeholder="Username"
+                    editable={editable}
                     value={user.username}
-                    // onChangeText={(text) => setUsername(text)}
-                    readOnly
+                    onChangeText={(text) => setUser((currentUser) => ({
+                      ...currentUser, 
+                      username: text
+                    }))}
+                    style={
+                      editable
+                        ? [styles.UPText, styles.editableField]
+                        : [styles.UPText, styles.readOnlyField]
+                    }
                   />
                   <TextInput
                     style={styles.contactText}
