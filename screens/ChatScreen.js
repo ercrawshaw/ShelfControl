@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { View, TextInput, Pressable, FlatList, Text, StyleSheet, KeyboardAvoidingView } from 'react-native';
+import { View, TextInput, Pressable, FlatList, Text, StyleSheet, KeyboardAvoidingView, Image } from 'react-native';
 import { db } from '../firebaseConfig';
 import { collection, addDoc, query, orderBy, onSnapshot, serverTimestamp } from 'firebase/firestore';
 import { useRoute } from '@react-navigation/native';
@@ -93,7 +93,7 @@ const styles = StyleSheet.create({
   message: {
     margin: 10,
     padding: 10,
-    borderRadius: 10,
+    borderRadius: 20,
   },
   currentUserMessage: {
     backgroundColor: '#42273B',
@@ -105,6 +105,10 @@ const styles = StyleSheet.create({
   },
   currentUserMessageText: {
     color: 'white',
+    borderWidth: 2,
+    borderColor: '#f8f8f8',
+    borderRadius: 20,
+    padding: 10,
   },
   otherUserMessageText: {
     color: 'black', 
@@ -114,7 +118,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingHorizontal: 16,
     paddingBottom: 16,
-    backgroundColor: '#f0f0f0',
   },
   input: {
     flex: 1,
@@ -128,7 +131,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'white', 
   },
   sendButton: {
-    backgroundColor: '#42273B',
+    backgroundColor: '#D7A9B7',
     borderRadius: 20,
     paddingVertical: 10,
     paddingHorizontal: 20,
