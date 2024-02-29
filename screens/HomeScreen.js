@@ -16,6 +16,8 @@ import { TextInput } from "react-native-web";
 import styles from "../styles/styles";
 import LoadingMessage from "../components/LoadingMessage";
 import { useIsFocused } from "@react-navigation/native";
+import { Alert } from "react-native";
+import { deleteCatalogue } from "../src/deleteCatalogue";
 
 const HomeScreen = () => {
   const navigation = useNavigation();
@@ -37,6 +39,31 @@ const HomeScreen = () => {
     }
   }, [isFocused]);
 
+  const handleDeleteCatalogue = async (catalogueName) => {
+    console.log(`Attempting to delete catalogue: ${catalogueName} for user: ${currentUid}`);
+    Alert.alert(
+      "Delete Catalogue",
+      "Are you sure you want to delete this catalogue?",
+      [
+        {
+          text: "Cancel",
+          style: "cancel"
+        },
+        { 
+          text: "Yes", onPress: async () => {
+            try {
+              await deleteCatalogue(catalogueName, currentUid);
+              const updatedCatalogues = currentCatalogues.filter(c => c !== catalogueName);
+              setCurrentCatalogues(updatedCatalogues);
+            } catch (error) {
+              console.error("Failed to delete catalogue:", error);
+            }
+          }
+        }
+      ],
+      { cancelable: true }
+    );
+  };
 
   const handleAddCatalogue = () => {
     navigation.navigate("NewCatalogueScreen");
@@ -75,6 +102,7 @@ const HomeScreen = () => {
                   onPress={() => {
                     handleCatalogueClick(catalogue);
                   }}
+                  onLongPress={() => handleDeleteCatalogue(catalogue)}
                 >
                   <Text style={styles.filledPressButtonText}>{catalogue}</Text>
                 </Pressable>
