@@ -430,7 +430,18 @@ export default styles = StyleSheet.create({
   },
   UPfilledPressButtonOutline: {
     ...Platform.select({
-    android:{justifyContent: "center",
+    ios:{
+      justifyContent: "center",
+      alignItems: "center",
+      paddingVertical: 10,
+      paddingHorizontal: 10,
+      borderRadius: 20,
+      marginBottom: 10,
+      minWidth: 150,
+      borderColor: pink,
+    },
+    android:{
+    justifyContent: "center",
     alignItems: "center",
     paddingVertical: 10,
     paddingHorizontal: 10,

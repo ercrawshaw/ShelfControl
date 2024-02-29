@@ -161,7 +161,7 @@ const FriendsListScreen = () => {
 
               
 
-              {friend.own_accepted && friend.friend_accepted ? (
+              {/* {friend.own_accepted && friend.friend_accepted ? (
                 <Pressable
                 style={styles.chatButton}
                 onPress={() => handleChatPress(friend.id)}
@@ -172,9 +172,9 @@ const FriendsListScreen = () => {
                   source={require('../assets/chat-icon.png')}
                 />
               </Pressable>
-              ) : null}
+              ) : null} */}
 
-              {friend.own_accepted && friend.friend_accepted === false ? (
+              {/* {friend.own_accepted && friend.friend_accepted === false ? (
                 <View style={styles.FRButtonContainer}>
                   <Pressable
                     style={styles.FRButton}
@@ -187,7 +187,7 @@ const FriendsListScreen = () => {
                     {friend.username}
                   </Text>
                 </View>
-              ) : null}
+              ) : null} */}
 
                 {friend.own_accepted && friend.friend_accepted ? (
                   <Pressable
@@ -213,6 +213,7 @@ const FriendsListScreen = () => {
                     </Pressable>
                   </View>
                 ) : null}
+
                 {friend.own_accepted === false && friend.friend_accepted ? (
                   <View style={styles.FRButtonContainer}>
                     <Pressable
