@@ -33,23 +33,20 @@ const PublicProfileScreen = ({ route }) => {
       addFriend(currentUid, friend.id);
       isRequested(true);
       setIsPending(true);
-    };
+    }
     //deleting friendship document for both user
     if (isPending) {
       cancelFriendRequest(currentUid, friend.id);
       isRequested(false);
       setIsPending(false);
     }
-    
-    
 
     if (buttonMessage === "Add Friend") {
-      setButtonMessage("Pending")
-    }else{
-      setButtonMessage("Add Friend")
+      setButtonMessage("Pending");
+    } else {
+      setButtonMessage("Add Friend");
     }
-    
-  };
+  }
 
   const handleCatalogueClick = (catalogue) => {
     navigation.navigate("SingleCatalogueScreen", {
@@ -60,12 +57,12 @@ const PublicProfileScreen = ({ route }) => {
 
   useEffect(() => {
     if (friendshipData) {
-      setFriendData(friendshipData)
-    }else{
+      setFriendData(friendshipData);
+    } else {
       setFriendData({
         own_accepted: false,
         friend_accepted: false,
-      })
+      });
     }
 
     getAllCatalogues(friend.id).then((res) => {
@@ -82,7 +79,6 @@ const PublicProfileScreen = ({ route }) => {
   console.log(friendData);
 
   //if add button click change to non editable and display "friend request sent"
-  
 
   if (pageLoading) {
     return <LoadingMessage />;
@@ -91,43 +87,50 @@ const PublicProfileScreen = ({ route }) => {
       <View>
         <NavigationBar />
         <View style={styles.profileContainer}>
-        <View style={styles.profileHeader}>
+          <View style={styles.profileHeader}>
             <Image
-            style={styles.profileAvatar}
-            source={{ uri: friend.data().avatar_img }}
+              style={styles.profileAvatar}
+              source={{ uri: friend.data().avatar_img }}
             />
             <View style={styles.profileHeaderTextContainer}>
               <View>
-                <Text style={styles.profileUsername}>{friend.data().username}</Text>
+                <Text style={styles.profileUsername}>
+                  {friend.data().username}
+                </Text>
 
                 {friendData.own_accepted && friendData.friend_accepted ? (
                   <View style={styles.PPbutton}>
-                  <Text style={styles.PPbuttonText}>Friend</Text>
+                    <Text style={styles.PPbuttonText}>Friend</Text>
                   </View>
-              ) : null}
+                ) : null}
 
-              {friendData.own_accepted && friendData.friend_accepted === false ? (
+                {friendData.own_accepted &&
+                friendData.friend_accepted === false ? (
                   <View style={styles.PPbutton}>
-                  <Text style={styles.PPbuttonText}>Pending</Text>
+                    <Text style={styles.PPbuttonText}>Pending</Text>
                   </View>
-              ) : null}
-              
-              {friendData.own_accepted === false && friendData.friend_accepted ? (
-                <View style={styles.PPbutton}>  
-                <Text style={styles.PPbuttonText}>Friend Request Pending</Text>
-                </View>
-              ) : null}
+                ) : null}
 
-              {friendData.own_accepted === false && friendData.friend_accepted === false ?  
-              <View>
-              <Pressable 
-              style={styles.PPbutton}
-              onPress={handleAddFriend}
-              >
-              <Text style={styles.PPbuttonText}>{buttonMessage}</Text>
-              </Pressable>
-              </View> : null
-              }
+                {friendData.own_accepted === false &&
+                friendData.friend_accepted ? (
+                  <View style={styles.PPbutton}>
+                    <Text style={styles.PPbuttonText}>
+                      Friend Request Pending
+                    </Text>
+                  </View>
+                ) : null}
+
+                {friendData.own_accepted === false &&
+                friendData.friend_accepted === false ? (
+                  <View>
+                    <Pressable
+                      style={styles.PPbutton}
+                      onPress={handleAddFriend}
+                    >
+                      <Text style={styles.PPbuttonText}>{buttonMessage}</Text>
+                    </Pressable>
+                  </View>
+                ) : null}
 
                 {/* {requested ? (
                 <View>
@@ -140,7 +143,7 @@ const PublicProfileScreen = ({ route }) => {
                 )} */}
               </View>
             </View>
-      </View>
+          </View>
 
           <Text style={styles.PPSHeader}>Catalogues</Text>
 
@@ -149,20 +152,28 @@ const PublicProfileScreen = ({ route }) => {
               style={styles.scrollView}
               contentContainerStyle={{ alignItems: "center" }}
             >
-              {currentCatalogues.map((catalogue, i) => (
-                <Pressable
-                  style={[
-                    styles.filledPressButton,
-                    styles.filledPressButtonOutline,
-                  ]}
-                  key={i}
-                  onPress={() => {
-                    handleCatalogueClick(catalogue);
-                  }}
-                >
-                  <Text style={styles.filledPressButtonText}>{catalogue}</Text>
-                </Pressable>
-              ))}
+              {currentCatalogues.length === 0 ? (
+                <Text style={styles.emptyListMsg}>
+                  {friend.data().username} hasn't created a catalogue yet
+                </Text>
+              ) : (
+                currentCatalogues.map((catalogue, i) => (
+                  <Pressable
+                    style={[
+                      styles.filledPressButton,
+                      styles.filledPressButtonOutline,
+                    ]}
+                    key={i}
+                    onPress={() => {
+                      handleCatalogueClick(catalogue);
+                    }}
+                  >
+                    <Text style={styles.filledPressButtonText}>
+                      {catalogue}
+                    </Text>
+                  </Pressable>
+                ))
+              )}
             </ScrollView>
           </View>
         </View>
