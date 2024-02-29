@@ -18,8 +18,6 @@ import moment from "moment";
 
 import getAllFriends from "../src/getAllFriends";
 
-
-
 const PublicUsersScreen = () => {
   //currentPublicUsers also shows person currently logged in, want to remove them
   const [currentPublicUsers, setCurrentPublicUsers] = useState([]);
@@ -28,25 +26,23 @@ const PublicUsersScreen = () => {
   const [pageLoading, setPageLoading] = useState(true);
 
   useEffect(() => {
+    Promise.all([getAllFriends(currentUid), getAllPublicUsers()]).then(
+      (res) => {
+        let friendList = [];
+        let publicUsers = [];
 
-    Promise.all([getAllFriends(currentUid), getAllPublicUsers()])
-    .then((res) => {
-      let friendList = [];
-      let publicUsers = [];
+        res[0].forEach((doc) => {
+          friendList.push(doc.id);
+        });
+        res[1].forEach((doc) => {
+          if (doc.id !== currentUid && !friendList.includes(doc.id))
+            [publicUsers.push(doc)];
+        });
 
-      res[0].forEach((doc) => {
-        friendList.push(doc.id)
-      })
-      res[1].forEach((doc) => {
-        if (doc.id !== currentUid && !friendList.includes(doc.id)) [
-          publicUsers.push(doc)
-        ]
-      })
-
-      setCurrentPublicUsers(publicUsers);
-      setPageLoading(false);
-    })
-
+        setCurrentPublicUsers(publicUsers);
+        setPageLoading(false);
+      }
+    );
   }, []);
 
   function handleViewProfile(friend) {
@@ -57,7 +53,7 @@ const PublicUsersScreen = () => {
     return <LoadingMessage />;
   } else {
     return (
-      <View>
+      <View style={styles.containerAndroid}>
         <NavigationBar />
         <View>
           <Text style={styles.PUHeader}>

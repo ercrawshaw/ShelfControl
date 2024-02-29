@@ -68,7 +68,6 @@ const FriendsListScreen = () => {
       }
     };
     fetchFriends();
-    
   }, [currentUid]);
 
   const handleChatPress = async (friendId) => {
@@ -105,7 +104,10 @@ const FriendsListScreen = () => {
   function handleViewProfile(friend) {
     getFriend(friend.id)
       .then((res) => {
-        navigation.navigate("PublicProfile", { friend: res, friendshipData: friend });
+        navigation.navigate("PublicProfile", {
+          friend: res,
+          friendshipData: friend,
+        });
       })
       .catch((err) => {
         console.error("friend not found");
@@ -124,101 +126,96 @@ const FriendsListScreen = () => {
   }
 
   function handleDeleteFriend(currentUid, friend) {
-    declineFriendship(currentUid, friend.id)
-  };
+    declineFriendship(currentUid, friend.id);
+  }
 
   if (pageLoading) {
-    return <LoadingMessage />
-  }else{
-
-  return (
-    <SafeAreaView style={styles.FLcontainer}>
-      <NavigationBar />
-      <View style={styles.FLmainScreen}>
-        <ScrollView
-          style={styles.scrollView}
-          contentContainerStyle={{ alignItems: "center" }}
-        >
-          {friends.map((friend, index) => (
-            <View key={index} style={styles.friendContainer}>
-              <View style={styles.innerFriendContainer}>
-              <Pressable
-                onPress={() => handleViewProfile(friend)}
-              >
-                <Image
-                style={styles.FRImage}
-                source={{ uri: friend.avatar_img }}
-              /> 
-              
-              </Pressable>
-              
-              <Text style={[styles.buttonFriendText, { marginLeft: 10 }]}>
-                  {friend.username}
-              </Text>
-              </View>
-
-              
-
-              {friend.own_accepted && friend.friend_accepted ? (
-                <Pressable
-                style={styles.chatButton}
-                onPress={() => handleChatPress(friend.id)}
-              >
-                <Image 
-                  style={styles.chatImage}
-                  //source={{ uri:'../assets.chaticon.png' }}
-                  source={require('/Users/ellecrawshaw/northcoders/ShelfControl/assets/chat-icon.png')}
-                />
-              </Pressable>
-              ) : null}
-
-              {friend.own_accepted && friend.friend_accepted === false ? (
-                <View style={styles.FRButtonContainer}>
-                  <Pressable
-                    style={styles.FRButton}
-                    onPress={() => handleAcceptFriend(currentUid, friend)}
-                  >
-                    <Text style={styles.FRButtonText}>Pending</Text>
-                  </Pressable>
-                </View>
-              ) : null}
-              {friend.own_accepted === false && friend.friend_accepted ? (
-                <View style={styles.FRButtonContainer}>
-                  <Pressable
-                    style={styles.FRButton}
-                    onPress={() => handleAcceptFriend(currentUid, friend)}
-                  >
-                    <Text style={styles.FRButtonText}>Accept</Text>
-                  </Pressable>
-                  <View style={{ width: 5 }}/>
-                  <Pressable style={styles.FRdeclineButton}>
-                    <Text
-                      style={styles.FRdeclineButtonText}
-                      onPress={() => handleDeleteFriend(currentUid, friend)}
-                    >
-                      Decline
-                    </Text>
-                  </Pressable>
-                </View>
-              ) : null}
-            </View>
-          ))}
-        </ScrollView>
-
-        <View style={styles.FLfooter}>
-          <Pressable
-            style={[styles.bottomButton, styles.bottomButtonOutline]}
-            onPress={() => {
-              navigation.navigate("PublicUsersScreen");
-            }}
+    return <LoadingMessage />;
+  } else {
+    return (
+      <SafeAreaView style={[styles.FLcontainer, styles.containerAndroid]}>
+        <NavigationBar />
+        <View style={styles.FLmainScreen}>
+          <ScrollView
+            style={styles.scrollView}
+            contentContainerStyle={{ alignItems: "center" }}
           >
-            <Text style={styles.bottomButtonText}>Find Friends</Text>
-          </Pressable>
+            {friends.map((friend, index) => (
+              <View key={index} style={styles.friendContainer}>
+                <View style={styles.innerFriendContainer}>
+                  <Pressable onPress={() => handleViewProfile(friend)}>
+                    <Image
+                      style={styles.FRImage}
+                      source={{ uri: friend.avatar_img }}
+                    />
+                  </Pressable>
+
+                  <Text style={[styles.buttonFriendText, { marginLeft: 10 }]}>
+                    {friend.username}
+                  </Text>
+                </View>
+
+                {friend.own_accepted && friend.friend_accepted ? (
+                  <Pressable
+                    style={styles.chatButton}
+                    onPress={() => handleChatPress(friend.id)}
+                  >
+                    <Image
+                      style={styles.chatImage}
+                      //source={{ uri:'../assets.chaticon.png' }}
+                      source={require("../assets/chat-icon.png")}
+                      //source={require('/Users/ellecrawshaw/northcoders/ShelfControl/assets/chat-icon.png')}
+                    />
+                  </Pressable>
+                ) : null}
+
+                {friend.own_accepted && friend.friend_accepted === false ? (
+                  <View style={styles.FRButtonContainer}>
+                    <Pressable
+                      style={styles.FRButton}
+                      onPress={() => handleAcceptFriend(currentUid, friend)}
+                    >
+                      <Text style={styles.FRButtonText}>Pending</Text>
+                    </Pressable>
+                  </View>
+                ) : null}
+                {friend.own_accepted === false && friend.friend_accepted ? (
+                  <View style={styles.FRButtonContainer}>
+                    <Pressable
+                      style={styles.FRButton}
+                      onPress={() => handleAcceptFriend(currentUid, friend)}
+                    >
+                      <Text style={styles.FRButtonText}>Accept</Text>
+                    </Pressable>
+                    <View style={{ width: 5 }} />
+                    <Pressable style={styles.FRdeclineButton}>
+                      <Text
+                        style={styles.FRdeclineButtonText}
+                        onPress={() => handleDeleteFriend(currentUid, friend)}
+                      >
+                        Decline
+                      </Text>
+                    </Pressable>
+                  </View>
+                ) : null}
+              </View>
+            ))}
+          </ScrollView>
+
+          <View style={styles.FLfooter}>
+            <Pressable
+              style={[styles.bottomButton, styles.bottomButtonOutline]}
+              onPress={() => {
+                navigation.navigate("PublicUsersScreen");
+              }}
+            >
+              <Text style={styles.bottomButtonText}>Find Friends</Text>
+            </Pressable>
+          </View>
         </View>
-      </View>
-    </SafeAreaView>
-  );
-}
+      </SafeAreaView>
+    );
+  }
 };
 
 export default FriendsListScreen;

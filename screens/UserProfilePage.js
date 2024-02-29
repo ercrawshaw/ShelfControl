@@ -30,7 +30,7 @@ import {
   onAuthStateChanged,
   sendPasswordResetEmail,
 } from "firebase/auth";
-import * as ImagePicker from 'expo-image-picker';
+import * as ImagePicker from "expo-image-picker";
 
 import styles from "../styles/styles";
 
@@ -64,15 +64,16 @@ const UserProfilePage = () => {
 
   useEffect(() => {
     (async () => {
-      if (Platform.OS !== 'web') {
-        const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
-        if (status !== 'granted') {
-          alert('Sorry, we need camera roll permissions to make this work!');
+      if (Platform.OS !== "web") {
+        const { status } =
+          await ImagePicker.requestMediaLibraryPermissionsAsync();
+        if (status !== "granted") {
+          alert("Sorry, we need camera roll permissions to make this work!");
         }
       }
     })();
   }, []);
-  
+
   const pickImage = async () => {
     let result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.Images,
@@ -80,7 +81,7 @@ const UserProfilePage = () => {
       aspect: [4, 3],
       quality: 1,
     });
-  
+
     if (!result.cancelled) {
       const uri = result.assets[0].uri;
       setImageUri(uri); // Optimistically update the UI to show the new image
@@ -95,20 +96,20 @@ const UserProfilePage = () => {
       }
     }
   };
-  
+
   const uploadImage = async (uri) => {
     const response = await fetch(uri);
     const blob = await response.blob();
     const fileRef = ref(storage, `images/${currentUid}/profilePicture.jpg`);
     await uploadBytes(fileRef, blob);
-  
+
     const url = await getDownloadURL(fileRef);
-  
-    const userRef = doc(db, 'users', currentUid);
+
+    const userRef = doc(db, "users", currentUid);
     await updateDoc(userRef, {
       avatar_img: url,
     });
-  
+
     alert("Profile picture uploaded successfully!");
   };
 
@@ -222,7 +223,6 @@ const UserProfilePage = () => {
     return (
       <View style={styles.navBarPosition}>
         <NavigationBar />
-
         <ScrollView style={styles.scrollView}>
           <View style={styles.signoutButtonContainer}>
             <Pressable onPress={handleSignOut} style={styles.signoutButton}>
@@ -233,10 +233,10 @@ const UserProfilePage = () => {
           <View style={styles.UPContainer}>
             <View style={styles.profileInformationContainer}>
               <View>
-              <Image
-              source={{ uri: imageUri || user.avatar_img }}
-              style={styles.profileAvatar}
-            />
+                <Image
+                  source={{ uri: imageUri || user.avatar_img }}
+                  style={styles.profileAvatar}
+                />
                 {editable ? (
                   <Pressable
                     style={styles.editingPicButton}
@@ -289,14 +289,16 @@ const UserProfilePage = () => {
                   />
                 </View>
                 <View style={styles.UPContactInfo}>
-                <TextInput
+                  <TextInput
                     placeholder="Username"
                     editable={editable}
                     value={user.username}
-                    onChangeText={(text) => setUser((currentUser) => ({
-                      ...currentUser, 
-                      username: text
-                    }))}
+                    onChangeText={(text) =>
+                      setUser((currentUser) => ({
+                        ...currentUser,
+                        username: text,
+                      }))
+                    }
                     style={
                       editable
                         ? [styles.UPText, styles.editableField]

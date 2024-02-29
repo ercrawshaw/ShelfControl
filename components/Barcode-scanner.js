@@ -128,77 +128,81 @@ const BarcodeScanner = () => {
 
   if (permission) {
     return (
-      <View style={styles.scannerContainer}>
-        {bookData ? (
-          <Card style={styles.scannerBookcard}>
-            <Card.Content>
-              <Text style={styles.scannerBookcardTitle}>Book added</Text>
-              <Text style={styles.scannerBookcardText}>ISBN: {isbn}</Text>
-              {/* <Text style={styles.scannerBookcardText}>
+      <View style={[styles.scannerContainer, styles.navBarPosition]}>
+        <BackNav />
+        <View style={styles.cameraContainer}>
+          {bookData ? (
+            <Card style={styles.scannerBookcard}>
+              <Card.Content>
+                <Text style={styles.scannerBookcardTitle}>Book added</Text>
+                <Text style={styles.scannerBookcardText}>ISBN: {isbn}</Text>
+                {/* <Text style={styles.scannerBookcardText}>
                 Book id: {bookData[0].id}{" "}
               </Text> */}
-              <Text style={styles.scannerBookcardText}>
-                Author: {bookData[0].volumeInfo.authors[0]}
-              </Text>
-              <Text style={styles.scannerBookcardText}>
-                Title: {bookData[0].volumeInfo.title}
-              </Text>
-              {bookData[0].volumeInfo.imageLinks.thumbnail ? (
-                <Card.Cover
-                  style={styles.scannerBookcardImage}
-                  source={{
-                    uri: bookData[0].volumeInfo.imageLinks.thumbnail,
-                  }}
-                />
-              ) : null}
-            </Card.Content>
-          </Card>
-        ) : (
-          <Text>No book detected</Text>
-        )}
+                <Text style={styles.scannerBookcardText}>
+                  Author: {bookData[0].volumeInfo.authors[0]}
+                </Text>
+                <Text style={styles.scannerBookcardText}>
+                  Title: {bookData[0].volumeInfo.title}
+                </Text>
+                {bookData[0].volumeInfo.imageLinks.thumbnail ? (
+                  <Card.Cover
+                    style={styles.scannerBookcardImage}
+                    source={{
+                      uri: bookData[0].volumeInfo.imageLinks.thumbnail,
+                    }}
+                  />
+                ) : null}
+              </Card.Content>
+            </Card>
+          ) : (
+            <Text style={{ color: "white", fontWeight: "700" }}>
+              No book detected
+            </Text>
+          )}
 
-        {!scanned ? (
-          <View style={styles.scannerCameraContainer}>
-            <CameraView
-              barCodeScannerSettings={{
-                barCodeTypes: ["ean13"],
-              }}
-              onBarcodeScanned={(bookDetails) => {
-                console.log(bookDetails.data);
-                setIsbn(bookDetails.data);
-                setScanned(true);
-                playSound();
-              }}
-              style={styles.scannerCamera}
-            >
-              <TouchableOpacity>
-                <Text style={styles.scannerCrosshair}>[ ]</Text>
-              </TouchableOpacity>
-            </CameraView>
-            <Pressable
+          {!scanned ? (
+            <View style={styles.scannerCameraContainer}>
+              <CameraView
+                barCodeScannerSettings={{
+                  barCodeTypes: ["ean13"],
+                }}
+                onBarcodeScanned={(bookDetails) => {
+                  console.log(bookDetails.data);
+                  setIsbn(bookDetails.data);
+                  setScanned(true);
+                  playSound();
+                }}
+                style={styles.scannerCamera}
+              >
+                <TouchableOpacity>
+                  <Text style={styles.scannerCrosshair}>[{"     "}]</Text>
+                </TouchableOpacity>
+              </CameraView>
+              {/* <Pressable
               style={styles.buttonBackScanner}
               onPress={() => {
                 navigation.goBack();
               }}
             >
               <Text style={styles.scannerButtonText}>Go Back</Text>
-            </Pressable>
-          </View>
-        ) : (
-          <View style={styles.scannerButtonContainer}>
-            <Pressable style={styles.scannerButton} onPress={scannerSwitch}>
-              <Text style={styles.scannerButtonText}>Cancel add</Text>
-            </Pressable>
-            {/* <Pressable style={styles.button} onPress={saveScan}>
+            </Pressable> */}
+            </View>
+          ) : (
+            <View style={styles.scannerButtonContainer}>
+              <Pressable style={styles.scannerButton} onPress={scannerSwitch}>
+                <Text style={styles.scannerButtonText}>Cancel add</Text>
+              </Pressable>
+              {/* <Pressable style={styles.button} onPress={saveScan}>
             <Text style={styles.buttonText}>Scan another book?</Text>
           </Pressable> */}
-            <Pressable
-              style={styles.scannerButton}
-              onPress={handleScanAnotherBook}
-            >
-              <Text style={styles.scannerButtonText}>Scan another book</Text>
-            </Pressable>
-            {/* <Pressable
+              <Pressable
+                style={styles.scannerButton}
+                onPress={handleScanAnotherBook}
+              >
+                <Text style={styles.scannerButtonText}>Scan another book</Text>
+              </Pressable>
+              {/* <Pressable
             style={styles.button}
             onPress={() => {
               navigation.goBack();
@@ -206,16 +210,17 @@ const BarcodeScanner = () => {
           >
             <Text style={styles.buttonText}>Return to Catalogue</Text>
           </Pressable> */}
-            <Pressable
-              style={styles.scannerButton}
-              onPress={handleReturnToCatalogue}
-            >
-              <Text style={styles.scannerButtonText}>
-                Add & Return to Catalogue
-              </Text>
-            </Pressable>
-          </View>
-        )}
+              <Pressable
+                style={styles.scannerButton}
+                onPress={handleReturnToCatalogue}
+              >
+                <Text style={styles.scannerButtonText}>
+                  Add & Return to Catalogue
+                </Text>
+              </Pressable>
+            </View>
+          )}
+        </View>
       </View>
     );
   } else {

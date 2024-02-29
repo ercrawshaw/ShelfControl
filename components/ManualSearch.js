@@ -161,8 +161,9 @@ const ManualSearch = () => {
   //Search Options Chosen
   if (books.length === 0 && !manualAdd) {
     return (
-      <View style={styles.navBarPosition}> 
-        <NavigationBar />
+      <View style={styles.navBarPosition}>
+        {/* <NavigationBar /> */}
+        <BackNav />
         <View style={styles.MSsearchBarContainer}>
           <Text style={styles.MSText}>
             Either search for a book title using a keyword
@@ -183,7 +184,8 @@ const ManualSearch = () => {
         <Pressable
           style={styles.MSButton}
           mode="contained"
-          onPress={handleAddClick}>
+          onPress={handleAddClick}
+        >
           <Text style={styles.MSButtonText}>Enter book details</Text>
         </Pressable>
       </View>
@@ -193,21 +195,23 @@ const ManualSearch = () => {
   } else if (books.length !== 0 && !manualAdd) {
     return (
       <View style={[{ flex: 1 }, styles.navBarPosition]}>
-  <NavigationBar />
-  <View style={styles.MSsearchBar}>
-    <Searchbar
-      placeholder="Search Book Title"
-      onChangeText={(bookTitle) => setBookTitle(bookTitle)}
-      value={bookTitle}
-      onSubmitEditing={() => searchBook()}
-      onIconPress={searchBook}
-    />
-    <StatusBar style="auto" />
-  </View>
+        {/* <NavigationBar /> */}
+        <BackNav />
+        <View style={styles.MSsearchBar}>
+          <Searchbar
+            placeholder="Search Book Title"
+            onChangeText={(bookTitle) => setBookTitle(bookTitle)}
+            value={bookTitle}
+            onSubmitEditing={() => searchBook()}
+            onIconPress={searchBook}
+          />
+          <StatusBar style="auto" />
+        </View>
 
-
- 
-        <ScrollView style={styles.MSscrollContainer} contentContainerStyle={{ paddingBottom: 120 }}>
+        <ScrollView
+          style={styles.MSscrollContainer}
+          contentContainerStyle={{ paddingBottom: 120 }}
+        >
           <View>
             {books.map((book, i) => {
               //issue with thumbnail at times
@@ -230,7 +234,8 @@ const ManualSearch = () => {
                     <Button
                       onPress={() => {
                         handleSubmitSearchedBook(book);
-                      }}>
+                      }}
+                    >
                       Add Book
                     </Button>
                   </Card.Actions>
@@ -239,11 +244,7 @@ const ManualSearch = () => {
             })}
           </View>
         </ScrollView>
-        <View>
-          <Pressable>
-            <Text>Back</Text>
-          </Pressable>
-        </View>
+        <View></View>
       </View>
     );
 
@@ -253,51 +254,51 @@ const ManualSearch = () => {
     if (!bookAdded) {
       return (
         <View style={styles.navBarPosition}>
-          <NavigationBar />
-        
-        <View style={styles.MSFormContainer}>
-          {/* <Button icon="plus" mode="contained" onPress={handleAddClick}>
+          {/* <NavigationBar /> */}
+          <BackNav />
+          <View style={styles.MSFormContainer}>
+            {/* <Button icon="plus" mode="contained" onPress={handleAddClick}>
             Add a Book
           </Button> */}
 
-          {/* <Searchbar
+            {/* <Searchbar
             placeholder="Search Book Title"
             onChangeText={(bookTitle) => setBookTitle(bookTitle)}
             value={bookTitle}
             onIconPress={searchBook}
           /> */}
 
-          <View style={styles.bookForm}>
-            <Text style={styles.bookFormText} variant="headlineLarge">
-              Enter book details
-            </Text>
-            <TextInput
-              style={styles.bookFormComponent}
-              label="Book Title"
-              value={manualBookTitle}
-              onChangeText={(manualBookTitle) =>
-                setManualBookTitle(manualBookTitle)
-              }
-            />
-            <TextInput
-              style={styles.bookFormComponent}
-              label="Book Author"
-              value={manualAuthorName}
-              onChangeText={(manualAuthorName) =>
-                setManualAuthorName(manualAuthorName)
-              }
-            />
-            <TextInput
-              style={styles.bookFormComponent}
-              label="Year Published"
-              value={manualPublishDate}
-              keyboardType="numeric"
-              onChangeText={(manualPublishDate) =>
-                setManualPublishDate(manualPublishDate)
-              }
-            />
+            <View style={styles.bookForm}>
+              <Text style={styles.bookFormText} variant="headlineLarge">
+                Enter book details
+              </Text>
+              <TextInput
+                style={styles.bookFormComponent}
+                label="Book Title"
+                value={manualBookTitle}
+                onChangeText={(manualBookTitle) =>
+                  setManualBookTitle(manualBookTitle)
+                }
+              />
+              <TextInput
+                style={styles.bookFormComponent}
+                label="Book Author"
+                value={manualAuthorName}
+                onChangeText={(manualAuthorName) =>
+                  setManualAuthorName(manualAuthorName)
+                }
+              />
+              <TextInput
+                style={styles.bookFormComponent}
+                label="Year Published"
+                value={manualPublishDate}
+                keyboardType="numeric"
+                onChangeText={(manualPublishDate) =>
+                  setManualPublishDate(manualPublishDate)
+                }
+              />
 
-            {/* <Button
+              {/* <Button
               style={styles.bookFormComponent}
               icon="camera"
               mode="contained"
@@ -307,21 +308,25 @@ const ManualSearch = () => {
             </Button>
             {image? <Image source={image}/>:null} */}
 
-            <Pressable
-              style={styles.bookFormButton}
-              icon={{
-                uri: "https://www.iconpacks.net/icons/2/free-opened-book-icon-3163-thumb.png",
-              }}
-              mode="contained"
-              onPress={handleManualBookAdd}
-              title="Check Book Details">
-              <Text style={styles.bookFormButtonText}>Check Details</Text>
-            </Pressable>
+              <Pressable
+                style={styles.bookFormButton}
+                icon={{
+                  uri: "https://www.iconpacks.net/icons/2/free-opened-book-icon-3163-thumb.png",
+                }}
+                mode="contained"
+                onPress={handleManualBookAdd}
+                title="Check Book Details"
+              >
+                <Text style={styles.bookFormButtonText}>Check Details</Text>
+              </Pressable>
 
-            <Text style={styles.bookFormText}>{infoNeeded}</Text>
-            <Button title="Check Book Details!" onPress={handleManualBookAdd} />
+              <Text style={styles.bookFormText}>{infoNeeded}</Text>
+              <Button
+                title="Check Book Details!"
+                onPress={handleManualBookAdd}
+              />
+            </View>
           </View>
-        </View>
         </View>
       );
 
@@ -329,9 +334,10 @@ const ManualSearch = () => {
     } else {
       return (
         <View style={styles.navBarPosition}>
-          <NavigationBar />
-        <View style={styles.MSFormContainer}>
-          {/* <Button icon="plus" mode="contained" onPress={handleAddClick}>
+          {/* <NavigationBar /> */}
+          <BackNav />
+          <View style={styles.MSFormContainer}>
+            {/* <Button icon="plus" mode="contained" onPress={handleAddClick}>
             Add a Book
           </Button>
 
@@ -342,37 +348,41 @@ const ManualSearch = () => {
             onIconPress={searchBook}
           /> */}
 
-          <Card>
-            <Card.Content>
-              <Text variant="titleLarge">Title: {manuallyAddedBook.title}</Text>
-              <Text variant="bodyMedium">
-                Author: {manuallyAddedBook.author}
-              </Text>
-              <Text variant="bodyMedium">
-                Published: {manuallyAddedBook.publication_date}
-              </Text>
-            </Card.Content>
-            <Card.Cover source={{ uri: manuallyAddedBook.image }} />
-            <Card.Actions>
-              <Button
-                icon={{
-                  uri: "https://icons.veryicon.com/png/o/miscellaneous/medium-thin-linear-icon/cross-23.png",
-                }}
-                onPress={handleCancelClick}
-              />
-              <Button
-                style={styles.bookFormButtonCheck}
-                onPress={handleEditClick}>
-                Edit Book
-              </Button>
-              <Button
-                style={styles.bookFormButtonCheck}
-                onPress={handleSubmitManualBook}>
-                Add Book
-              </Button>
-            </Card.Actions>
-          </Card>
-        </View>
+            <Card>
+              <Card.Content>
+                <Text variant="titleLarge">
+                  Title: {manuallyAddedBook.title}
+                </Text>
+                <Text variant="bodyMedium">
+                  Author: {manuallyAddedBook.author}
+                </Text>
+                <Text variant="bodyMedium">
+                  Published: {manuallyAddedBook.publication_date}
+                </Text>
+              </Card.Content>
+              <Card.Cover source={{ uri: manuallyAddedBook.image }} />
+              <Card.Actions>
+                <Button
+                  icon={{
+                    uri: "https://icons.veryicon.com/png/o/miscellaneous/medium-thin-linear-icon/cross-23.png",
+                  }}
+                  onPress={handleCancelClick}
+                />
+                <Button
+                  style={styles.bookFormButtonCheck}
+                  onPress={handleEditClick}
+                >
+                  Edit Book
+                </Button>
+                <Button
+                  style={styles.bookFormButtonCheck}
+                  onPress={handleSubmitManualBook}
+                >
+                  Add Book
+                </Button>
+              </Card.Actions>
+            </Card>
+          </View>
         </View>
       );
     }
